@@ -1,59 +1,32 @@
-import { RefObject, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
-import * as THREE from "three";
+import { forwardRef } from 'react';
+import * as THREE from 'three';
+import { Common3DProps } from '../types';
 
-export default function Mouse({
-  mouseGroupRef,
-}: {
-  mouseGroupRef: RefObject<THREE.Group | null>;
-}) {
-  const leftButtonRef = useRef<THREE.Mesh>(null);
-  const rightButtonRef = useRef<THREE.Mesh>(null);
-  const wheelRef = useRef<THREE.Mesh>(null);
-
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime();
-    const click = Math.max(0, Math.sin(t * 4.8 + 0.8));
-
-    if (leftButtonRef.current) {
-      leftButtonRef.current.position.y = 0.031 - click * 0.008;
-    }
-
-    if (rightButtonRef.current) {
-      rightButtonRef.current.position.y = 0.031 - click * 0.003;
-    }
-
-    if (wheelRef.current) {
-      wheelRef.current.rotation.x = t * 6.4;
-    }
-  });
-
+const Mouse = forwardRef<THREE.Group, Common3DProps>(function Mouse({ position = [0, 0, 0] }, ref) {
   return (
-    <group ref={mouseGroupRef} position={[0.015, -0.1, 0.02]}>
-      <mesh rotation={[0.08, 0, 0]} castShadow receiveShadow>
-        <boxGeometry args={[0.115, 0.046, 0.165]} />
-        <meshStandardMaterial color="#d4d7df" roughness={0.36} metalness={0.08} />
+    <group ref={ref} position={position}>
+      <mesh rotation={[0.25, 0, 0]} castShadow>
+        <boxGeometry args={[0.09, 0.048, 0.135]} />
+        <meshStandardMaterial color="#d8dbe2" roughness={0.42} metalness={0.08} />
       </mesh>
-
-      <mesh position={[0, 0.014, -0.004]} rotation={[0.08, 0, 0]} castShadow>
-        <boxGeometry args={[0.098, 0.014, 0.114]} />
-        <meshStandardMaterial color="#eef2f7" roughness={0.28} />
+      <mesh position={[0, 0.028, -0.01]} rotation={[0.25, 0, 0]} castShadow>
+        <boxGeometry args={[0.085, 0.018, 0.1]} />
+        <meshStandardMaterial color="#e8ebf0" roughness={0.4} />
       </mesh>
-
-      <mesh ref={leftButtonRef} position={[-0.026, 0.031, 0.028]} rotation={[0.08, 0, 0]} castShadow>
-        <boxGeometry args={[0.034, 0.008, 0.074]} />
-        <meshStandardMaterial color="#c9ced7" />
+      <mesh position={[0, 0.034, 0.01]} rotation={[0.25, 0, 0]} castShadow>
+        <cylinderGeometry args={[0.01, 0.01, 0.032, 8]} />
+        <meshStandardMaterial color="#888" roughness={0.6} />
       </mesh>
-
-      <mesh ref={rightButtonRef} position={[0.026, 0.031, 0.028]} rotation={[0.08, 0, 0]} castShadow>
-        <boxGeometry args={[0.034, 0.008, 0.074]} />
-        <meshStandardMaterial color="#c9ced7" />
+      <mesh position={[-0.022, 0.032, 0.022]} rotation={[0.25, 0, 0]}>
+        <boxGeometry args={[0.036, 0.008, 0.07]} />
+        <meshStandardMaterial color="#cacdd4" />
       </mesh>
-
-      <mesh ref={wheelRef} position={[0, 0.034, 0.012]} rotation={[0.08, 0, 0]} castShadow>
-        <cylinderGeometry args={[0.009, 0.009, 0.03, 10]} />
-        <meshStandardMaterial color="#777d87" roughness={0.56} />
+      <mesh position={[0.022, 0.032, 0.022]} rotation={[0.25, 0, 0]}>
+        <boxGeometry args={[0.036, 0.008, 0.07]} />
+        <meshStandardMaterial color="#cacdd4" />
       </mesh>
     </group>
   );
-}
+});
+
+export default Mouse;

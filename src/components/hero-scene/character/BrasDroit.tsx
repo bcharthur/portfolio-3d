@@ -1,41 +1,32 @@
-import { RefObject } from "react";
-import * as THREE from "three";
-import { COLORS } from "../constants";
-import MainDroite from "./MainDroite";
+import type { MutableRefObject } from 'react';
+import * as THREE from 'three';
+import { COLORS } from '../constants';
+import MainDroite from './MainDroite';
+import Mouse from '../pc/Mouse';
 
-export default function BrasDroit({
-  upperArmRef,
-  forearmRef,
-  handRef,
-  mouseGroupRef,
-}: {
-  upperArmRef: RefObject<THREE.Group | null>;
-  forearmRef: RefObject<THREE.Group | null>;
-  handRef: RefObject<THREE.Group | null>;
-  mouseGroupRef: RefObject<THREE.Group | null>;
-}) {
+export type BrasDroitProps = {
+  upperArmRef: MutableRefObject<THREE.Group | null>;
+  forearmRef: MutableRefObject<THREE.Group | null>;
+  handRef: MutableRefObject<THREE.Group | null>;
+  mouseRef: MutableRefObject<THREE.Group | null>;
+};
+
+export default function BrasDroit({ upperArmRef, forearmRef, handRef, mouseRef }: BrasDroitProps) {
   return (
-    <group
-      ref={upperArmRef}
-      position={[0.34, 1.31, 0.05]}
-      rotation={[-1.04, -0.54, -0.34]}
-    >
-      <mesh position={[0, -0.21, 0]} castShadow>
-        <boxGeometry args={[0.18, 0.5, 0.18]} />
+    <group ref={upperArmRef} position={[-0.3, 1.18, 0.08]} rotation={[-0.84, 0, -0.14]}>
+      <mesh position={[0, -0.2, 0]} castShadow>
+        <boxGeometry args={[0.16, 0.46, 0.16]} />
         <meshStandardMaterial color={COLORS.shirt} />
       </mesh>
 
-      <group
-        ref={forearmRef}
-        position={[0.02, -0.45, 0.13]}
-        rotation={[-0.74, 0.02, -0.06]}
-      >
+      <group ref={forearmRef} position={[0, -0.38, 0.12]} rotation={[-1.08, 0, 0]}>
         <mesh position={[0, -0.18, 0]} castShadow>
-          <boxGeometry args={[0.15, 0.42, 0.15]} />
+          <boxGeometry args={[0.15, 0.4, 0.15]} />
           <meshStandardMaterial color={COLORS.shirt} />
         </mesh>
 
-        <MainDroite handRef={handRef} mouseGroupRef={mouseGroupRef} />
+        <MainDroite ref={handRef} />
+        <Mouse ref={mouseRef} position={[-0.14, -0.48, 0.33]} />
       </group>
     </group>
   );

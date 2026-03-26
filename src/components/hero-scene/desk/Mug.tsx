@@ -1,6 +1,6 @@
-import { Vec3 } from "../types";
+import { Common3DProps } from '../types';
 
-export default function Mug({ position }: { position: Vec3 }) {
+export default function Mug({ position = [0, 0, 0] }: Common3DProps) {
   return (
     <group position={position}>
       <mesh castShadow>

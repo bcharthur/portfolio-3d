@@ -1,35 +1,22 @@
-import { RefObject } from "react";
-import * as THREE from "three";
-import { COLORS } from "../constants";
+import { forwardRef } from 'react';
+import * as THREE from 'three';
+import { COLORS } from '../constants';
 
-export default function MainGauche({
-  handRef,
-}: {
-  handRef: RefObject<THREE.Group | null>;
-}) {
+const MainGauche = forwardRef<THREE.Group>(function MainGauche(_, ref) {
   return (
-    <group ref={handRef} position={[0.02, -0.26, 0.12]} rotation={[-0.18, -0.1, -0.04]}>
+    <group ref={ref} position={[-0.03, -0.4, 0.18]}>
       <mesh castShadow>
-        <boxGeometry args={[0.15, 0.065, 0.18]} />
+        <boxGeometry args={[0.14, 0.14, 0.16]} />
         <meshStandardMaterial color={COLORS.skin} />
       </mesh>
-
-      {[-0.05, -0.017, 0.016, 0.048].map((x, i) => (
-        <mesh
-          key={i}
-          position={[x, -0.022, 0.06]}
-          rotation={[0.6, 0, 0]}
-          castShadow
-        >
-          <boxGeometry args={[0.022, 0.05, 0.024]} />
+      {[-0.05, -0.015, 0.02, 0.055].map((x, i) => (
+        <mesh key={i} position={[x, -0.08, 0.02]} rotation={[0.4, 0, 0]} castShadow>
+          <boxGeometry args={[0.025, 0.06, 0.04]} />
           <meshStandardMaterial color={COLORS.skin} />
         </mesh>
       ))}
-
-      <mesh position={[-0.08, 0.004, -0.01]} rotation={[0.16, 0.3, -0.78]} castShadow>
-        <boxGeometry args={[0.028, 0.05, 0.028]} />
-        <meshStandardMaterial color={COLORS.skin} />
-      </mesh>
     </group>
   );
-}
+});
+
+export default MainGauche;
