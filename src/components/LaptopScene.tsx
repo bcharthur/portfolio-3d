@@ -27,45 +27,43 @@ function Person({
     const t = clock.getElapsedTime();
 
     if (bodyRef.current) {
-      bodyRef.current.position.y = position[1] + Math.sin(t * 2.3) * 0.018;
-      bodyRef.current.rotation.z = Math.sin(t * 1.5) * 0.01;
+      bodyRef.current.position.y = position[1] + Math.sin(t * 2.2) * 0.014;
+      bodyRef.current.rotation.z = Math.sin(t * 1.4) * 0.008;
     }
 
     if (headRef.current) {
-      headRef.current.rotation.x = 0.06 + Math.sin(t * 1.7) * 0.01;
-      headRef.current.rotation.y = Math.sin(t * 1.2) * 0.018;
+      headRef.current.rotation.x = 0.05 + Math.sin(t * 1.4) * 0.008;
+      headRef.current.rotation.y = Math.sin(t * 0.9) * 0.22;
     }
 
-    // Left arm: types on keyboard — small rapid finger/wrist taps
+    // Mouse hand on the viewer-right side
     if (leftUpperArmRef.current) {
-      leftUpperArmRef.current.rotation.x = -1.42 + Math.sin(t * 6.5) * 0.025;
-      leftUpperArmRef.current.rotation.z = 0.22 + Math.sin(t * 4.2) * 0.01;
+      leftUpperArmRef.current.rotation.x = -0.84 + Math.sin(t * 1.7) * 0.03;
+      leftUpperArmRef.current.rotation.z = -0.14 + Math.cos(t * 1.9) * 0.03;
     }
     if (leftForearmRef.current) {
-      // Forearm angled down toward keyboard, small up-down tapping motion
-      leftForearmRef.current.rotation.x = -0.72 + Math.sin(t * 9.1) * 0.055;
-      leftForearmRef.current.rotation.z = Math.sin(t * 7.3) * 0.018;
+      leftForearmRef.current.rotation.x = -0.98 + Math.sin(t * 1.7) * 0.04;
+      leftForearmRef.current.rotation.z = -Math.cos(t * 1.7) * 0.018;
     }
 
-    // Right arm: holds and moves mouse
+    // Keyboard hand on the viewer-left side
     if (rightUpperArmRef.current) {
-      // Slow lateral sweep simulating mouse movement
-      rightUpperArmRef.current.rotation.x = -1.28 + Math.sin(t * 1.8) * 0.04;
-      rightUpperArmRef.current.rotation.z = -0.22 + Math.cos(t * 2.1) * 0.03;
+      rightUpperArmRef.current.rotation.x = -0.92 + Math.sin(t * 5.4) * 0.028;
+      rightUpperArmRef.current.rotation.z = 0.12 + Math.sin(t * 3.2) * 0.018;
     }
     if (rightForearmRef.current) {
-      rightForearmRef.current.rotation.x = -0.82 + Math.sin(t * 1.8) * 0.035;
+      rightForearmRef.current.rotation.x = -1.08 + Math.sin(t * 8.6) * 0.055;
+      rightForearmRef.current.rotation.z = -Math.sin(t * 6.8) * 0.018;
     }
 
-    // Right hand wrist subtle roll while mousing
     if (rightHandRef.current) {
-      rightHandRef.current.rotation.z = Math.sin(t * 1.8) * 0.04;
+      rightHandRef.current.rotation.z = -Math.sin(t * 1.7) * 0.08;
+      rightHandRef.current.rotation.x = 0.08 + Math.cos(t * 1.7) * 0.035;
     }
 
-    // Move mouse in sync with right arm
     if (mouseGroupRef.current) {
-      mouseGroupRef.current.position.x = Math.sin(t * 1.8) * 0.018;
-      mouseGroupRef.current.position.z = Math.cos(t * 2.1) * 0.012;
+      mouseGroupRef.current.position.x = Math.sin(t * 1.7) * 0.03;
+      mouseGroupRef.current.position.z = Math.cos(t * 1.9) * 0.02;
     }
   });
 
@@ -175,11 +173,11 @@ function Person({
         <meshStandardMaterial color={hairTop} />
       </mesh>
 
-      {/* === LEFT ARM — typing on keyboard === */}
+      {/* Mouse in the viewer-right hand */}
       <group
         ref={leftUpperArmRef}
-        position={[-0.44, 1.32, 0.02]}
-        rotation={[-1.42, 0, 0.22]}
+        position={[-0.3, 1.18, 0.08]}
+        rotation={[-0.84, 0, -0.14]}
       >
         <mesh position={[0, -0.2, 0]} castShadow>
           <boxGeometry args={[0.16, 0.46, 0.16]} />
@@ -187,58 +185,23 @@ function Person({
         </mesh>
         <group
           ref={leftForearmRef}
-          position={[0, -0.42, 0.06]}
-          rotation={[-0.72, 0, 0]}
+          position={[0, -0.38, 0.12]}
+          rotation={[-1.08, 0, 0]}
         >
           <mesh position={[0, -0.18, 0]} castShadow>
             <boxGeometry args={[0.15, 0.4, 0.15]} />
             <meshStandardMaterial color={shirt} />
           </mesh>
-          {/* Left hand on keyboard */}
-          <mesh position={[0, -0.38, 0.02]} castShadow>
-            <boxGeometry args={[0.14, 0.14, 0.16]} />
-            <meshStandardMaterial color={skin} />
-          </mesh>
-          {/* Fingers splayed slightly over keys */}
-          {[-0.05, -0.015, 0.02, 0.055].map((x, i) => (
-            <mesh key={i} position={[x, -0.47, 0.04]} castShadow>
-              <boxGeometry args={[0.025, 0.06, 0.04]} />
-              <meshStandardMaterial color={skin} />
-            </mesh>
-          ))}
-        </group>
-      </group>
 
-      {/* === RIGHT ARM — mouse === */}
-      <group
-        ref={rightUpperArmRef}
-        position={[0.44, 1.32, 0.02]}
-        rotation={[-1.28, 0, -0.22]}
-      >
-        <mesh position={[0, -0.2, 0]} castShadow>
-          <boxGeometry args={[0.16, 0.46, 0.16]} />
-          <meshStandardMaterial color={shirt} />
-        </mesh>
-        <group
-          ref={rightForearmRef}
-          position={[0, -0.42, 0.06]}
-          rotation={[-0.82, 0, 0]}
-        >
-          <mesh position={[0, -0.18, 0]} castShadow>
-            <boxGeometry args={[0.15, 0.4, 0.15]} />
-            <meshStandardMaterial color={shirt} />
-          </mesh>
-          {/* Right hand holding mouse */}
-          <group ref={rightHandRef} position={[0, -0.38, 0.02]}>
+          <group ref={rightHandRef} position={[-0.12, -0.4, 0.24]}>
             <mesh castShadow>
               <boxGeometry args={[0.14, 0.14, 0.16]} />
               <meshStandardMaterial color={skin} />
             </mesh>
-            {/* Fingers curled over mouse */}
             {[-0.045, -0.015, 0.018, 0.05].map((x, i) => (
               <mesh
                 key={i}
-                position={[x, -0.04, 0.1]}
+                position={[x, -0.02, 0.09]}
                 rotation={[0.5, 0, 0]}
                 castShadow
               >
@@ -248,9 +211,7 @@ function Person({
             ))}
           </group>
 
-          {/* Mouse attached to right hand — moves with arm */}
-          <group ref={mouseGroupRef} position={[0, -0.46, 0.09]}>
-            {/* Mouse body */}
+          <group ref={mouseGroupRef} position={[-0.14, -0.48, 0.33]}>
             <mesh rotation={[0.25, 0, 0]} castShadow>
               <boxGeometry args={[0.09, 0.048, 0.135]} />
               <meshStandardMaterial
@@ -259,27 +220,55 @@ function Person({
                 metalness={0.08}
               />
             </mesh>
-            {/* Mouse top curve */}
             <mesh position={[0, 0.028, -0.01]} rotation={[0.25, 0, 0]} castShadow>
               <boxGeometry args={[0.085, 0.018, 0.1]} />
               <meshStandardMaterial color="#e8ebf0" roughness={0.4} />
             </mesh>
-            {/* Scroll wheel */}
             <mesh position={[0, 0.034, 0.01]} rotation={[0.25, 0, 0]} castShadow>
               <cylinderGeometry args={[0.01, 0.01, 0.032, 8]} />
               <meshStandardMaterial color="#888" roughness={0.6} />
             </mesh>
-            {/* Left click */}
             <mesh position={[-0.022, 0.032, 0.022]} rotation={[0.25, 0, 0]}>
               <boxGeometry args={[0.036, 0.008, 0.07]} />
               <meshStandardMaterial color="#cacdd4" />
             </mesh>
-            {/* Right click */}
             <mesh position={[0.022, 0.032, 0.022]} rotation={[0.25, 0, 0]}>
               <boxGeometry args={[0.036, 0.008, 0.07]} />
               <meshStandardMaterial color="#cacdd4" />
             </mesh>
           </group>
+        </group>
+      </group>
+
+      {/* Keyboard hand on the viewer-left side */}
+      <group
+        ref={rightUpperArmRef}
+        position={[0.28, 1.2, 0.14]}
+        rotation={[-0.92, 0, 0.12]}
+      >
+        <mesh position={[0, -0.2, 0]} castShadow>
+          <boxGeometry args={[0.16, 0.46, 0.16]} />
+          <meshStandardMaterial color={shirt} />
+        </mesh>
+        <group
+          ref={rightForearmRef}
+          position={[0, -0.38, 0.1]}
+          rotation={[-1.22, 0, 0]}
+        >
+          <mesh position={[0, -0.18, 0]} castShadow>
+            <boxGeometry args={[0.15, 0.4, 0.15]} />
+            <meshStandardMaterial color={shirt} />
+          </mesh>
+          <mesh position={[-0.03, -0.4, 0.18]} castShadow>
+            <boxGeometry args={[0.14, 0.14, 0.16]} />
+            <meshStandardMaterial color={skin} />
+          </mesh>
+          {[-0.05, -0.015, 0.02, 0.055].map((x, i) => (
+            <mesh key={i} position={[x, -0.48, 0.2]} castShadow>
+              <boxGeometry args={[0.025, 0.06, 0.04]} />
+              <meshStandardMaterial color={skin} />
+            </mesh>
+          ))}
         </group>
       </group>
     </group>
@@ -341,26 +330,17 @@ function Desk({
 
   return (
     <group position={position} rotation={rotation}>
-      {/* Main desk surface */}
-      <mesh position={[0.2, 1.0, 0]} castShadow receiveShadow>
-        <boxGeometry args={[2.8, 0.08, 1.22]} />
+      {/* Simple long table */}
+      <mesh position={[1.28, 1.0, 0.24]} castShadow receiveShadow>
+        <boxGeometry args={[2.7, 0.08, 1.12]} />
         <meshStandardMaterial color={top} roughness={0.88} />
       </mesh>
 
-      {/* Return / side section — creates L-shape / corner desk feel */}
-      <mesh position={[-1.42, 1.0, -0.62]} castShadow receiveShadow>
-        <boxGeometry args={[0.96, 0.08, 0.74]} />
-        <meshStandardMaterial color={top} roughness={0.88} />
-      </mesh>
-
-      {/* Desk legs */}
       {[
-        [-1.02, 0.48, -0.46] as Vec3,
-        [1.35, 0.48, -0.46] as Vec3,
-        [-1.02, 0.48, 0.48] as Vec3,
-        [1.35, 0.48, 0.48] as Vec3,
-        [-1.82, 0.48, -0.92] as Vec3,
-        [-1.02, 0.48, -0.92] as Vec3,
+        [0.08, 0.48, -0.24] as Vec3,
+        [2.48, 0.48, -0.24] as Vec3,
+        [0.08, 0.48, 0.72] as Vec3,
+        [2.48, 0.48, 0.72] as Vec3,
       ].map((p, i) => (
         <mesh key={i} position={p} castShadow>
           <boxGeometry args={[0.1, 0.96, 0.1]} />
@@ -771,25 +751,25 @@ function DeskScene() {
   });
 
   return (
-    <group ref={groupRef} position={[0.75, -1.5, 0.12]}>
+    <group ref={groupRef} position={[0.72, -1.5, 0.14]}>
       <Rug position={[0.15, 0, 0.58]} />
 
-      {/* Desk rotated ~45° to simulate corner/angle placement */}
-      <Desk position={[0, 0, 0]} rotation={[0, -0.42, 0]} />
+      {/* Simple desk directly in front of the character */}
+      <Desk position={[0, 0, 0]} />
 
-      {/* Both monitors same size, angled symmetrically on the corner desk */}
+      {/* One screen in front, one on the character's left */}
+      <PrimaryMonitor position={[1.08, 1.04, -0.1]} />
       <SecondaryMonitor
-        position={[-0.52, 1.02, -0.28]}
-        rotation={[0, 0.52, 0]}
+        position={[2.0, 1.04, -0.06]}
+        rotation={[0, -0.5, 0]}
       />
-      <PrimaryMonitor position={[0.32, 1.06, -0.18]} />
 
-      <Keyboard position={[0.14, 1.04, 0.26]} />
-      <Mug position={[1.04, 1.1, 0.18]} />
-      <PencilCup position={[-0.7, 1.1, 0.04]} />
+      <Keyboard position={[0.92, 1.04, 0.34]} />
+      <Mug position={[2.06, 1.1, 0.42]} />
+      <PencilCup position={[0.36, 1.1, 0.1]} />
 
-      <Chair position={[-0.05, 0, 1.08]} rotation={[0, Math.PI, 0]} />
-      <Person position={[-0.05, 0.03, 0.88]} rotation={[0, Math.PI, 0]} />
+      <Chair position={[0.22, 0, 0.98]} rotation={[0, Math.PI, 0]} />
+      <Person position={[0.3, 0.03, 0.86]} rotation={[0, Math.PI, 0]} />
 
       <WallShelf position={[-0.1, 2.48, -1.08]} />
       <WallBoard position={[1.16, 2.25, -1.05]} />
@@ -801,7 +781,8 @@ function DeskScene() {
 }
 
 export default function LaptopScene() {
-  return (
+    // console.log("LaptopScene rendu");
+    return (
     <div className="w-full h-full">
       <Canvas
         camera={{ position: [4.0, 2.45, 6.0], fov: 27 }}
