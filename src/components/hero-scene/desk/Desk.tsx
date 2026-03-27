@@ -15,11 +15,11 @@ export default function Desk({
                                  width = 0.8, // Plus fin que 1.08 pour correspondre à la référence
                                  hideLegs = [],
                              }: DeskProps) {
-    const DESK_THICKNESS = 0.06; // Épaisseur réduite
-    const DESK_RADIUS = 0.015;   // Rayon très petit pour un bord net mais doux
+    const DESK_THICKNESS = 0.1; // Épaisseur réduite
+    const DESK_RADIUS = 0.03;   // Rayon très petit pour un bord net mais doux
 
     const LEG_RADIUS = 0.05;
-    const LEG_HEIGHT = 0.74;
+    const LEG_HEIGHT = 0.6;
 
     const TABLE_TOP_Y = 0.8;
     const LEG_Y = TABLE_TOP_Y - DESK_THICKNESS / 2 - LEG_HEIGHT / 2;

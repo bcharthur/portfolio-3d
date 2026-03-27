@@ -5,7 +5,7 @@ import {
   SCREEN_TEXTURE_W,
   SCREEN_SURFACE_Y,
   SCREEN_SURFACE_Z,
-} from './MonitorShell';
+} from './monitorConstants';
 
 type LineDef = {
   x: number;

@@ -1,5 +1,5 @@
 import { Common3DProps } from '../types';
-import MonitorShell from './MonitorShell';
+import MonitorShellPrincipal from './MonitorShellPrincipal';
 import TextureEcranPrincipale from './TextureEcranPrincipale';
 import ContentEcranPrincipal from './ContentEcranPrincipal';
 
@@ -13,11 +13,10 @@ export default function EcranPrincipal({
                                          screenYOffset = 0.08,
                                        }: EcranProps) {
   return (
-      <MonitorShell
+      <MonitorShellPrincipal
           position={position}
           rotation={rotation}
           bezelColor="#d7dce4"
-          innerFrameColor="#a7afbb"
           standColor="#b8bec8"
           screenYOffset={screenYOffset}
           texture={<TextureEcranPrincipale />}

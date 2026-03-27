@@ -1,5 +1,5 @@
 import { Common3DProps } from '../types';
-import MonitorShell from './MonitorShell';
+import MonitorShellSecondaire from './MonitorShellSecondaire';
 import TextureEcranSecondaire from './TextureEcranSecondaire';
 import ContentEcranSecondaire from './ContentEcranSecondaire';
 
@@ -13,11 +13,10 @@ export default function EcranSecondaire({
                                           screenYOffset = 0.08,
                                         }: EcranProps) {
   return (
-      <MonitorShell
+      <MonitorShellSecondaire
           position={position}
           rotation={rotation}
           bezelColor="#d7dce4"
-          innerFrameColor="#a7afbb"
           standColor="#b8bec8"
           screenYOffset={screenYOffset}
           texture={<TextureEcranSecondaire />}

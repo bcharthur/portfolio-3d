@@ -4,7 +4,7 @@ import {
     SCREEN_TEXTURE_H,
     SCREEN_SURFACE_Y,
     SCREEN_SURFACE_Z,
-} from './MonitorShell';
+} from './monitorConstants';
 
 export default function TextureEcranPrincipale() {
     return (
