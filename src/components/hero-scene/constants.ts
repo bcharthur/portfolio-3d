@@ -8,7 +8,7 @@ export const COLORS = {
   hairSide: '#1a1f2e',
   deskTop: '#f2f0ee',
   deskLeg: '#d0aa78',
-  chairSeat: '#f0efee',
+  chairSeat: '#80859a',
   chairFrame: '#80859a',
   monitorMain: '#2e2941',
   monitorAlt: '#3f3957',

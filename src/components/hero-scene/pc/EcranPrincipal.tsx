@@ -1,22 +1,26 @@
 import { Common3DProps } from '../types';
-import MonitorShell from './MonitorShell';
-import ScreenContent from './ScreenContent';
+import MonitorShellPrincipal from './MonitorShellPrincipal';
+import TextureEcranPrincipale from './TextureEcranPrincipale';
+import ContentEcranPrincipal from './ContentEcranPrincipal';
+
+type EcranProps = Common3DProps & {
+  screenYOffset?: number;
+};
 
 export default function EcranPrincipal({
-                                           position = [0, 0, 0],
-                                           rotation = [0, 0, 0],
-                                       }: Common3DProps) {
-    return (
-        <MonitorShell
-            position={position}
-            rotation={rotation}
-            bezelColor="#2e2941"
-            standColor="#443d5f"
-        >
-            <ScreenContent
-                emissive="#253b8c"
-                emissiveIntensity={0.32}
-            />
-        </MonitorShell>
-    );
+                                         position = [0, 0, 0],
+                                         rotation = [0, 0, 0],
+                                         screenYOffset = 0.08,
+                                       }: EcranProps) {
+  return (
+      <MonitorShellPrincipal
+          position={position}
+          rotation={rotation}
+          bezelColor="#d7dce4"
+          standColor="#b8bec8"
+          screenYOffset={screenYOffset}
+          texture={<TextureEcranPrincipale />}
+          content={<ContentEcranPrincipal />}
+      />
+  );
 }
