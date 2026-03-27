@@ -22,29 +22,32 @@ export default function HeroSection() {
     }, []);
 
     return (
-        <section className="relative min-h-screen overflow-hidden">
-            {/* Scene 3D */}
+        <section className="relative min-h-screen overflow-hidden bg-[#0a1020]">
             <div className="absolute inset-0 z-0">
+                <div
+                    className="absolute right-[-10%] top-[8%] h-[70vh] w-[70vw] rounded-full bg-[#1d4ed8]/20 blur-[140px]"/>
+                <div
+                    className="absolute right-[10%] top-[22%] h-[45vh] w-[35vw] rounded-full bg-[#38bdf8]/10 blur-[120px]"/>
+
                 <Suspense fallback={null}>
-                    <LaptopScene />
+                    <LaptopScene/>
                 </Suspense>
             </div>
 
-            {/* Bloc texte positionné comme l'exemple */}
             <div className="relative z-10 min-h-screen">
                 <div className="absolute left-8 top-[46%] -translate-y-1/2 md:left-16 lg:left-24 xl:left-32">
                     <h1
                         ref={nameRef}
-                        className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight text-foreground"
+                        className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight text-white"
                     >
-                        Arthur <br />
+                        Arthur <br/>
                         <span className="uppercase">Bouchaud</span>
                     </h1>
 
                     <div
                         ref={badgeRef}
-                        className="inline-block mt-4 bg-badge text-badge-foreground px-4 py-2 text-sm md:text-base font-bold uppercase tracking-widest"
-                        style={{ transform: "rotate(-2deg)" }}
+                        className="inline-block mt-4 bg-[#1e3a8a] text-white px-4 py-2 text-sm md:text-base font-bold uppercase tracking-widest"
+                        style={{transform: "rotate(-2deg)"}}
                     >
                         Expert en Cybersécurité
                     </div>
@@ -52,10 +55,10 @@ export default function HeroSection() {
 
                 <div
                     ref={scrollRef}
-                    className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-muted-foreground animate-float"
+                    className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/60 animate-float"
                 >
-                    <Mouse size={20} />
-                    <ChevronDown size={16} />
+                    <Mouse size={20}/>
+                    <ChevronDown size={16}/>
                 </div>
             </div>
         </section>
