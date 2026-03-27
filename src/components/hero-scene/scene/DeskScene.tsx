@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import * as THREE from 'three';
 import { useSceneMotion } from '../animations/useSceneMotion';
+import { useParallaxMouse } from '../animations/useParallaxMouse';
 import Rug from '../environment/Rug';
 import EcranPrincipal from '../pc/EcranPrincipal';
 import EcranSecondaire from '../pc/EcranSecondaire';
@@ -17,13 +18,14 @@ import Desk from '@/components/hero-scene/desk/Desk.tsx';
 
 export default function DeskScene() {
     const groupRef = useRef<THREE.Group>(null);
-    useSceneMotion(groupRef);
+    const mouseRef = useParallaxMouse();
+
+    useSceneMotion(groupRef, mouseRef);
 
     return (
-        <group ref={groupRef} position={[0.72, -1.5, 0.14]}>
+        <group ref={groupRef}>
             <Rug position={[-0.2, 0, 0.2]} rotation={[0, 0, 0]} />
 
-            {/* Bureau principal */}
             <Desk
                 position={[-0.8, -0.2, -1.6]}
                 rotation={[0, 0, 0]}
@@ -31,7 +33,6 @@ export default function DeskScene() {
                 width={0.8}
             />
 
-            {/* Bureau secondaire */}
             <Desk
                 position={[-0.6, -0.2, -1.6]}
                 rotation={[0, Math.PI * 1.5, 0]}
@@ -40,7 +41,6 @@ export default function DeskScene() {
                 hideLegs={[0, 2]}
             />
 
-            {/* Écrans */}
             <EcranPrincipal
                 position={[0.5, 0.7, -1.2]}
                 rotation={[-0.2, 0, 0]}
