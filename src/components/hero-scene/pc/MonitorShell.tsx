@@ -28,8 +28,8 @@ export default function MonitorShell({
 
     return (
         <group position={position} rotation={rotation}>
-            {/* Ecran */}
             <group position={[0, screenYOffset, 0]}>
+                {/* Coque extérieure */}
                 <RoundedBox
                     args={[MONITOR_W, MONITOR_H, MONITOR_DEPTH]}
                     radius={0.055}
@@ -40,12 +40,12 @@ export default function MonitorShell({
                 >
                     <meshStandardMaterial
                         color={bezelColor}
-                        metalness={0.18}
-                        roughness={0.58}
+                        metalness={0.12}
+                        roughness={0.62}
                     />
                 </RoundedBox>
 
-                {/* Cadre intérieur sombre */}
+                {/* Cadre intérieur */}
                 <RoundedBox
                     args={[SCREEN_W + 0.045, SCREEN_H + 0.045, 0.018]}
                     radius={0.04}
@@ -53,51 +53,63 @@ export default function MonitorShell({
                     position={[0, halfH, MONITOR_DEPTH / 2 - 0.01]}
                 >
                     <meshStandardMaterial
-                        color="#121522"
-                        metalness={0.08}
-                        roughness={0.86}
+                        color="#9aa3af"
+                        metalness={0.06}
+                        roughness={0.82}
                     />
                 </RoundedBox>
 
                 {children}
             </group>
 
-            {/* Pied : plus fin, plus proche du rendu attendu */}
-            <mesh position={[0, 0.02, 0.02]} castShadow receiveShadow>
-                <boxGeometry args={[0.30, 0.025, 0.15]} />
+            {/* Pied base */}
+            <RoundedBox
+                args={[0.30, 0.025, 0.15]}
+                radius={0.01}
+                smoothness={4}
+                position={[0, 0.02, 0.02]}
+                castShadow
+                receiveShadow
+            >
                 <meshStandardMaterial
                     color={standColor}
-                    metalness={0.15}
-                    roughness={0.64}
+                    metalness={0.08}
+                    roughness={0.62}
                 />
-            </mesh>
+            </RoundedBox>
 
-            <mesh
+            {/* Pied intermédiaire */}
+            <RoundedBox
+                args={[0.18, 0.02, 0.10]}
+                radius={0.008}
+                smoothness={4}
                 position={[0, 0.075, 0.01]}
                 rotation={[0.2, 0, 0]}
                 castShadow
                 receiveShadow
             >
-                <boxGeometry args={[0.18, 0.02, 0.10]} />
                 <meshStandardMaterial
                     color={standColor}
-                    metalness={0.15}
+                    metalness={0.08}
                     roughness={0.62}
                 />
-            </mesh>
+            </RoundedBox>
 
-            <mesh
+            {/* Colonne */}
+            <RoundedBox
+                args={[0.065, 0.20 + screenYOffset, 0.05]}
+                radius={0.012}
+                smoothness={4}
                 position={[0, 0.16 + screenYOffset / 2, -0.005]}
                 castShadow
                 receiveShadow
             >
-                <boxGeometry args={[0.065, 0.20 + screenYOffset, 0.05]} />
                 <meshStandardMaterial
                     color={standColor}
-                    metalness={0.14}
-                    roughness={0.60}
+                    metalness={0.08}
+                    roughness={0.6}
                 />
-            </mesh>
+            </RoundedBox>
         </group>
     );
 }

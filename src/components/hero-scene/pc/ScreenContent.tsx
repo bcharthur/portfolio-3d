@@ -3,9 +3,9 @@ import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { RoundedBox } from '@react-three/drei';
 import { MONITOR_DEPTH, SCREEN_H, SCREEN_W } from './MonitorShell';
+import CodeScreenLines from './CodeScreenLines';
 
 type ScreenContentProps = {
-    emissive?: string;
     emissiveIntensity?: number;
     variant?: 'main' | 'secondary';
 };
@@ -43,18 +43,19 @@ function buildLines(variant: 'main' | 'secondary'): LineDef[] {
 }
 
 export default function ScreenContent({
-                                          emissive = '#161b2b',
-                                          emissiveIntensity = 0.18,
+                                          emissiveIntensity = 0.12,
                                           variant = 'main',
                                       }: ScreenContentProps) {
     const screenRef = useRef<THREE.Mesh>(null);
     const lines = useMemo(() => buildLines(variant), [variant]);
 
+    const bgColor = variant === 'main' ? '#7f8ea3' : '#8a96aa';
+
     useFrame(({ clock }) => {
         if (!screenRef.current) return;
         const t = clock.getElapsedTime();
         const mat = screenRef.current.material as THREE.MeshStandardMaterial;
-        mat.emissiveIntensity = emissiveIntensity + Math.sin(t * 1.2) * 0.008;
+        mat.emissiveIntensity = emissiveIntensity + Math.sin(t * 1.2) * 0.006;
     });
 
     const screenY = MONITOR_DEPTH / 2 + SCREEN_H / 2 + 0.01;
@@ -62,7 +63,7 @@ export default function ScreenContent({
 
     return (
         <group position={[0, screenY, screenZ]}>
-            {/* Fond écran */}
+            {/* Fond écran derrière les lignes */}
             <RoundedBox
                 args={[SCREEN_W, SCREEN_H, 0.008]}
                 radius={0.018}
@@ -70,10 +71,10 @@ export default function ScreenContent({
                 ref={screenRef}
             >
                 <meshStandardMaterial
-                    color="#06080f"
-                    emissive={emissive}
+                    color={bgColor}
+                    emissive={bgColor}
                     emissiveIntensity={emissiveIntensity}
-                    roughness={0.95}
+                    roughness={0.92}
                     metalness={0.03}
                     polygonOffset
                     polygonOffsetFactor={1}
@@ -81,30 +82,19 @@ export default function ScreenContent({
                 />
             </RoundedBox>
 
-            {/* Léger reflet vertical à gauche */}
+            {/* Léger reflet */}
             <mesh position={[-SCREEN_W * 0.28, 0.02, 0.005]} renderOrder={1}>
                 <planeGeometry args={[SCREEN_W * 0.06, SCREEN_H * 0.72]} />
                 <meshBasicMaterial
                     color="#ffffff"
                     transparent
-                    opacity={0.10}
+                    opacity={0.08}
                     depthWrite={false}
                 />
             </mesh>
 
-            {/* Lignes de code */}
-            <group position={[0, 0, 0.006]} renderOrder={2}>
-                {lines.map((line, i) => (
-                    <mesh key={i} position={[line.x, line.y, 0]} renderOrder={2}>
-                        <planeGeometry args={[line.width, line.height]} />
-                        <meshBasicMaterial
-                            color={line.color}
-                            toneMapped={false}
-                            depthWrite={false}
-                        />
-                    </mesh>
-                ))}
-            </group>
+            {/* Lignes colorées */}
+            <CodeScreenLines lines={lines} />
         </group>
     );
 }

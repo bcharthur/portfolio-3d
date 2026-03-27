@@ -15,8 +15,8 @@ export default function EcranPrincipal({
         <MonitorShell
             position={position}
             rotation={rotation}
-            bezelColor="#6f6a91"
-            standColor="#5a5375"
+            bezelColor="#cfd4dc"
+            standColor="#b8bec8"
             screenYOffset={screenYOffset}
         >
             <ScreenContent variant="main" />
