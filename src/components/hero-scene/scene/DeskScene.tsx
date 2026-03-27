@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import * as THREE from 'three';
-import { DESK_LAYOUT } from '../constants';
 import { useSceneMotion } from '../animations/useSceneMotion';
 import Rug from '../environment/Rug';
 import Desk1 from '../desk/Desk1.tsx';
@@ -27,16 +26,15 @@ export default function DeskScene() {
       <Desk1 position={[-1, 0, -0.8]} rotation={[0, 0, 0]} />
       <Desk2 position={[-1.8, 0, 0.7]} rotation={[0, 1.5, 0]} />
 
-      <EcranPrincipal position={[0, 1.04, -0.9]} rotation={[0, 0, 0]} />
-      <EcranSecondaire position={[-1.2, 1.04, -0.6]} rotation={[0, 0.6, 0]} />
+      <EcranPrincipal position={[0, 0.84, -0.9]} rotation={[0, 0, 0]} />
+      <EcranSecondaire position={[-1.2, 0.84, -0.6]} rotation={[0, 0.6, 0]} />
 
-      <Keyboard position={[0, 1.1, -0.2]} rotation={[0, 0, 0]} />
-      <Mouse position={[0.5, 1.1, -0.2]} rotation={[0.3, 3, 0]} />
-      <Mug position={[1, 1.1, -0.1]} rotation={[0, 0, 0]} />
-      <PencilCup position={[-1.6, 1.1, 0.8]} rotation={[0, 0, 0]} />
+      <Keyboard position={[0, 0.90, -0.2]} rotation={[0, 0, 0]} />
+      <Mouse position={[0.5, 0.90, -0.2]} rotation={[0.3, 3, 0]} />
+      <Mug position={[1, 0.90, -0.1]} rotation={[0, 0, 0]} />
+      <PencilCup position={[-1.6, 0.90, 0.8]} rotation={[0, 0, 0]} />
 
       <Chair position={[0.10, 0, 0.6]} rotation={[0, -2.7, 0]} />
-      {/* <FbxCharacter position={[0.28, 0.4, 1.06]} rotation={[0, Math.PI, 0]} /> */}
 
       <WallShelf position={[-0.7, 2.2, -1]} rotation={[0, 0, 0]} />
       <WallBoard position={[0.8, 2.5, -1]} rotation={[0, 0, 0]} />
