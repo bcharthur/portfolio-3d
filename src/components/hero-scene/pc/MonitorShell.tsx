@@ -37,39 +37,31 @@ export default function MonitorShell({
     const halfH = MONITOR_H / 2;
 
     return (
-        <group position={position} rotation={rotation}>
-            <group position={[0, screenYOffset, 0]}>
-                {/* coque simple */}
-                <RoundedBox
-                    args={[MONITOR_W, MONITOR_H, MONITOR_DEPTH]}
-                    radius={0.035}
-                    smoothness={4}
-                    position={[0, halfH, 0]}
-                    castShadow
-                    receiveShadow
-                >
-                    <meshStandardMaterial
-                        color={bezelColor}
-                        metalness={0.05}
-                        roughness={0.78}
-                    />
-                </RoundedBox>
+        <group position={position}>
+            {/* écran uniquement incliné */}
+            <group rotation={rotation}>
+                <group position={[0, screenYOffset, 0.15]}>
+                    <RoundedBox
+                        args={[MONITOR_W, MONITOR_H, MONITOR_DEPTH]}
+                        radius={0.035}
+                        smoothness={4}
+                        position={[0, halfH, 0]}
+                        castShadow
+                        receiveShadow
+                    >
+                        <meshStandardMaterial
+                            color={bezelColor}
+                            metalness={0.05}
+                            roughness={0.78}
+                        />
+                    </RoundedBox>
 
-                {texture}
-                {content}
+                    {texture}
+                    {content}
+                </group>
             </group>
 
-            {/* base */}
-            <RoundedBox
-                args={[0.30, 0.025, 0.15]}
-                radius={0.008}
-                smoothness={3}
-                position={[0, 0.02, 0.02]}
-                castShadow
-                receiveShadow
-            >
-                <meshStandardMaterial color={standColor} metalness={0.08} roughness={0.62} />
-            </RoundedBox>
+            {/* base */} <RoundedBox args={[0.30, 0.025, 0.15]} radius={0.008} smoothness={3} position={[0, 0.05, 0.02]} rotation={[0.2, 0, 0]} castShadow receiveShadow > <meshStandardMaterial color={standColor} metalness={0.08} roughness={0.62} /> </RoundedBox>
 
             {/* support */}
             <RoundedBox
@@ -81,10 +73,14 @@ export default function MonitorShell({
                 castShadow
                 receiveShadow
             >
-                <meshStandardMaterial color={standColor} metalness={0.08} roughness={0.62} />
+                <meshStandardMaterial
+                    color={standColor}
+                    metalness={0.08}
+                    roughness={0.62}
+                />
             </RoundedBox>
 
-            {/* colonne */}
+            {/* colonne droite */}
             <RoundedBox
                 args={[0.055, 0.20 + screenYOffset, 0.04]}
                 radius={0.008}
@@ -93,7 +89,11 @@ export default function MonitorShell({
                 castShadow
                 receiveShadow
             >
-                <meshStandardMaterial color={standColor} metalness={0.08} roughness={0.6} />
+                <meshStandardMaterial
+                    color={standColor}
+                    metalness={0.08}
+                    roughness={0.6}
+                />
             </RoundedBox>
         </group>
     );
