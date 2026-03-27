@@ -141,7 +141,7 @@ export default function Chair({
 
             <RoundedBox
                 args={[0.48, 0.06, 0.06]}
-                radius={0.025}
+                radius={0.03}
                 smoothness={6}
                 position={[-0.23, 0.03, 0.05]}
                 rotation={[0, Math.PI / 2, 0]}

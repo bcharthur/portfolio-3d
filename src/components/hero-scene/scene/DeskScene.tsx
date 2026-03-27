@@ -40,17 +40,17 @@ export default function DeskScene() {
                 hideLegs={[0, 2]}
             />
 
-            {/* Ecrans : on réduit screenYOffset pour que le pied ne "passe" plus devant */}
+            {/* Écrans */}
             <EcranPrincipal
                 position={[0.5, 0.7, -1.1]}
                 rotation={[-0.2, 0, 0]}
-                screenYOffset={0.12}
+                screenYOffset={0.3}
             />
 
             <EcranSecondaire
-                position={[-0.7, 0.7, -0.8]}
-                rotation={[-0.2, 0.5, 0.1]}
-                screenYOffset={0.12}
+                position={[-0.7, 0.7, -0.9]}
+                rotation={[-0.2, 0.3, 0.1]}
+                screenYOffset={0.3}
             />
 
             <Keyboard position={[0, 0.7, -0.9]} rotation={[0, 0, 0]} />
