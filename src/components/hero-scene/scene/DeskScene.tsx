@@ -52,10 +52,10 @@ export default function DeskScene() {
             screenYOffset={0.15} // <--- L'écran monte, le pied reste à y=0.8
         />
 
-      <Keyboard position={[0, 0.90, -0.7]} rotation={[0, 0, 0]} />
-      <Mouse position={[0.5, 0.90, -0.7]} rotation={[0.3, 3, 0]} />
-      <Mug position={[1, 0.90, -1]} rotation={[0, 0, 0]} />
-      <PencilCup position={[-1.2, 0.90, -0.6]} rotation={[0, 0, 0]} />
+      <Keyboard position={[0, 0.7, -0.9]} rotation={[0, 0, 0]} />
+      <Mouse position={[0.5, 0.7, -0.9]} rotation={[0.3, 3, 0]} />
+      <Mug position={[1, 0.7, -1]} rotation={[0, 0, 0]} />
+      <PencilCup position={[-1.2, 0.7, -0.6]} rotation={[0, 0, 0]} />
 
       <Chair position={[0.10, 0, -0.3]} rotation={[0, -3, 0]} />
 

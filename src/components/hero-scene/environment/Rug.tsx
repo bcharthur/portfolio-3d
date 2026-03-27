@@ -81,7 +81,7 @@ export default function Rug({
                 width={1.95}
                 height={1.15}
                 radius={0.14}
-                color="#e9e5b1"
+                color="#e8a52f"
                 y={0.004}
             />
         </group>
