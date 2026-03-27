@@ -61,7 +61,14 @@ export default function MonitorShell({
                 </group>
             </group>
 
-            {/* base */} <RoundedBox args={[0.30, 0.025, 0.15]} radius={0.008} smoothness={3} position={[0, 0.05, 0.02]} rotation={[0.2, 0, 0]} castShadow receiveShadow > <meshStandardMaterial color={standColor} metalness={0.08} roughness={0.62} /> </RoundedBox>
+            {/* base */}
+            <RoundedBox
+                args={[0.30, 0.025, 0.15]}
+                radius={0.008}
+                smoothness={3}
+                position={[0, 0.05, 0.02]}
+                rotation={[0.2, 0, 0]}
+                castShadow receiveShadow > <meshStandardMaterial color={standColor} metalness={0.08} roughness={0.62} /> </RoundedBox>
 
             {/* support */}
             <RoundedBox

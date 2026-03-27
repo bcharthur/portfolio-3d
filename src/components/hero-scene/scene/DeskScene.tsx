@@ -42,13 +42,13 @@ export default function DeskScene() {
 
             {/* Écrans */}
             <EcranPrincipal
-                position={[0.5, 0.7, -1.1]}
+                position={[0.5, 0.7, -1.2]}
                 rotation={[-0.2, 0, 0]}
                 screenYOffset={0.3}
             />
 
             <EcranSecondaire
-                position={[-0.7, 0.7, -0.9]}
+                position={[-0.7, 0.7, -1]}
                 rotation={[-0.2, 0.3, 0.1]}
                 screenYOffset={0.3}
             />
