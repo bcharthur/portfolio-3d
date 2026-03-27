@@ -26,5 +26,4 @@ export const DESK_LAYOUT = {
   mugPosition: [1.92, 1.1, 0.34] as Vec3,
   pencilCupPosition: [0.28, 1.1, 0.18] as Vec3,
   chairPosition: [0.22, 0, 0.98] as Vec3,
-  personPosition: [0.28, 0.03, 0.88] as Vec3,
 };

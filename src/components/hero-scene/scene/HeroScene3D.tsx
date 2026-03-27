@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import DeskScene from './DeskScene';
@@ -16,8 +17,10 @@ export default function HeroScene3D() {
         <pointLight position={[0, 2.8, 2]} intensity={0.34} color="#ffd8a8" />
         <pointLight position={[0.8, 2.2, -1.4]} intensity={0.3} color="#9db4ff" />
 
-        <DeskScene />
-        <Environment preset="city" />
+        <Suspense fallback={null}>
+          <DeskScene />
+          <Environment preset="city" />
+        </Suspense>
       </Canvas>
     </div>
   );

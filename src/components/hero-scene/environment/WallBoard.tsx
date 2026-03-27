@@ -1,8 +1,8 @@
 import { Common3DProps } from '../types';
 
-export default function WallBoard({ position = [0, 0, 0] }: Common3DProps) {
+export default function WallBoard({ position = [0, 0, 0], rotation = [0, 0, 0] }: Common3DProps) {
   return (
-    <group position={position}>
+    <group position={position} rotation={rotation}>
       <mesh castShadow>
         <boxGeometry args={[1.42, 0.88, 0.06]} />
         <meshStandardMaterial color="#e6d4b5" roughness={0.9} />

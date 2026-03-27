@@ -1,8 +1,8 @@
 import { Common3DProps } from '../types';
 
-export default function WallShelf({ position = [0, 0, 0] }: Common3DProps) {
+export default function WallShelf({ position = [0, 0, 0], rotation = [0, 0, 0] }: Common3DProps) {
   return (
-    <group position={position}>
+    <group position={position} rotation={rotation}>
       <mesh castShadow>
         <boxGeometry args={[0.75, 0.07, 0.22]} />
         <meshStandardMaterial color="#e6d4af" roughness={0.86} />

@@ -1,8 +1,8 @@
 import { Common3DProps } from '../types';
 
-export default function PencilCup({ position = [0, 0, 0] }: Common3DProps) {
+export default function PencilCup({ position = [0, 0, 0], rotation = [0, 0, 0] }: Common3DProps) {
   return (
-    <group position={position}>
+    <group position={position} rotation={rotation}>
       <mesh castShadow>
         <cylinderGeometry args={[0.08, 0.08, 0.18, 16]} />
         <meshStandardMaterial color="#d1b28f" roughness={0.8} />
