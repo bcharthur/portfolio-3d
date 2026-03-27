@@ -87,7 +87,7 @@ export default function ScreenContent({
                 <meshBasicMaterial
                     color="#ffffff"
                     transparent
-                    opacity={0.035}
+                    opacity={0.10}
                     depthWrite={false}
                 />
             </mesh>

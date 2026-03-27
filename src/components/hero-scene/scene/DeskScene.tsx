@@ -54,7 +54,7 @@ export default function DeskScene() {
 
       <Keyboard position={[0, 0.7, -0.9]} rotation={[0, 0, 0]} />
       <Mouse position={[0.5, 0.7, -0.9]} rotation={[0.3, 3, 0]} />
-      <Mug position={[1, 0.7, -1]} rotation={[0, 0, 0]} />
+      <Mug position={[0.88, 0.7, -0.98]} rotation={[0, 0.5, 0]} />
       <PencilCup position={[-1.2, 0.7, -0.6]} rotation={[0, 0, 0]} />
 
       <Chair position={[0.10, 0, -0.3]} rotation={[0, -3, 0]} />
