@@ -35,24 +35,18 @@ export default function HeroSection() {
             </div>
 
             <div className="relative z-10 min-h-screen">
-                <div className="absolute left-8 top-[46%] -translate-y-1/2 md:left-16 lg:left-24 xl:left-32">
-                    <h1
-                        ref={nameRef}
-                        className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight text-white"
-                    >
+                <div
+                    className="absolute left-6 top-[20%] md:top-[46%] md:-translate-y-1/2 md:left-16 lg:left-24 xl:left-32">
+                    <h1 className="text-7xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight text-white">
                         Arthur <br/>
                         <span className="uppercase">Bouchaud</span>
                     </h1>
 
                     <div
-                        ref={badgeRef}
-                        className="inline-block mt-4 bg-[#1e3a8a] text-white px-4 py-2 text-sm md:text-base font-bold uppercase tracking-widest"
-                        style={{transform: "rotate(-2deg)"}}
-                    >
+                        className="inline-block mt-3 md:mt-4 bg-[#1e3a8a] text-white px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-base font-bold uppercase tracking-widest">
                         Expert en Cybersécurité
                     </div>
                 </div>
-
                 <div
                     ref={scrollRef}
                     className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/60 animate-float"
