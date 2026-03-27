@@ -4,16 +4,16 @@ import { Common3DProps } from '../types';
 
 export const MONITOR_W = 1.18;
 export const MONITOR_H = 0.76;
-export const MONITOR_DEPTH = 0.05;
+export const MONITOR_DEPTH = 0.035;
 
-export const SCREEN_FRAME_W = MONITOR_W - 0.07;
-export const SCREEN_FRAME_H = MONITOR_H - 0.07;
+export const SCREEN_FRAME_W = MONITOR_W - 0.06;
+export const SCREEN_FRAME_H = MONITOR_H - 0.06;
 
-export const SCREEN_TEXTURE_W = MONITOR_W - 0.15;
-export const SCREEN_TEXTURE_H = MONITOR_H - 0.15;
+export const SCREEN_TEXTURE_W = MONITOR_W - 0.12;
+export const SCREEN_TEXTURE_H = MONITOR_H - 0.12;
 
 export const SCREEN_SURFACE_Y = MONITOR_H / 2;
-export const SCREEN_SURFACE_Z = MONITOR_DEPTH / 2 + 0.003;
+export const SCREEN_SURFACE_Z = MONITOR_DEPTH / 2 + 0.002;
 
 type MonitorShellProps = Common3DProps & {
     bezelColor: string;
@@ -28,7 +28,7 @@ export default function MonitorShell({
                                          position = [0, 0, 0],
                                          rotation = [0, 0, 0],
                                          bezelColor,
-                                         innerFrameColor = '#a7afbb',
+                                         innerFrameColor = '#b7bec8',
                                          standColor,
                                          screenYOffset = 0,
                                          texture,
@@ -39,37 +39,31 @@ export default function MonitorShell({
     return (
         <group position={position} rotation={rotation}>
             <group position={[0, screenYOffset, 0]}>
-                {/* coque */}
+                {/* coque simple */}
                 <RoundedBox
                     args={[MONITOR_W, MONITOR_H, MONITOR_DEPTH]}
-                    radius={0.055}
-                    smoothness={6}
+                    radius={0.035}
+                    smoothness={4}
                     position={[0, halfH, 0]}
                     castShadow
                     receiveShadow
                 >
-                    <meshStandardMaterial color={bezelColor} metalness={0.08} roughness={0.72} />
-                </RoundedBox>
-
-                {/* cadre visuel */}
-                <RoundedBox
-                    args={[SCREEN_FRAME_W, SCREEN_FRAME_H, 0.004]}
-                    radius={0.03}
-                    smoothness={5}
-                    position={[0, halfH, MONITOR_DEPTH / 2 + 0.001]}
-                >
-                    <meshStandardMaterial color={innerFrameColor} metalness={0.02} roughness={0.92} />
+                    <meshStandardMaterial
+                        color={bezelColor}
+                        metalness={0.05}
+                        roughness={0.78}
+                    />
                 </RoundedBox>
 
                 {texture}
                 {content}
             </group>
 
-            {/* pied bas */}
+            {/* base */}
             <RoundedBox
                 args={[0.30, 0.025, 0.15]}
-                radius={0.01}
-                smoothness={4}
+                radius={0.008}
+                smoothness={3}
                 position={[0, 0.02, 0.02]}
                 castShadow
                 receiveShadow
@@ -77,11 +71,11 @@ export default function MonitorShell({
                 <meshStandardMaterial color={standColor} metalness={0.08} roughness={0.62} />
             </RoundedBox>
 
-            {/* pied intermédiaire */}
+            {/* support */}
             <RoundedBox
                 args={[0.18, 0.02, 0.10]}
-                radius={0.008}
-                smoothness={4}
+                radius={0.006}
+                smoothness={3}
                 position={[0, 0.075, 0.01]}
                 rotation={[0.2, 0, 0]}
                 castShadow
@@ -92,9 +86,9 @@ export default function MonitorShell({
 
             {/* colonne */}
             <RoundedBox
-                args={[0.065, 0.20 + screenYOffset, 0.05]}
-                radius={0.012}
-                smoothness={4}
+                args={[0.055, 0.20 + screenYOffset, 0.04]}
+                radius={0.008}
+                smoothness={3}
                 position={[0, 0.16 + screenYOffset / 2, -0.005]}
                 castShadow
                 receiveShadow
