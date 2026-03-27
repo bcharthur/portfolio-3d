@@ -1,25 +1,50 @@
 import { COLORS, DEFAULT_ROTATION } from '../constants';
 import { Common3DProps } from '../types';
 
-export default function Desk2({ position = [0, 0, 0], rotation = DEFAULT_ROTATION }: Common3DProps) {
-  return (
-    <group position={position} rotation={rotation}>
-      <mesh position={[1.15, 1.0, 0.24]} castShadow receiveShadow>
-        <boxGeometry args={[2.4, 0.08, 1.08]} />
-        <meshStandardMaterial color={COLORS.deskTop} roughness={0.88} />
-      </mesh>
+export default function Desk2({
+                                  position = [0, 0, 0],
+                                  rotation = DEFAULT_ROTATION,
+                              }: Common3DProps) {
+    const DESK_LENGTH = 2;
+    const DESK_WIDTH = 1.08;
+    const DESK_THICKNESS = 0.08;
 
-      {[
-        [0.12, 0.48, -0.2],
-        [2.18, 0.48, -0.2],
-        [0.12, 0.48, 0.68],
-        [2.18, 0.48, 0.68],
-      ].map((p, i) => (
-        <mesh key={i} position={p as [number, number, number]} castShadow>
-          <boxGeometry args={[0.1, 0.96, 0.1]} />
-          <meshStandardMaterial color={COLORS.deskLeg} roughness={0.82} />
-        </mesh>
-      ))}
-    </group>
-  );
+    const LEG_WIDTH = 0.1;
+    const LEG_HEIGHT = 0.96;
+    const LEG_DEPTH = 0.1;
+
+    const TABLE_TOP_Y = 1.0;
+    const LEG_Y = LEG_HEIGHT / 2;
+
+    const LEG_OFFSET_X = 0.18;
+    const LEG_OFFSET_Z = 0.18;
+
+    const topPosition: [number, number, number] = [
+        DESK_LENGTH / 2,
+        TABLE_TOP_Y,
+        DESK_WIDTH / 2 - 0.3,
+    ];
+
+    const legPositions: [number, number, number][] = [
+        [LEG_OFFSET_X, LEG_Y, -0.2 + LEG_OFFSET_Z],
+        [DESK_LENGTH - LEG_OFFSET_X, LEG_Y, -0.2 + LEG_OFFSET_Z],
+        [LEG_OFFSET_X, LEG_Y, -0.2 + DESK_WIDTH - LEG_OFFSET_Z],
+        [DESK_LENGTH - LEG_OFFSET_X, LEG_Y, -0.2 + DESK_WIDTH - LEG_OFFSET_Z],
+    ];
+
+    return (
+        <group position={position} rotation={rotation}>
+            <mesh position={topPosition} castShadow receiveShadow>
+                <boxGeometry args={[DESK_LENGTH, DESK_THICKNESS, DESK_WIDTH]} />
+                <meshStandardMaterial color={COLORS.deskTop} roughness={0.88} />
+            </mesh>
+
+            {legPositions.map((legPosition, i) => (
+                <mesh key={i} position={legPosition} castShadow receiveShadow>
+                    <boxGeometry args={[LEG_WIDTH, LEG_HEIGHT, LEG_DEPTH]} />
+                    <meshStandardMaterial color={COLORS.deskLeg} roughness={0.82} />
+                </mesh>
+            ))}
+        </group>
+    );
 }
