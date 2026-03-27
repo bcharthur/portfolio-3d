@@ -2,7 +2,7 @@ import { Common3DProps } from '../types';
 import { RoundedBox, useTexture } from '@react-three/drei';
 
 export default function WallBoard({ position = [0, 0, 0], rotation = [0, 0, 0] }: Common3DProps) {
-    const posterTexture = useTexture('/textures/affiche-esd.jpg');
+    const posterTexture = useTexture(`${import.meta.env.BASE_URL}textures/affiche-esd.jpg`)
 
     return (
         <group position={position} rotation={rotation}>

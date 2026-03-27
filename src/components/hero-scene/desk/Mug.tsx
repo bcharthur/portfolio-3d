@@ -16,7 +16,7 @@ export default function Mug({
                                 position = [0, 0, 0],
                                 rotation = [0, 0, 0],
                             }: Common3DProps) {
-    const logo = useTexture('/textures/rootme-logo.png');
+    const logo = useTexture(`${import.meta.env.BASE_URL}textures/rootme-logo.png`)
     const steamGroupRef = useRef<THREE.Group>(null);
 
     logo.wrapS = THREE.ClampToEdgeWrapping;
