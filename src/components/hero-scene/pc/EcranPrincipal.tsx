@@ -10,13 +10,10 @@ export default function EcranPrincipal({
         <MonitorShell
             position={position}
             rotation={rotation}
-            bezelColor="#2e2941"
-            standColor="#443d5f"
+            bezelColor="#6c6686"
+            standColor="#595271"
         >
-            <ScreenContent
-                emissive="#253b8c"
-                emissiveIntensity={0.32}
-            />
+            <ScreenContent />
         </MonitorShell>
     );
 }

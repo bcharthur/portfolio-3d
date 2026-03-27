@@ -26,8 +26,8 @@ export default function DeskScene() {
       <Desk1 position={[-1, 0, -0.8]} rotation={[0, 0, 0]} />
       <Desk2 position={[-1.8, 0, 0.7]} rotation={[0, 1.5, 0]} />
 
-      <EcranPrincipal position={[0, 0.84, -0.9]} rotation={[0, 0, 0]} />
-      <EcranSecondaire position={[-1.2, 0.84, -0.6]} rotation={[0, 0.6, 0]} />
+      <EcranPrincipal position={[0, 0.9, -0.9]} rotation={[0, 0, 0]} />
+      <EcranSecondaire position={[-1.2, 0.9, -0.6]} rotation={[0, 0.6, 0]} />
 
       <Keyboard position={[0, 0.90, -0.2]} rotation={[0, 0, 0]} />
       <Mouse position={[0.5, 0.90, -0.2]} rotation={[0.3, 3, 0]} />
