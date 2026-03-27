@@ -2,9 +2,12 @@ import { forwardRef } from 'react';
 import * as THREE from 'three';
 import { Common3DProps } from '../types';
 
-const Mouse = forwardRef<THREE.Group, Common3DProps>(function Mouse({ position = [0, 0, 0] }, ref) {
+const Mouse = forwardRef<THREE.Group, Common3DProps>(function Mouse(
+  { position = [0, 0, 0], rotation = [0, 0, 0] },
+  ref,
+) {
   return (
-    <group ref={ref} position={position}>
+    <group ref={ref} position={position} rotation={rotation}>
       <mesh rotation={[0.25, 0, 0]} castShadow>
         <boxGeometry args={[0.09, 0.048, 0.135]} />
         <meshStandardMaterial color="#d8dbe2" roughness={0.42} metalness={0.08} />

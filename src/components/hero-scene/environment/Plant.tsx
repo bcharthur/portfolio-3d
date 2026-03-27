@@ -1,8 +1,8 @@
 import { Common3DProps } from '../types';
 
-export default function Plant({ position = [0, 0, 0] }: Common3DProps) {
+export default function Plant({ position = [0, 0, 0], rotation = [0, 0, 0] }: Common3DProps) {
   return (
-    <group position={position}>
+    <group position={position} rotation={rotation}>
       <mesh castShadow>
         <cylinderGeometry args={[0.21, 0.17, 0.3, 18]} />
         <meshStandardMaterial color="#d4c4b5" roughness={0.9} />

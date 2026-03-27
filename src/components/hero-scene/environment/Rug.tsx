@@ -1,8 +1,8 @@
 import { Common3DProps } from '../types';
 
-export default function Rug({ position = [0, 0, 0] }: Common3DProps) {
+export default function Rug({ position = [0, 0, 0], rotation = [0, 0, 0] }: Common3DProps) {
   return (
-    <group position={position}>
+    <group position={position} rotation={rotation}>
       <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
         <planeGeometry args={[3.4, 2.4]} />
         <meshStandardMaterial color="#e89c28" roughness={1} />
