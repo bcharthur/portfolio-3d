@@ -2,8 +2,6 @@ import { useRef } from 'react';
 import * as THREE from 'three';
 import { useSceneMotion } from '../animations/useSceneMotion';
 import Rug from '../environment/Rug';
-import Desk1 from '../desk/Desk1.tsx';
-import Desk2 from '../desk/Desk2.tsx';
 import EcranPrincipal from '../pc/EcranPrincipal';
 import EcranSecondaire from '../pc/EcranSecondaire';
 import Keyboard from '../pc/Keyboard';
@@ -15,6 +13,7 @@ import WallShelf from '../environment/WallShelf';
 import WallBoard from '../environment/WallBoard';
 import WallClock from '../environment/WallClock';
 import Plant from '../environment/Plant';
+import Desk from "@/components/hero-scene/desk/Desk.tsx";
 
 export default function DeskScene() {
   const groupRef = useRef<THREE.Group>(null);
@@ -23,11 +22,35 @@ export default function DeskScene() {
   return (
     <group ref={groupRef} position={[0.72, -1.5, 0.14]}>
       <Rug position={[-0.2, 0, 0.2]} rotation={[0, 0, 0]} />
-      <Desk1 position={[-0.7, 0, -1.4]} rotation={[0, 0, 0]} />
-      <Desk2 position={[-1.3, 0, -0.15]} rotation={[0, 1.5, 0]} />
+        {/* Bureau Principal (Face à l'écran) */}
+        <Desk
+            position={[-0.8, -0.2, -1.6]}
+            rotation={[0, 0, 0]}
+            length={2}
+            width={0.8}
+        />
 
-      <EcranPrincipal position={[0.5, 0.9, -1.3]} rotation={[0, 0, 0]} />
-      <EcranSecondaire position={[-0.8, 0.9, -1]} rotation={[0, 0.5, 0]} />
+        {/* Bureau Secondaire (Retour côté gauche) */}
+        <Desk
+            position={[-0.6, -0.2, -1.6]}
+            rotation={[0, Math.PI *1.5, 0]} // Angle parfait de 90 degrés
+            length={1.2}
+            width={0.8}
+            hideLegs={[0, 2]} // On cache les pieds pour éviter les collisions avec le bureau principal
+        />
+
+        <EcranPrincipal
+            position={[0.5, 0.7, -1.1]}
+            rotation={[-0.2, 0, 0]}
+            screenYOffset={0.3} // <--- L'écran monte, le pied reste à y=0.8
+        />
+
+        {/* Montons le secondaire un peu moins, 0.15 unités */}
+        <EcranSecondaire
+            position={[-0.8, 0.8, -0.9]}
+            rotation={[-0.2, 0.5, 0.1]}
+            screenYOffset={0.15} // <--- L'écran monte, le pied reste à y=0.8
+        />
 
       <Keyboard position={[0, 0.90, -0.7]} rotation={[0, 0, 0]} />
       <Mouse position={[0.5, 0.90, -0.7]} rotation={[0.3, 3, 0]} />
