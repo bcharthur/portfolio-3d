@@ -17,14 +17,10 @@ export function useSceneMotion(
   useFrame(() => {
     if (!ref.current) return;
 
-    const x = mouse.current.x;
-    const y = mouse.current.y;
-
-    const baseRotY = isMobile ? -0.08 : -0.18;
+    const baseRotY = isMobile ? -0.06 : -0.18;
     const baseRotX = isMobile ? 0 : -0.02;
-
-    const basePosX = isMobile ? -0.25 : isTablet ? 0.78 : 0.72;
-    const basePosY = isMobile ? -0.6 : isTablet ? -1.58 : -1.5;
+    const basePosX = isMobile ? -0.1 : isTablet ? 0.78 : 0.72;
+    const basePosY = isMobile ? -2.05 : isTablet ? -1.58 : -1.5;
 
     if (isMobile) {
       ref.current.rotation.y = THREE.MathUtils.lerp(ref.current.rotation.y, baseRotY, 0.08);
@@ -34,11 +30,13 @@ export function useSceneMotion(
       return;
     }
 
-    const rotFactorY = isTablet ? 0.07 : 0.1;
-    const rotFactorX = isTablet ? 0.03 : 0.04;
+    const x = mouse.current.x;
+    const y = mouse.current.y;
 
-    const posFactorX = isTablet ? 0.08 : 0.12;
-    const posFactorY = isTablet ? 0.035 : 0.05;
+    const rotFactorY = isTablet ? 0.05 : 0.08;
+    const rotFactorX = isTablet ? 0.02 : 0.03;
+    const posFactorX = isTablet ? 0.05 : 0.08;
+    const posFactorY = isTablet ? 0.025 : 0.035;
 
     const targetRotY = baseRotY + x * rotFactorY;
     const targetRotX = baseRotX + y * rotFactorX;

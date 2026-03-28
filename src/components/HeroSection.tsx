@@ -44,32 +44,33 @@ export default function HeroSection() {
     }, []);
 
     useEffect(() => {
-        if (!nameRef.current || !badgeRef.current || !scrollRef.current) return;
+        if (!nameRef.current || !badgeRef.current) return;
 
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
         tl.from(nameRef.current, {
-            y: isMobile ? 26 : 80,
+            y: isMobile ? 14 : 80,
             opacity: 0,
-            duration: isMobile ? 0.55 : 1,
-            delay: isMobile ? 0.05 : 0.2,
+            duration: isMobile ? 0.32 : 1,
+            delay: isMobile ? 0 : 0.2,
             clearProps: "transform,opacity",
         }).from(
             badgeRef.current,
             {
-                scale: isMobile ? 0.96 : 0.8,
+                y: isMobile ? 6 : 0,
+                scale: isMobile ? 1 : 0.8,
                 opacity: 0,
                 rotation: isMobile ? 0 : -5,
-                duration: isMobile ? 0.4 : 0.6,
+                duration: isMobile ? 0.24 : 0.6,
                 clearProps: "transform,opacity",
             },
-            "-=0.25"
+            isMobile ? "-=0.1" : "-=0.25"
         );
 
-        if (!prefersReducedMotion) {
+        if (!prefersReducedMotion && !isMobile && scrollRef.current) {
             tl.from(
                 scrollRef.current,
-                { y: 12, opacity: 0, duration: isMobile ? 0.35 : 0.5, clearProps: "transform,opacity" },
+                { y: 12, opacity: 0, duration: 0.5, clearProps: "transform,opacity" },
                 "-=0.15"
             );
         }
@@ -77,16 +78,19 @@ export default function HeroSection() {
         return () => {
             tl.kill();
         };
-    }, [isLoaded, isMobile, prefersReducedMotion]);
+    }, [isMobile, prefersReducedMotion]);
 
     return (
         <>
             {!isMobile && <SplashScreen isVisible={!isLoaded} progress={progress} />}
 
-            <section className="relative min-h-screen overflow-hidden bg-[#0a1020]">
+            <section className="relative min-h-screen overflow-hidden bg-[#102a5c]">
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute right-[-10%] top-[8%] h-[70vh] w-[70vw] rounded-full bg-[#1d4ed8]/20 blur-[140px]" />
-                    <div className="absolute right-[10%] top-[22%] h-[45vh] w-[35vw] rounded-full bg-[#38bdf8]/10 blur-[120px]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_55%_28%,rgba(96,165,250,0.38),transparent_30%),radial-gradient(circle_at_78%_20%,rgba(56,189,248,0.24),transparent_18%),linear-gradient(180deg,#143a7b_0%,#102a5c_38%,#0d1f45_100%)]" />
+
+                    <div className="absolute right-[-12%] top-[6%] h-[64vh] w-[78vw] rounded-full bg-[#60a5fa]/35 blur-[90px] md:right-[-10%] md:top-[8%] md:h-[70vh] md:w-[70vw] md:bg-[#2563eb]/25 md:blur-[120px]" />
+                    <div className="absolute right-[6%] top-[18%] h-[34vh] w-[56vw] rounded-full bg-[#67e8f9]/18 blur-[70px] md:right-[10%] md:top-[22%] md:h-[45vh] md:w-[35vw] md:bg-[#38bdf8]/18 md:blur-[90px]" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#dbeafe]/[0.05] via-transparent to-[#08142f]/[0.16] md:hidden" />
 
                     <Suspense fallback={null}>
                         <SceneLoader onReady={handleReady} onProgress={handleProgress} />
@@ -95,10 +99,10 @@ export default function HeroSection() {
                 </div>
 
                 <div className="relative z-10 min-h-screen">
-                    <div className="absolute left-5 top-[16%] sm:left-6 md:top-[46%] md:-translate-y-1/2 md:left-16 lg:left-24 xl:left-32 max-w-[85vw] md:max-w-none">
+                    <div className="absolute left-5 right-5 top-20 sm:left-6 sm:right-6 md:top-[46%] md:right-auto md:max-w-none md:-translate-y-1/2 md:left-16 lg:left-24 xl:left-32">
                         <h1
                             ref={nameRef}
-                            className="text-[2.75rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight text-white will-change-transform"
+                            className="inline-block rounded-2xl bg-[#08101f]/32 px-3 py-2 text-[2.6rem] font-bold leading-[0.95] tracking-tight text-white shadow-[0_8px_30px_rgba(0,0,0,0.18)] backdrop-blur-[2px] sm:text-5xl md:bg-transparent md:px-0 md:py-0 md:text-6xl md:shadow-none md:backdrop-blur-0 lg:text-7xl"
                         >
                             Arthur <br />
                             <span className="uppercase">Bouchaud</span>
@@ -106,19 +110,21 @@ export default function HeroSection() {
 
                         <div
                             ref={badgeRef}
-                            className="inline-block mt-3 md:mt-4 bg-[#1e3a8a] text-white px-3 py-1.5 md:px-4 md:py-2 text-[10px] sm:text-xs md:text-base font-bold uppercase tracking-[0.18em] will-change-transform"
+                            className="inline-block mt-3 rounded-md bg-[#f59e0b] text-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] shadow-[0_6px_18px_rgba(245,158,11,0.28)] sm:text-xs md:mt-4 md:bg-[#1e3a8a] md:px-4 md:py-2 md:text-base md:shadow-none"
                         >
                             Expert en Cybersécurité
                         </div>
                     </div>
 
-                    <div
-                        ref={scrollRef}
-                        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/60 ${prefersReducedMotion ? "" : "animate-float"}`}
-                    >
-                        <Mouse size={20} />
-                        <ChevronDown size={16} />
-                    </div>
+                    {!isMobile && (
+                        <div
+                            ref={scrollRef}
+                            className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/60 ${prefersReducedMotion ? "" : "animate-float"}`}
+                        >
+                            <Mouse size={20} />
+                            <ChevronDown size={16} />
+                        </div>
+                    )}
                 </div>
             </section>
         </>
