@@ -8,7 +8,7 @@ export default function HeroScene3D() {
     const { isMobile, isTablet } = useResponsiveScene();
 
     const camera = isMobile
-        ? { position: [5.8, 3.2, 8.8] as [number, number, number], fov: 38 }
+        ? { position: [5.9, 3.25, 9.0] as [number, number, number], fov: 25 }
         : isTablet
             ? { position: [4.8, 2.8, 7.0] as [number, number, number], fov: 31 }
             : { position: [4.0, 2.45, 6.0] as [number, number, number], fov: 27 };
@@ -20,14 +20,16 @@ export default function HeroScene3D() {
                 gl={{
                     antialias: !isMobile,
                     alpha: true,
-                    powerPreference: isMobile ? 'low-power' : 'high-performance',
+                    powerPreference: isMobile ? "low-power" : "high-performance",
                 }}
                 shadows={!isMobile}
                 dpr={isMobile ? 1 : [1, 2]}
-                frameloop={isMobile ? 'demand' : 'always'}
-                style={{ background: 'transparent' }}
+                style={{ background: "transparent" }}
             >
-                <ambientLight intensity={isMobile ? 0.35 : 0.22} color="#6477a8" />
+                <ambientLight
+                    intensity={isMobile ? 0.9 : 0.22}
+                    color={isMobile ? "#b8d4ff" : "#6477a8"}
+                />
 
                 {!isMobile && (
                     <spotLight
@@ -46,11 +48,27 @@ export default function HeroScene3D() {
                 )}
 
                 <pointLight
-                    position={[1.3, 1.8, 1.4]}
-                    intensity={isMobile ? 0.75 : 0.95}
-                    distance={6}
-                    color="#ffb86b"
+                    position={[1.6, 2.1, 2.2]}
+                    intensity={isMobile ? 1.55 : 0.95}
+                    distance={isMobile ? 8 : 6}
+                    color="#ffd29a"
                 />
+
+                {isMobile && (
+                    <>
+                        <pointLight
+                            position={[-2.8, 3.2, 1.8]}
+                            intensity={0.95}
+                            distance={9}
+                            color="#8fd3ff"
+                        />
+                        <directionalLight
+                            position={[3.8, 4.8, 4.2]}
+                            intensity={0.8}
+                            color="#eef6ff"
+                        />
+                    </>
+                )}
 
                 {!isMobile && (
                     <>

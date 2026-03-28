@@ -26,7 +26,7 @@ export default function DeskScene({
                                       isTablet = false,
                                   }: DeskSceneProps) {
     const groupRef = useRef<THREE.Group>(null);
-    const mouseRef = useParallaxMouse();
+    const mouseRef = useParallaxMouse(isMobile);
 
     useSceneMotion(groupRef, mouseRef, { isMobile, isTablet });
 
@@ -37,10 +37,10 @@ export default function DeskScene({
             : [0.72, -1.5, 0];
 
     const baseRotation = isMobile
-        ? [-0.01, -0.08, 0]
+        ? [0, -0.08, 0]
         : [-0.02, -0.18, 0];
 
-    const baseScale = isMobile ? 0.9 : isTablet ? 0.93 : 1;
+    const baseScale = isMobile ? 0.88 : isTablet ? 0.93 : 1;
 
     return (
         <group
