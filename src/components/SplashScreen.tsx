@@ -18,7 +18,7 @@ export default function SplashScreen({
                     className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#09111f]"
                 >
                     <div className="flex flex-col items-center gap-6">
-                        <div className="text-white text-2xl md:text-4xl font-bold tracking-tight">
+                        <div className="text-white text-2xl font-bold tracking-tight md:text-4xl">
                             Arthur Bouchaud
                         </div>
 
@@ -26,13 +26,13 @@ export default function SplashScreen({
                             <motion.div
                                 className="h-full bg-[#ff8a00]"
                                 initial={{ width: 0 }}
-                                animate={{ width: `${progress}%` }}
-                                transition={{ ease: "easeOut" }}
+                                animate={{ width: `${Math.min(progress, 100)}%` }}
+                                transition={{ ease: "easeOut", duration: 0.25 }}
                             />
                         </div>
 
                         <div className="text-sm text-white/60 md:text-base">
-                            Chargement... {Math.round(progress)}%
+                            Initialisation du portfolio... {Math.round(progress)}%
                         </div>
                     </div>
                 </motion.div>
