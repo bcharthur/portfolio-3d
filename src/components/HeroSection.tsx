@@ -13,6 +13,8 @@ export default function HeroSection() {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+    const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
     const handleReady = useCallback(() => {
         setIsLoaded(true);
@@ -23,26 +25,63 @@ export default function HeroSection() {
     }, []);
 
     useEffect(() => {
-        if (!isLoaded) return;
+        const media = window.matchMedia("(max-width: 767px)");
+        const reducedMotionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        const update = () => {
+            setIsMobile(media.matches);
+            setPrefersReducedMotion(reducedMotionMedia.matches);
+        };
+
+        update();
+        media.addEventListener("change", update);
+        reducedMotionMedia.addEventListener("change", update);
+
+        return () => {
+            media.removeEventListener("change", update);
+            reducedMotionMedia.removeEventListener("change", update);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!nameRef.current || !badgeRef.current || !scrollRef.current) return;
 
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-        tl.from(nameRef.current, { y: 80, opacity: 0, duration: 1, delay: 0.2 })
-            .from(
-                badgeRef.current,
-                { scale: 0.8, opacity: 0, rotation: -5, duration: 0.6 },
-                "-=0.35"
-            )
-            .from(scrollRef.current, { y: 20, opacity: 0, duration: 0.5 }, "-=0.2");
+        tl.from(nameRef.current, {
+            y: isMobile ? 26 : 80,
+            opacity: 0,
+            duration: isMobile ? 0.55 : 1,
+            delay: isMobile ? 0.05 : 0.2,
+            clearProps: "transform,opacity",
+        }).from(
+            badgeRef.current,
+            {
+                scale: isMobile ? 0.96 : 0.8,
+                opacity: 0,
+                rotation: isMobile ? 0 : -5,
+                duration: isMobile ? 0.4 : 0.6,
+                clearProps: "transform,opacity",
+            },
+            "-=0.25"
+        );
+
+        if (!prefersReducedMotion) {
+            tl.from(
+                scrollRef.current,
+                { y: 12, opacity: 0, duration: isMobile ? 0.35 : 0.5, clearProps: "transform,opacity" },
+                "-=0.15"
+            );
+        }
 
         return () => {
             tl.kill();
         };
-    }, [isLoaded]);
+    }, [isLoaded, isMobile, prefersReducedMotion]);
 
     return (
         <>
-            <SplashScreen isVisible={!isLoaded} progress={progress} />
+            {!isMobile && <SplashScreen isVisible={!isLoaded} progress={progress} />}
 
             <section className="relative min-h-screen overflow-hidden bg-[#0a1020]">
                 <div className="absolute inset-0 z-0">
@@ -55,15 +94,11 @@ export default function HeroSection() {
                     </Suspense>
                 </div>
 
-                <div
-                    className={`relative z-10 min-h-screen transition-opacity duration-700 ${
-                        isLoaded ? "opacity-100" : "opacity-0"
-                    }`}
-                >
-                    <div className="absolute left-6 top-[20%] md:top-[46%] md:-translate-y-1/2 md:left-16 lg:left-24 xl:left-32">
+                <div className="relative z-10 min-h-screen">
+                    <div className="absolute left-5 top-[16%] sm:left-6 md:top-[46%] md:-translate-y-1/2 md:left-16 lg:left-24 xl:left-32 max-w-[85vw] md:max-w-none">
                         <h1
                             ref={nameRef}
-                            className="text-7xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight text-white"
+                            className="text-[2.75rem] sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[0.95] tracking-tight text-white will-change-transform"
                         >
                             Arthur <br />
                             <span className="uppercase">Bouchaud</span>
@@ -71,7 +106,7 @@ export default function HeroSection() {
 
                         <div
                             ref={badgeRef}
-                            className="inline-block mt-3 md:mt-4 bg-[#1e3a8a] text-white px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-base font-bold uppercase tracking-widest"
+                            className="inline-block mt-3 md:mt-4 bg-[#1e3a8a] text-white px-3 py-1.5 md:px-4 md:py-2 text-[10px] sm:text-xs md:text-base font-bold uppercase tracking-[0.18em] will-change-transform"
                         >
                             Expert en Cybersécurité
                         </div>
@@ -79,7 +114,7 @@ export default function HeroSection() {
 
                     <div
                         ref={scrollRef}
-                        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/60 animate-float"
+                        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/60 ${prefersReducedMotion ? "" : "animate-float"}`}
                     >
                         <Mouse size={20} />
                         <ChevronDown size={16} />

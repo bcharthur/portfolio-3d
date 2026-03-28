@@ -34,15 +34,23 @@ export default function ProjectsSection() {
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const ctx = gsap.context(() => {
       gsap.from(titleRef.current, {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-        y: 50, opacity: 0, duration: 0.8,
+        scrollTrigger: { trigger: sectionRef.current, start: "top 88%" },
+        y: prefersReducedMotion ? 0 : isMobile ? 18 : 50,
+        opacity: 0,
+        duration: isMobile ? 0.45 : 0.8,
       });
       if (cardsRef.current) {
         gsap.from(cardsRef.current.children, {
-          scrollTrigger: { trigger: cardsRef.current, start: "top 80%" },
-          y: 60, opacity: 0, duration: 0.7, stagger: 0.15,
+          scrollTrigger: { trigger: cardsRef.current, start: "top 88%" },
+          y: prefersReducedMotion ? 0 : isMobile ? 20 : 60,
+          opacity: 0,
+          duration: isMobile ? 0.5 : 0.7,
+          stagger: isMobile || prefersReducedMotion ? 0.06 : 0.15,
         });
       }
     }, sectionRef);
@@ -50,13 +58,13 @@ export default function ProjectsSection() {
   }, []);
 
   return (
-    <section id="projects" ref={sectionRef} className="min-h-screen px-8 md:px-16 lg:px-24 py-24">
-      <h2 ref={titleRef} className="text-5xl md:text-7xl font-bold tracking-tight text-foreground mb-4">
+    <section id="projects" ref={sectionRef} className="min-h-screen px-6 md:px-16 lg:px-24 py-20 md:py-24">
+      <h2 ref={titleRef} className="text-4xl md:text-7xl font-bold tracking-tight text-foreground mb-4">
         Projets
       </h2>
-      <p className="text-muted-foreground text-lg mb-16">Selected</p>
+      <p className="text-muted-foreground text-base md:text-lg mb-10 md:mb-16">Selected</p>
 
-      <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         {projects.map((p) => (
           <a
             key={p.title}
@@ -64,13 +72,13 @@ export default function ProjectsSection() {
             className="group relative block rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer"
           >
             <div className={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-90`} />
-            <div className="relative z-10 h-full flex flex-col justify-end p-8">
-              <div className="flex items-center justify-between">
+            <div className="relative z-10 h-full flex flex-col justify-end p-5 md:p-8">
+              <div className="flex items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-2xl font-bold text-accent-foreground">{p.title}</h3>
-                  <p className="text-accent-foreground/70 text-sm mt-1">{p.description}</p>
+                  <h3 className="text-xl md:text-2xl font-bold text-accent-foreground">{p.title}</h3>
+                  <p className="text-accent-foreground/70 text-xs md:text-sm mt-1">{p.description}</p>
                 </div>
-                <div className="w-10 h-10 rounded-full bg-background/20 flex items-center justify-center group-hover:bg-background/40 transition-colors">
+                <div className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-background/20 flex items-center justify-center group-hover:bg-background/40 transition-colors">
                   <ArrowUpRight size={18} className="text-accent-foreground" />
                 </div>
               </div>
