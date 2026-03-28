@@ -82,19 +82,23 @@ export default function HeroSection({
     return (
         <section className="relative min-h-screen overflow-hidden bg-[#0a1020]">
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,#0a1020_0%,#0b1630_38%,#0a1020_100%)]" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,#0a1020_0%,#0b1630_38%,#0a1020_100%)]"/>
 
-                <div className="absolute right-[-10%] top-[8%] h-[70vh] w-[70vw] rounded-full bg-[#2563eb]/25 blur-[120px] md:bg-[#1d4ed8]/20 md:blur-[140px]" />
-                <div className="absolute right-[10%] top-[22%] h-[45vh] w-[35vw] rounded-full bg-[#38bdf8]/18 blur-[90px] md:bg-[#38bdf8]/10 md:blur-[120px]" />
-                <div className="absolute inset-0 bg-gradient-to-b from-[#0a1020]/20 via-transparent to-[#0a1020]/10 md:hidden" />
+                <div
+                    className="absolute right-[-10%] top-[8%] h-[70vh] w-[70vw] rounded-full bg-[#2563eb]/25 blur-[60px] md:blur-[140px]"/>
+                <div
+                    className="absolute right-[10%] top-[22%] h-[45vh] w-[35vw] rounded-full bg-[#38bdf8]/18 blur-[40px] md:blur-[120px]"/>
+                <div
+                    className="absolute inset-0 bg-gradient-to-b from-[#0a1020]/20 via-transparent to-[#0a1020]/10 md:hidden"/>
 
                 <Suspense fallback={null}>
-                    <LaptopScene onReady={handleReady} />
+                    <LaptopScene onReady={handleReady}/>
                 </Suspense>
             </div>
 
             <div className="relative z-10 min-h-screen">
-                <div className="absolute left-5 right-5 top-20 sm:left-6 sm:right-6 md:left-20 md:right-auto md:top-[52%] md:w-[520px] md:-translate-y-1/2 lg:left-24 lg:w-[560px] xl:left-28 xl:w-[620px]">
+                <div
+                    className="absolute left-5 right-5 top-20 sm:left-6 sm:right-6 md:left-20 md:right-auto md:top-[52%] md:w-[520px] md:-translate-y-1/2 lg:left-24 lg:w-[560px] xl:left-28 xl:w-[620px]">
                     <h1
                         ref={nameRef}
                         className="inline-block text-[2.7rem] font-black leading-[0.9] tracking-[-0.04em] text-white sm:text-5xl md:text-[5.3rem] lg:text-[6rem] xl:text-[6.6rem]"

@@ -1,11 +1,12 @@
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import ProjectsSection from "@/components/ProjectsSection";
-import ContactSection from "@/components/ContactSection";
-import BackToTop from "@/components/BackToTop";
 import SplashScreen from "@/components/SplashScreen";
+
+const AboutSection = lazy(() => import("@/components/AboutSection"));
+const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
+const ContactSection = lazy(() => import("@/components/ContactSection"));
+const BackToTop = lazy(() => import("@/components/BackToTop"));
 
 function waitForWindowLoad() {
     return new Promise<void>((resolve) => {
@@ -43,7 +44,7 @@ export default function Index() {
     const [sceneReady, setSceneReady] = useState(false);
     const [pageReady, setPageReady] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [showDeferredContent, setShowDeferredContent] = useState(false);
+    const [showRestOfPage, setShowRestOfPage] = useState(false);
 
     const isVisible = useMemo(() => {
         return !(sceneReady && pageReady);
@@ -72,7 +73,7 @@ export default function Index() {
             setProgress(100);
 
             const timeout = window.setTimeout(() => {
-                setShowDeferredContent(true);
+                setShowRestOfPage(true);
             }, 250);
 
             return () => window.clearTimeout(timeout);
@@ -104,13 +105,13 @@ export default function Index() {
                 <Navbar />
                 <HeroSection onSceneReady={() => setSceneReady(true)} />
 
-                {showDeferredContent && (
-                    <>
+                {showRestOfPage && (
+                    <Suspense fallback={null}>
                         <AboutSection />
                         <ProjectsSection />
                         <ContactSection />
                         <BackToTop />
-                    </>
+                    </Suspense>
                 )}
             </div>
         </>
