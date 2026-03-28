@@ -27,8 +27,8 @@ export default function HeroScene3D() {
                 style={{ background: "transparent" }}
             >
                 <ambientLight
-                    intensity={isMobile ? 0.9 : 0.22}
-                    color={isMobile ? "#b8d4ff" : "#6477a8"}
+                    intensity={isMobile ? 0.42 : 0.22}
+                    color="#6477a8"
                 />
 
                 {!isMobile && (
@@ -48,27 +48,11 @@ export default function HeroScene3D() {
                 )}
 
                 <pointLight
-                    position={[1.6, 2.1, 2.2]}
-                    intensity={isMobile ? 1.55 : 0.95}
-                    distance={isMobile ? 8 : 6}
-                    color="#ffd29a"
+                    position={[1.3, 1.8, 1.4]}
+                    intensity={isMobile ? 0.68 : 0.95}
+                    distance={isMobile ? 5 : 6}
+                    color="#ffb86b"
                 />
-
-                {isMobile && (
-                    <>
-                        <pointLight
-                            position={[-2.8, 3.2, 1.8]}
-                            intensity={0.95}
-                            distance={9}
-                            color="#8fd3ff"
-                        />
-                        <directionalLight
-                            position={[3.8, 4.8, 4.2]}
-                            intensity={0.8}
-                            color="#eef6ff"
-                        />
-                    </>
-                )}
 
                 {!isMobile && (
                     <>

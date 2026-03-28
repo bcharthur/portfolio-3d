@@ -86,25 +86,29 @@ export default function HeroSection() {
 
             <section className="relative min-h-screen overflow-hidden bg-[#102a5c]">
                 <div className="absolute inset-0 z-0">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_55%_28%,rgba(96,165,250,0.38),transparent_30%),radial-gradient(circle_at_78%_20%,rgba(56,189,248,0.24),transparent_18%),linear-gradient(180deg,#143a7b_0%,#102a5c_38%,#0d1f45_100%)]" />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,#0a1020_0%,#0b1630_38%,#0a1020_100%)]"/>
 
-                    <div className="absolute right-[-12%] top-[6%] h-[64vh] w-[78vw] rounded-full bg-[#60a5fa]/35 blur-[90px] md:right-[-10%] md:top-[8%] md:h-[70vh] md:w-[70vw] md:bg-[#2563eb]/25 md:blur-[120px]" />
-                    <div className="absolute right-[6%] top-[18%] h-[34vh] w-[56vw] rounded-full bg-[#67e8f9]/18 blur-[70px] md:right-[10%] md:top-[22%] md:h-[45vh] md:w-[35vw] md:bg-[#38bdf8]/18 md:blur-[90px]" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#dbeafe]/[0.05] via-transparent to-[#08142f]/[0.16] md:hidden" />
+                    <div
+                        className="absolute right-[-10%] top-[8%] h-[70vh] w-[70vw] rounded-full bg-[#2563eb]/25 blur-[120px] md:bg-[#1d4ed8]/20 md:blur-[140px]"/>
+                    <div
+                        className="absolute right-[10%] top-[22%] h-[45vh] w-[35vw] rounded-full bg-[#38bdf8]/18 blur-[90px] md:bg-[#38bdf8]/10 md:blur-[120px]"/>
+                    <div
+                        className="absolute inset-0 bg-gradient-to-b from-[#0a1020]/20 via-transparent to-[#0a1020]/10 md:hidden"/>
 
                     <Suspense fallback={null}>
-                        <SceneLoader onReady={handleReady} onProgress={handleProgress} />
-                        <LaptopScene />
+                        <SceneLoader onReady={handleReady} onProgress={handleProgress}/>
+                        <LaptopScene/>
                     </Suspense>
                 </div>
 
                 <div className="relative z-10 min-h-screen">
-                    <div className="absolute left-5 right-5 top-20 sm:left-6 sm:right-6 md:top-[46%] md:right-auto md:max-w-none md:-translate-y-1/2 md:left-16 lg:left-24 xl:left-32">
+                    <div
+                        className="absolute left-5 right-5 top-20 sm:left-6 sm:right-6 md:top-[46%] md:right-auto md:max-w-none md:-translate-y-1/2 md:left-16 lg:left-24 xl:left-32">
                         <h1
                             ref={nameRef}
                             className="inline-block rounded-2xl bg-[#08101f]/32 px-3 py-2 text-[2.6rem] font-bold leading-[0.95] tracking-tight text-white shadow-[0_8px_30px_rgba(0,0,0,0.18)] backdrop-blur-[2px] sm:text-5xl md:bg-transparent md:px-0 md:py-0 md:text-6xl md:shadow-none md:backdrop-blur-0 lg:text-7xl"
                         >
-                            Arthur <br />
+                            Arthur <br/>
                             <span className="uppercase">Bouchaud</span>
                         </h1>
 
@@ -121,8 +125,8 @@ export default function HeroSection() {
                             ref={scrollRef}
                             className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/60 ${prefersReducedMotion ? "" : "animate-float"}`}
                         >
-                            <Mouse size={20} />
-                            <ChevronDown size={16} />
+                            <Mouse size={20}/>
+                            <ChevronDown size={16}/>
                         </div>
                     )}
                 </div>
