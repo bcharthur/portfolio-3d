@@ -1,10 +1,31 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import DeskScene from './DeskScene';
 import { useResponsiveScene } from './useResponsiveScene';
 
-export default function HeroScene3D() {
+type HeroScene3DProps = {
+    onReady?: () => void;
+};
+
+function SceneReadySignal({ onReady }: { onReady?: () => void }) {
+    const hasSent = useRef(false);
+
+    useEffect(() => {
+        if (!onReady || hasSent.current) return;
+
+        const id = window.requestAnimationFrame(() => {
+            hasSent.current = true;
+            onReady();
+        });
+
+        return () => window.cancelAnimationFrame(id);
+    }, [onReady]);
+
+    return null;
+}
+
+export default function HeroScene3D({ onReady }: HeroScene3DProps) {
     const { isMobile, isTablet } = useResponsiveScene();
 
     const camera = isMobile
@@ -20,7 +41,6 @@ export default function HeroScene3D() {
                 background: 'linear-gradient(180deg, #06122f 0%, #020817 100%)',
             }}
         >
-            {/* Halo bleu séparé du background */}
             <div
                 className="pointer-events-none absolute inset-0"
                 style={{
@@ -85,6 +105,7 @@ export default function HeroScene3D() {
                     <Suspense fallback={null}>
                         <DeskScene isMobile={isMobile} isTablet={isTablet} />
                         <Environment preset="night" environmentIntensity={0.12} />
+                        <SceneReadySignal onReady={onReady} />
                     </Suspense>
                 </Canvas>
             </div>
