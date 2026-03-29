@@ -126,7 +126,7 @@ html::-webkit-scrollbar {
 
 @font-face {
   font-family: "WatchDogs";
-  src: url("/fonts/watchdogs/HACKED.ttf") format("truetype");
+  src: url("./fonts/watchdogs/HACKED.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
