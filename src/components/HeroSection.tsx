@@ -198,7 +198,7 @@ export default function HeroSection({
                 <div className="px-5 pt-24 sm:px-6 md:absolute md:left-20 md:right-auto md:top-[52%] md:w-[520px] md:-translate-y-1/2 lg:left-24 lg:w-[560px] xl:left-28 xl:w-[620px]">
                     <h1
                         ref={nameRef}
-                        className="inline-block text-[2.7rem] font-black leading-[0.92] tracking-[-0.04em] text-white sm:text-5xl md:text-[5.3rem] lg:text-[6rem] xl:text-[6.6rem]"
+                        className="inline-block text-[4rem] font-black leading-[0.92] tracking-[-0.04em] text-white sm:text-5xl md:text-[5.3rem] lg:text-[6rem] xl:text-[6.6rem]"
                     >
                         Arthur
                         <br />
@@ -206,7 +206,7 @@ export default function HeroSection({
                     </h1>
 
                     <div ref={badgeRef} className="mt-4 sm:mt-5 md:mt-6">
-            <span className="inline-block rounded-sm bg-[#1e3a8a] px-3 py-2 text-[10px] font-extrabold uppercase tracking-[0.18em] text-white shadow-[0_8px_24px_rgba(0,0,0,0.22)] sm:px-4 sm:text-xs md:rotate-[-5deg] md:px-5 md:py-2.5 md:text-[1rem]">
+            <span className="inline-block rounded-sm bg-[#1e3a8a] px-3 py-2 text-[15px] font-extrabold uppercase tracking-[0.18em] text-white shadow-[0_8px_24px_rgba(0,0,0,0.22)] sm:px-4 sm:text-xs md:rotate-[-5deg] md:px-5 md:py-2.5 md:text-[1rem]">
               Expert en cybersécurité
             </span>
                     </div>
