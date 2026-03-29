@@ -48,64 +48,84 @@ export default function HeroSection({
 
     useEffect(() => {
         if (!nameRef.current || !badgeRef.current) return;
+        if (isMobile === null || prefersReducedMotion === null) return;
+
+        gsap.killTweensOf([nameRef.current, badgeRef.current, scrollRef.current]);
 
         if (!startAnimation) {
             gsap.set([nameRef.current, badgeRef.current], {
                 opacity: 0,
+                y: 0,
             });
 
             if (scrollRef.current) {
                 gsap.set(scrollRef.current, {
                     opacity: 0,
+                    y: 0,
                 });
             }
 
             return;
         }
 
-        if (isMobile === null || prefersReducedMotion === null) return;
-
-        gsap.killTweensOf([nameRef.current, badgeRef.current, scrollRef.current]);
-
-        if (isMobile || prefersReducedMotion) {
+        // Cas accessibilité : affichage direct, sans anim
+        if (prefersReducedMotion) {
             gsap.set([nameRef.current, badgeRef.current], {
                 opacity: 1,
+                y: 0,
+                clearProps: "transform,opacity",
             });
 
-            gsap.fromTo(
-                nameRef.current,
-                {
-                    y: 10,
-                    opacity: 0,
-                },
-                {
-                    y: 0,
+            if (scrollRef.current) {
+                gsap.set(scrollRef.current, {
                     opacity: 1,
-                    duration: 0.32,
-                    ease: "power2.out",
-                    clearProps: "transform,opacity",
-                }
-            );
-
-            gsap.fromTo(
-                badgeRef.current,
-                {
-                    y: 8,
-                    opacity: 0,
-                },
-                {
                     y: 0,
-                    opacity: 1,
-                    duration: 0.26,
-                    delay: 0.06,
-                    ease: "power2.out",
                     clearProps: "transform,opacity",
-                }
-            );
+                });
+            }
 
             return;
         }
 
+        // Mobile : petite anim visible
+        if (isMobile) {
+            const tl = gsap.timeline();
+
+            tl.fromTo(
+                nameRef.current,
+                {
+                    y: 18,
+                    opacity: 0,
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.42,
+                    ease: "power2.out",
+                    clearProps: "transform,opacity",
+                }
+            ).fromTo(
+                badgeRef.current,
+                {
+                    y: 12,
+                    opacity: 0,
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.34,
+                    ease: "power2.out",
+                    clearProps: "transform,opacity",
+                },
+                "-=0.18"
+            );
+
+            return () => {
+                tl.kill();
+            };
+        }
+
+        // Desktop
         const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
         tl.fromTo(

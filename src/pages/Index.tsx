@@ -34,11 +34,15 @@ function waitMinimum(ms: number) {
     });
 }
 
+const SPLASH_EXIT_MS = 700;
+const HERO_START_DELAY_MS = 760;
+
 export default function Index() {
     const [sceneReady, setSceneReady] = useState(false);
     const [pageReady, setPageReady] = useState(false);
     const [progress, setProgress] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
+    const [startHeroAnimation, setStartHeroAnimation] = useState(false);
 
     useEffect(() => {
         const media = window.matchMedia("(max-width: 767px)");
@@ -105,6 +109,23 @@ export default function Index() {
     }, [isVisible]);
 
     useEffect(() => {
+        if (isVisible) {
+            setStartHeroAnimation(false);
+            return;
+        }
+
+        const timer = window.setTimeout(() => {
+            requestAnimationFrame(() => {
+                setStartHeroAnimation(true);
+            });
+        }, HERO_START_DELAY_MS);
+
+        return () => {
+            window.clearTimeout(timer);
+        };
+    }, [isVisible]);
+
+    useEffect(() => {
         if (isVisible) return;
 
         const refreshAfterReveal = async () => {
@@ -112,11 +133,13 @@ export default function Index() {
                 await document.fonts.ready;
             }
 
-            requestAnimationFrame(() => {
+            window.setTimeout(() => {
                 requestAnimationFrame(() => {
-                    ScrollTrigger.refresh();
+                    requestAnimationFrame(() => {
+                        ScrollTrigger.refresh();
+                    });
                 });
-            });
+            }, SPLASH_EXIT_MS);
         };
 
         refreshAfterReveal();
@@ -130,7 +153,7 @@ export default function Index() {
                 <Navbar />
                 <HeroSection
                     onSceneReady={() => setSceneReady(true)}
-                    startAnimation={!isVisible}
+                    startAnimation={startHeroAnimation}
                 />
                 <AboutSection />
                 <ProjectsSection />
