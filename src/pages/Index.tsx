@@ -2,10 +2,10 @@ import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import SplashScreen from "@/components/SplashScreen";
+import AboutSection from "@/components/AboutSection";
+import ProjectsSection from "@/components/ProjectsSection";
+import ContactSection from "@/components/ContactSection";
 
-const AboutSection = lazy(() => import("@/components/AboutSection"));
-const ProjectsSection = lazy(() => import("@/components/ProjectsSection"));
-const ContactSection = lazy(() => import("@/components/ContactSection"));
 const BackToTop = lazy(() => import("@/components/BackToTop"));
 
 function waitForWindowLoad() {
@@ -24,16 +24,6 @@ function waitForWindowLoad() {
     });
 }
 
-function waitForFonts() {
-    if ("fonts" in document) {
-        return (document as Document & {
-            fonts: { ready: Promise<unknown> };
-        }).fonts.ready.then(() => undefined);
-    }
-
-    return Promise.resolve();
-}
-
 function waitMinimum(ms: number) {
     return new Promise<void>((resolve) => {
         window.setTimeout(resolve, ms);
@@ -44,7 +34,6 @@ export default function Index() {
     const [sceneReady, setSceneReady] = useState(false);
     const [pageReady, setPageReady] = useState(false);
     const [progress, setProgress] = useState(0);
-    const [showRestOfPage, setShowRestOfPage] = useState(false);
 
     const isVisible = useMemo(() => {
         return !(sceneReady && pageReady);
@@ -53,10 +42,12 @@ export default function Index() {
     useEffect(() => {
         let cancelled = false;
 
-        Promise.all([
-            waitForWindowLoad(),
-            waitForFonts(),
-            waitMinimum(900),
+        Promise.race([
+            Promise.all([
+                waitForWindowLoad(),
+                waitMinimum(250),
+            ]),
+            waitMinimum(1200),
         ]).then(() => {
             if (!cancelled) {
                 setPageReady(true);
@@ -71,12 +62,7 @@ export default function Index() {
     useEffect(() => {
         if (!isVisible) {
             setProgress(100);
-
-            const timeout = window.setTimeout(() => {
-                setShowRestOfPage(true);
-            }, 250);
-
-            return () => window.clearTimeout(timeout);
+            return;
         }
 
         const interval = window.setInterval(() => {
@@ -104,15 +90,13 @@ export default function Index() {
             <div className="relative">
                 <Navbar />
                 <HeroSection onSceneReady={() => setSceneReady(true)} />
+                <AboutSection />
+                <ProjectsSection />
+                <ContactSection />
 
-                {showRestOfPage && (
-                    <Suspense fallback={null}>
-                        <AboutSection />
-                        <ProjectsSection />
-                        <ContactSection />
-                        <BackToTop />
-                    </Suspense>
-                )}
+                <Suspense fallback={null}>
+                    <BackToTop />
+                </Suspense>
             </div>
         </>
     );

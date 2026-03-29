@@ -22,31 +22,36 @@ type DeskSceneProps = {
 };
 
 export default function DeskScene({
-                                      isMobile = false,
-                                      isTablet = false,
-                                  }: DeskSceneProps) {
+    isMobile = false,
+    isTablet = false,
+}: DeskSceneProps) {
     const groupRef = useRef<THREE.Group>(null);
     const mouseRef = useParallaxMouse(isMobile);
 
-    useSceneMotion(groupRef, mouseRef, { isMobile, isTablet });
+    if (!isMobile) {
+        useSceneMotion(groupRef, mouseRef, { isMobile, isTablet });
+    }
 
-    const basePosition = isMobile
+    const basePosition: [number, number, number] = isMobile
         ? [-0.25, -0.6, 0.5]
         : isTablet
             ? [0.78, -1.58, 0]
             : [0.72, -1.5, 0];
 
-    const baseRotation = isMobile
+    const baseRotation: [number, number, number] = isMobile
         ? [0, -0.08, 0]
         : [-0.02, -0.18, 0];
 
     const baseScale = isMobile ? 0.88 : isTablet ? 0.93 : 1;
 
+    const staticMobilePosition: [number, number, number] = [-0.1, -2.05, 0];
+    const staticMobileRotation: [number, number, number] = [0, -0.06, 0];
+
     return (
         <group
             ref={groupRef}
-            position={basePosition}
-            rotation={baseRotation}
+            position={isMobile ? staticMobilePosition : basePosition}
+            rotation={isMobile ? staticMobileRotation : baseRotation}
             scale={baseScale}
         >
             <Rug position={[-0.2, 0, 0.2]} rotation={[0, 0, 0]} />

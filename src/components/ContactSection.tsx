@@ -11,16 +11,28 @@ export default function ContactSection() {
   const ctaRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isMobile || prefersReducedMotion) return;
+
     const ctx = gsap.context(() => {
       gsap.from(titleRef.current, {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 80%" },
-        y: 50, opacity: 0, duration: 0.8,
+        scrollTrigger: { trigger: sectionRef.current, start: "top 85%" },
+        y: 40,
+        opacity: 0,
+        duration: 0.7,
       });
+
       gsap.from(ctaRef.current, {
-        scrollTrigger: { trigger: sectionRef.current, start: "top 70%" },
-        y: 30, opacity: 0, duration: 0.6, delay: 0.3,
+        scrollTrigger: { trigger: sectionRef.current, start: "top 78%" },
+        y: 24,
+        opacity: 0,
+        duration: 0.5,
+        delay: 0.15,
       });
     }, sectionRef);
+
     return () => ctx.revert();
   }, []);
 

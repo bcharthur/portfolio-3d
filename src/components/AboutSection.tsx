@@ -23,32 +23,35 @@ export default function AboutSection() {
     const isMobile = window.innerWidth < 768;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    if (isMobile || prefersReducedMotion) return;
+
     const ctx = gsap.context(() => {
       gsap.from(titleRef.current, {
         scrollTrigger: { trigger: sectionRef.current, start: "top 88%" },
-        y: prefersReducedMotion ? 0 : isMobile ? 18 : 50,
+        y: 40,
         opacity: 0,
-        duration: isMobile ? 0.45 : 0.8,
+        duration: 0.7,
       });
 
       gsap.from(textRef.current, {
         scrollTrigger: { trigger: sectionRef.current, start: "top 84%" },
-        y: prefersReducedMotion ? 0 : isMobile ? 14 : 30,
+        y: 24,
         opacity: 0,
-        duration: isMobile ? 0.45 : 0.8,
-        delay: isMobile ? 0 : 0.2,
+        duration: 0.7,
+        delay: 0.1,
       });
 
-      if (skillsRef.current && !isMobile && !prefersReducedMotion) {
+      if (skillsRef.current) {
         gsap.from(skillsRef.current.children, {
           scrollTrigger: { trigger: skillsRef.current, start: "top 80%" },
-          y: 20,
+          y: 18,
           opacity: 0,
-          duration: 0.5,
-          stagger: 0.1,
+          duration: 0.45,
+          stagger: 0.08,
         });
       }
     }, sectionRef);
+
     return () => ctx.revert();
   }, []);
 
