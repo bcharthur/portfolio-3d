@@ -207,7 +207,7 @@ export default function HeroSection({
 
                     <div ref={badgeRef} className="mt-4 sm:mt-5 md:mt-6">
             <span className="inline-block rounded-sm bg-[#1e3a8a] px-3 py-2 text-[15px] font-extrabold uppercase tracking-[0.18em] text-white shadow-[0_8px_24px_rgba(0,0,0,0.22)] sm:px-4 sm:text-xs md:rotate-[-5deg] md:px-5 md:py-2.5 md:text-[1rem]">
-              Expert en cybersécurité
+              Cybersécurité
             </span>
                     </div>
                 </div>
