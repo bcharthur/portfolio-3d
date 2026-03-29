@@ -1,29 +1,30 @@
 export default function Pot() {
-    return (
-        <group>
-            {/* pot principal */}
-            <mesh castShadow receiveShadow position={[0, -0.02, 0]}>
-                <cylinderGeometry args={[0.24, 0.18, 0.28, 32]} />
-                <meshStandardMaterial color="#dccfc2" roughness={0.95} />
-            </mesh>
+  return (
+    <group>
+      <mesh castShadow receiveShadow position={[0, -0.08, 0]}>
+        <cylinderGeometry args={[0.23, 0.18, 0.2, 40]} />
+        <meshStandardMaterial color="#b49d8f" roughness={0.95} />
+      </mesh>
 
-            {/* rebord haut blanc */}
-            <mesh castShadow receiveShadow position={[0, 0.11, 0]}>
-                <cylinderGeometry args={[0.29, 0.245, 0.055, 32]} />
-                <meshStandardMaterial color="#f4f4f4" roughness={0.75} />
-            </mesh>
+      <mesh castShadow receiveShadow position={[0, -0.155, 0]}>
+        <cylinderGeometry args={[0.19, 0.175, 0.03, 40]} />
+        <meshStandardMaterial color="#f2efeb" roughness={0.78} />
+      </mesh>
 
-            {/* liseré bas blanc */}
-            <mesh castShadow receiveShadow position={[0, -0.145, 0]}>
-                <cylinderGeometry args={[0.205, 0.195, 0.04, 32]} />
-                <meshStandardMaterial color="#f4f4f4" roughness={0.75} />
-            </mesh>
+      <mesh castShadow receiveShadow position={[0, 0.085, 0]}>
+        <cylinderGeometry args={[0.255, 0.235, 0.06, 40]} />
+        <meshStandardMaterial color="#f4f1ed" roughness={0.72} />
+      </mesh>
 
-            {/* terre */}
-            <mesh receiveShadow position={[0, 0.07, 0]}>
-                <cylinderGeometry args={[0.205, 0.205, 0.05, 32]} />
-                <meshStandardMaterial color="#5a321b" roughness={1} />
-            </mesh>
-        </group>
-    );
+      <mesh receiveShadow position={[0, 0.092, 0]}>
+        <cylinderGeometry args={[0.205, 0.215, 0.035, 32]} />
+        <meshStandardMaterial color="#4b2917" roughness={1} />
+      </mesh>
+
+      <mesh castShadow receiveShadow position={[0, 0.102, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.2, 0.025, 18, 48]} />
+        <meshStandardMaterial color="#f7f4f1" roughness={0.7} />
+      </mesh>
+    </group>
+  );
 }
