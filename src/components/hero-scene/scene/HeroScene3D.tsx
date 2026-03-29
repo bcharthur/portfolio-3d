@@ -63,7 +63,7 @@ export default function HeroScene3D({ onReady }: HeroScene3DProps) {
                         powerPreference: 'high-performance',
                     }}
                     shadows={!isMobile}
-                    dpr={isMobile ? [1, 1.5] : [1, 2]}
+                    dpr={isMobile ? [2, 2] : [1, 2]}
                     style={{ background: 'transparent' }}
                 >
                     <ambientLight intensity={0.22} color="#6477a8" />
