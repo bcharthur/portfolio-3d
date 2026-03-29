@@ -44,7 +44,7 @@ export default function DeskScene({
 
     const baseScale = isMobile ? 0.88 : isTablet ? 0.93 : 1;
 
-    const staticMobilePosition: [number, number, number] = [-0.1, -2.05, 0];
+    const staticMobilePosition: [number, number, number] = [-0.5, -2.00, 0];
     const staticMobileRotation: [number, number, number] = [0, -0.06, 0];
 
     return (
