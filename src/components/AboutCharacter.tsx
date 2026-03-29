@@ -180,7 +180,7 @@ function CharacterModel() {
             hand: lH?.rotation.clone(),
         };
 
-        actions["idle_eyes"]?.reset().fadeIn(0.3).play();
+        // actions["idle_eyes"]?.reset().fadeIn(0.3).play();
     }, [scene, actions]);
 
     useEffect(() => {
