@@ -117,7 +117,9 @@ type AnimState = "idle" | "waving" | "peace";
 
 function CharacterModel() {
     const group = useRef<THREE.Group>(null);
-    const { scene, animations } = useGLTF("/models/arthur.glb");
+    const modelPath = `${import.meta.env.BASE_URL}models/arthur.glb`;
+
+    const { scene, animations } = useGLTF(modelPath);
     const { actions } = useAnimations(animations, group);
     const { size } = useThree();
 
@@ -298,7 +300,7 @@ function CharacterModel() {
     );
 }
 
-useGLTF.preload("/models/arthur.glb");
+useGLTF.preload(modelPath);
 
 export default function AboutCharacter() {
     const handIconRef = useRef<HandIconHandle>(null);
