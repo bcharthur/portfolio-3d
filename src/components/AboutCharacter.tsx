@@ -7,7 +7,7 @@ import {
     Environment,
     useAnimations,
 } from "@react-three/drei";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import * as THREE from "three";
 import { HandIcon, type HandIconHandle } from "@/components/ui/HandIcon";
 
@@ -302,19 +302,56 @@ useGLTF.preload("/models/arthur.glb");
 
 export default function AboutCharacter() {
     const handIconRef = useRef<HandIconHandle>(null);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-    const handleHelloClick = () => {
+    useEffect(() => {
+        const updateDeviceType = () => {
+            const hasTouch =
+                window.matchMedia("(hover: none), (pointer: coarse)").matches ||
+                "ontouchstart" in window ||
+                navigator.maxTouchPoints > 0;
+
+            setIsTouchDevice(hasTouch);
+        };
+
+        updateDeviceType();
+        window.addEventListener("resize", updateDeviceType);
+
+        return () => {
+            window.removeEventListener("resize", updateDeviceType);
+        };
+    }, []);
+
+    const triggerHello = useCallback(() => {
         handIconRef.current?.startAnimation();
         window.dispatchEvent(new Event("character-hello"));
 
         window.setTimeout(() => {
             handIconRef.current?.stopAnimation();
         }, 900);
+    }, []);
+
+    const handleHelloClick = () => {
+        triggerHello();
+    };
+
+    const handleModelMouseEnter = () => {
+        if (isTouchDevice) return;
+        triggerHello();
+    };
+
+    const handleModelClick = () => {
+        if (!isTouchDevice) return;
+        triggerHello();
     };
 
     return (
         <div className="relative w-full h-[360px] sm:h-[460px] md:h-[560px] lg:h-[700px] overflow-visible">
-            <div className="absolute inset-y-0 -left-12 -right-12 sm:-left-16 sm:-right-16 lg:-left-24 lg:-right-10 overflow-visible">
+            <div
+                className="absolute inset-y-0 -left-12 -right-12 sm:-left-16 sm:-right-16 lg:-left-24 lg:-right-10 overflow-visible cursor-pointer"
+                onMouseEnter={handleModelMouseEnter}
+                onClick={handleModelClick}
+            >
                 <Canvas
                     className="w-full h-full"
                     gl={{ alpha: true, antialias: true }}
@@ -344,20 +381,20 @@ export default function AboutCharacter() {
                 </Canvas>
             </div>
 
-            <div className="absolute bottom-4 right-4 z-10 flex gap-2">
-                <button
-                    type="button"
-                    onClick={handleHelloClick}
-                    aria-label="Dire bonjour"
-                    className="group flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white/70 text-neutral-800 shadow-sm backdrop-blur transition-all duration-200 hover:scale-105 hover:bg-white active:scale-95"
-                >
-                    <HandIcon
-                        ref={handIconRef}
-                        size={22}
-                        className="text-neutral-800 transition-transform duration-200 group-hover:scale-110"
-                    />
-                </button>
-            </div>
+            {/*<div className="absolute bottom-4 right-4 z-10 flex gap-2">*/}
+            {/*    <button*/}
+            {/*        type="button"*/}
+            {/*        onClick={handleHelloClick}*/}
+            {/*        aria-label="Dire bonjour"*/}
+            {/*        className="group flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white/70 text-neutral-800 shadow-sm backdrop-blur transition-all duration-200 hover:scale-105 hover:bg-white active:scale-95"*/}
+            {/*    >*/}
+            {/*        <HandIcon*/}
+            {/*            ref={handIconRef}*/}
+            {/*            size={22}*/}
+            {/*            className="text-neutral-800 transition-transform duration-200 group-hover:scale-110"*/}
+            {/*        />*/}
+            {/*    </button>*/}
+            {/*</div>*/}
         </div>
     );
 }
