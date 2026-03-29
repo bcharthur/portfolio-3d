@@ -12,7 +12,6 @@ const skills = [
     "Gouvernance & Gestion des risques",
     "Développement full-stack",
     "Conception logicielle",
-    "SQL Server & .NET",
     "Communication",
 ];
 
