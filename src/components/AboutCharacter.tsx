@@ -11,6 +11,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import * as THREE from "three";
 import { HandIcon, type HandIconHandle } from "@/components/ui/HandIcon";
 
+const modelPath = `${import.meta.env.BASE_URL}models/arthur.glb`;
+
 type ArmBones = {
     upperArm?: THREE.Bone;
     foreArm?: THREE.Bone;
@@ -117,7 +119,7 @@ type AnimState = "idle" | "waving" | "peace";
 
 function CharacterModel() {
     const group = useRef<THREE.Group>(null);
-    const modelPath = `${import.meta.env.BASE_URL}models/arthur.glb`;
+
 
     const { scene, animations } = useGLTF(modelPath);
     const { actions } = useAnimations(animations, group);
