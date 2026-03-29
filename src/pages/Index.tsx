@@ -38,17 +38,37 @@ export default function Index() {
     const [sceneReady, setSceneReady] = useState(false);
     const [pageReady, setPageReady] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const media = window.matchMedia("(max-width: 767px)");
+
+        const update = () => {
+            setIsMobile(media.matches);
+        };
+
+        update();
+        media.addEventListener("change", update);
+
+        return () => {
+            media.removeEventListener("change", update);
+        };
+    }, []);
 
     const isVisible = useMemo(() => {
+        if (isMobile) {
+            return !pageReady;
+        }
+
         return !(sceneReady && pageReady);
-    }, [sceneReady, pageReady]);
+    }, [isMobile, sceneReady, pageReady]);
 
     useEffect(() => {
         let cancelled = false;
 
         Promise.race([
-            Promise.all([waitForWindowLoad(), waitMinimum(250)]),
-            waitMinimum(1200),
+            Promise.all([waitForWindowLoad(), waitMinimum(180)]),
+            waitMinimum(900),
         ]).then(() => {
             if (!cancelled) {
                 setPageReady(true);
@@ -70,9 +90,9 @@ export default function Index() {
             setProgress((prev) => {
                 const limit = pageReady ? 92 : 78;
                 if (prev >= limit) return prev;
-                return prev + Math.max(1, Math.round((limit - prev) * 0.14));
+                return prev + Math.max(1, Math.round((limit - prev) * 0.16));
             });
-        }, 90);
+        }, 80);
 
         return () => window.clearInterval(interval);
     }, [isVisible, pageReady]);
@@ -108,7 +128,10 @@ export default function Index() {
 
             <div className="relative">
                 <Navbar />
-                <HeroSection onSceneReady={() => setSceneReady(true)} />
+                <HeroSection
+                    onSceneReady={() => setSceneReady(true)}
+                    startAnimation={!isVisible}
+                />
                 <AboutSection />
                 <ProjectsSection />
                 <ContactSection />
