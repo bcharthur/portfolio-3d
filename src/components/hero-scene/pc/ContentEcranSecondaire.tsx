@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
-import CodeScreenLines from './CodeScreenLines';
+import { useEffect, useMemo } from 'react';
+import * as THREE from 'three';
 import {
   SCREEN_TEXTURE_H,
   SCREEN_TEXTURE_W,
@@ -7,33 +7,44 @@ import {
   SCREEN_SURFACE_Z,
 } from './monitorConstants';
 
-type LineDef = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  color: string;
-};
-
-function buildLines(): LineDef[] {
-  const colors = ['#c77dff', '#7ee787', '#ffd866', '#f5a97f', '#78dce8', '#a6da95'];
-  const widths = [0.24, 0.30, 0.20, 0.34, 0.18, 0.26, 0.15, 0.29, 0.21, 0.33];
-
-  return widths.map((width, index) => ({
-    x: -SCREEN_TEXTURE_W / 2 + 0.09 + width / 2,
-    y: SCREEN_TEXTURE_H / 2 - 0.08 - index * 0.052,
-    width,
-    height: 0.013,
-    color: colors[index % colors.length],
-  }));
-}
-
 export default function ContentEcranSecondaire() {
-  const lines = useMemo(() => buildLines(), []);
+  const video = useMemo(() => {
+    const el = document.createElement('video');
+    el.src = '/videos/videoplayback.mp4';
+    el.crossOrigin = 'anonymous';
+    el.loop = true;
+    el.muted = true;
+    el.playsInline = true;
+    el.autoplay = true;
+    return el;
+  }, []);
+
+  const videoTexture = useMemo(() => {
+    const texture = new THREE.VideoTexture(video);
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.format = THREE.RGBAFormat;
+    return texture;
+  }, [video]);
+
+  useEffect(() => {
+    video.play().catch(() => {
+      console.warn('Lecture automatique bloquée par le navigateur.');
+    });
+
+    return () => {
+      video.pause();
+      video.src = '';
+      video.load();
+    };
+  }, [video]);
 
   return (
-      <group position={[0, SCREEN_SURFACE_Y, SCREEN_SURFACE_Z + 0.002]}>
-        <CodeScreenLines lines={lines} />
+      <group position={[0, SCREEN_SURFACE_Y, SCREEN_SURFACE_Z + 0.003]}>
+        <mesh>
+          <planeGeometry args={[SCREEN_TEXTURE_W - 0.02, SCREEN_TEXTURE_H - 0.02]} />
+          <meshBasicMaterial map={videoTexture} toneMapped={false} />
+        </mesh>
       </group>
   );
 }

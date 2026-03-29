@@ -3,6 +3,8 @@ import { RoundedBox, useTexture } from '@react-three/drei';
 
 export default function WallBoard({ position = [0, 0, 0], rotation = [0, 0, 0] }: Common3DProps) {
     const posterTexture = useTexture(`${import.meta.env.BASE_URL}textures/affiche-esd.jpg`)
+    const secondPosterTexture = useTexture(`${import.meta.env.BASE_URL}textures/eni.png`);
+
 
     return (
         <group position={position} rotation={rotation}>
@@ -80,15 +82,6 @@ export default function WallBoard({ position = [0, 0, 0], rotation = [0, 0, 0] }
                     <meshStandardMaterial map={posterTexture}/>
                 </mesh>
 
-                {/* Lignes de texte (détails) sur la feuille blanche */}
-                {/*<group position={[0, -0.04, 0.005]}>*/}
-                {/*    <mesh position={[0, 0.06, 0]}><boxGeometry args={[0.14, 0.012, 0.002]} /><meshStandardMaterial color="#dcd6ce" /></mesh>*/}
-                {/*    <mesh position={[-0.02, 0.03, 0]}><boxGeometry args={[0.10, 0.012, 0.002]} /><meshStandardMaterial color="#dcd6ce" /></mesh>*/}
-                {/*    <mesh position={[0.02, 0, 0]}><boxGeometry args={[0.18, 0.012, 0.002]} /><meshStandardMaterial color="#dcd6ce" /></mesh>*/}
-                {/*    <mesh position={[-0.03, -0.03, 0]}><boxGeometry args={[0.08, 0.012, 0.002]} /><meshStandardMaterial color="#dcd6ce" /></mesh>*/}
-                {/*    <mesh position={[0.01, -0.06, 0]}><boxGeometry args={[0.16, 0.012, 0.002]} /><meshStandardMaterial color="#dcd6ce" /></mesh>*/}
-                {/*</group>*/}
-
                 {/* Punaise droite */}
                 <group position={[0, 0.12, 0.015]}>
                     <mesh position={[0, 0, 0.02]} rotation={[Math.PI / 2, 0, 0]} castShadow>
@@ -99,6 +92,27 @@ export default function WallBoard({ position = [0, 0, 0], rotation = [0, 0, 0] }
                         <cylinderGeometry args={[0.025, 0.025, 0.03, 32]}/>
                         <meshStandardMaterial color="#d45a69" roughness={0.7}/>
                     </mesh>
+                </group>
+
+                {/* --- NOUVELLE FICHE --- */}
+                <group position={[-0.3, 0.18, 0.055]} rotation={[0, 0, 0.1]}>
+                    {/* Feuille */}
+                    <mesh castShadow>
+                        <planeGeometry args={[0.22, 0.30]} />
+                        <meshStandardMaterial map={secondPosterTexture} />
+                    </mesh>
+
+                    {/* Punaise */}
+                    <group position={[0, 0.11, 0.015]}>
+                        <mesh position={[0, 0, 0.02]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+                            <cylinderGeometry args={[0.045, 0.045, 0.02, 32]} />
+                            <meshStandardMaterial color="#e56b7a" roughness={0.6} />
+                        </mesh>
+                        <mesh position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+                            <cylinderGeometry args={[0.025, 0.025, 0.03, 32]} />
+                            <meshStandardMaterial color="#d45a69" roughness={0.7} />
+                        </mesh>
+                    </group>
                 </group>
             </group>
 
