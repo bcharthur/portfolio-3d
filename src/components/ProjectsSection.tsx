@@ -37,23 +37,27 @@ export default function ProjectsSection() {
     const isMobile = window.innerWidth < 768;
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    if (isMobile || prefersReducedMotion) return;
+
     const ctx = gsap.context(() => {
       gsap.from(titleRef.current, {
         scrollTrigger: { trigger: sectionRef.current, start: "top 88%" },
-        y: prefersReducedMotion ? 0 : isMobile ? 18 : 50,
+        y: 40,
         opacity: 0,
-        duration: isMobile ? 0.45 : 0.8,
+        duration: 0.7,
       });
+
       if (cardsRef.current) {
         gsap.from(cardsRef.current.children, {
           scrollTrigger: { trigger: cardsRef.current, start: "top 88%" },
-          y: prefersReducedMotion ? 0 : isMobile ? 20 : 60,
+          y: 40,
           opacity: 0,
-          duration: isMobile ? 0.5 : 0.7,
-          stagger: isMobile || prefersReducedMotion ? 0.06 : 0.15,
+          duration: 0.6,
+          stagger: 0.12,
         });
       }
     }, sectionRef);
+
     return () => ctx.revert();
   }, []);
 
