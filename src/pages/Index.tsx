@@ -1,4 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import SplashScreen from "@/components/SplashScreen";
@@ -7,6 +9,8 @@ import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
 
 const BackToTop = lazy(() => import("@/components/BackToTop"));
+
+gsap.registerPlugin(ScrollTrigger);
 
 function waitForWindowLoad() {
     return new Promise<void>((resolve) => {
@@ -43,10 +47,7 @@ export default function Index() {
         let cancelled = false;
 
         Promise.race([
-            Promise.all([
-                waitForWindowLoad(),
-                waitMinimum(250),
-            ]),
+            Promise.all([waitForWindowLoad(), waitMinimum(250)]),
             waitMinimum(1200),
         ]).then(() => {
             if (!cancelled) {
@@ -81,6 +82,24 @@ export default function Index() {
         return () => {
             document.body.style.overflow = "";
         };
+    }, [isVisible]);
+
+    useEffect(() => {
+        if (isVisible) return;
+
+        const refreshAfterReveal = async () => {
+            if (document.fonts?.ready) {
+                await document.fonts.ready;
+            }
+
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    ScrollTrigger.refresh();
+                });
+            });
+        };
+
+        refreshAfterReveal();
     }, [isVisible]);
 
     return (
