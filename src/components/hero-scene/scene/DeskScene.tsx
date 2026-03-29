@@ -13,7 +13,7 @@ import Mouse from '../pc/Mouse';
 import WallShelf from '../environment/WallShelf';
 import WallBoard from '../environment/WallBoard';
 import WallClock from '../environment/WallClock';
-import Plant from '../environment/Plant';
+import Plant from '../environment/Plant/Plant.tsx';
 import Desk from '@/components/hero-scene/desk/Desk.tsx';
 
 type DeskSceneProps = {
@@ -78,7 +78,7 @@ export default function DeskScene({
             <WallShelf position={[-1.3, 2.1, -1.3]} rotation={[0, 0, 0]} />
             <WallBoard position={[0.2, 2.4, -1.3]} rotation={[0, 0, 0]} />
             <WallClock position={[1.3, 2.0, -1.3]} />
-            <Plant position={[1.5, 0.1, -1.5]} rotation={[0, 0, 0]} />
+            <Plant position={[1.5, 0.18, -1.5]} rotation={[0, 0, 0]} />
         </group>
     );
 }
