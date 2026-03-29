@@ -29,7 +29,7 @@ export default function HeroScene3D({ onReady }: HeroScene3DProps) {
     const { isMobile, isTablet } = useResponsiveScene();
 
     const camera = isMobile
-        ? { position: [5.9, 3.25, 9.0] as [number, number, number], fov: 25 }
+        ? { position: [5.9, 3.25, 9.0] as [number, number, number], fov: 24 }
         : isTablet
             ? { position: [4.8, 2.8, 7.0] as [number, number, number], fov: 31 }
             : { position: [4.0, 2.45, 6.0] as [number, number, number], fov: 27 };
