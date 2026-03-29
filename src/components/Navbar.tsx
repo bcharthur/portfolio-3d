@@ -41,7 +41,7 @@ export default function Navbar() {
         onClick={() => scrollTo("contact")}
         className="bg-accent text-accent-foreground px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
       >
-        GET IN TOUCH
+        CONTACTEZ MOI !
       </button>
     </nav>
   );

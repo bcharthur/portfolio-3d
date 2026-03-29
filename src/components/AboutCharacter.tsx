@@ -1,3 +1,5 @@
+"use client";
+
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
     OrbitControls,
@@ -7,6 +9,7 @@ import {
 } from "@react-three/drei";
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import { HandIcon, type HandIconHandle } from "@/components/ui/HandIcon";
 
 type ArmBones = {
     upperArm?: THREE.Bone;
@@ -138,11 +141,10 @@ function CharacterModel() {
     const isMobile = size.width < 640;
     const isTablet = size.width >= 640 && size.width < 1024;
 
-    // Zoom légèrement renforcé sur mobile
-    const modelScale = isMobile ? 1.5 : isTablet ? 1.22 : 1.34;
+    const modelScale = isMobile ? 1.8 : isTablet ? 1.22 : 1.34;
 
     const modelPosition: [number, number, number] = isMobile
-        ? [0.18, -2.15, 0]
+        ? [0.18, -2.8, 0]
         : isTablet
             ? [0.2, -1.8, 0]
             : [0.34, -2.02, 0];
@@ -299,9 +301,20 @@ function CharacterModel() {
 useGLTF.preload("/models/arthur.glb");
 
 export default function AboutCharacter() {
+    const handIconRef = useRef<HandIconHandle>(null);
+
+    const handleHelloClick = () => {
+        handIconRef.current?.startAnimation();
+        window.dispatchEvent(new Event("character-hello"));
+
+        window.setTimeout(() => {
+            handIconRef.current?.stopAnimation();
+        }, 900);
+    };
+
     return (
         <div className="relative w-full h-[360px] sm:h-[460px] md:h-[560px] lg:h-[700px] overflow-visible">
-            <div className="absolute inset-y-0 -left-12 -right-12 sm:-left-16 sm:-right-16 lg:-left-24 lg:-right-10 overflow-visible pointer-events-none">
+            <div className="absolute inset-y-0 -left-12 -right-12 sm:-left-16 sm:-right-16 lg:-left-24 lg:-right-10 overflow-visible">
                 <Canvas
                     className="w-full h-full"
                     gl={{ alpha: true, antialias: true }}
@@ -320,7 +333,7 @@ export default function AboutCharacter() {
 
                     <OrbitControls
                         target={[0.22, -0.15, 0]}
-                        enableRotate={true}
+                        enableRotate={false}
                         enableZoom={false}
                         enablePan={false}
                         minAzimuthAngle={-0.45}
@@ -331,12 +344,18 @@ export default function AboutCharacter() {
                 </Canvas>
             </div>
 
-            <div className="absolute bottom-4 left-4 z-10 flex gap-2">
+            <div className="absolute bottom-4 right-4 z-10 flex gap-2">
                 <button
-                    onClick={() => window.dispatchEvent(new Event("character-hello"))}
-                    className="px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white backdrop-blur"
+                    type="button"
+                    onClick={handleHelloClick}
+                    aria-label="Dire bonjour"
+                    className="group flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white/70 text-neutral-800 shadow-sm backdrop-blur transition-all duration-200 hover:scale-105 hover:bg-white active:scale-95"
                 >
-                    👋
+                    <HandIcon
+                        ref={handIconRef}
+                        size={22}
+                        className="text-neutral-800 transition-transform duration-200 group-hover:scale-110"
+                    />
                 </button>
             </div>
         </div>
