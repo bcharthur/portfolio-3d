@@ -245,8 +245,8 @@ function CharacterModel() {
             <primitive
                 object={scene}
                 scale={1.5}
-                position={[0, -2, 0]}
-                rotation={[0, Math.PI / 6, 0]}
+                position={[0.15, -2, 0]}
+                rotation={[0, Math.PI / 30, 0]}
             />
         </group>
     );
@@ -256,13 +256,15 @@ useGLTF.preload("/models/arthur.glb");
 
 export default function AboutCharacter() {
     return (
-        <div className="w-full h-[320px] md:h-[420px] lg:h-[500px] relative">
-            <Canvas camera={{ position: [0.5, 1.2, 3.2], fov: 30 }}>
-                <ambientLight intensity={1.2} />
-                <directionalLight position={[3, 4, 2]} intensity={1.8} />
-                <Environment preset="city" />
-                <CharacterModel />
-                <OrbitControls enableZoom={false} enablePan={false} />
+        <div
+            className="w-full min-w-[520px] h-[420px] md:min-w-[620px] md:h-[520px] lg:min-w-[760px] lg:h-[620px] relative"
+        >
+            <Canvas camera={{position: [0.5, 1.2, 3.2], fov: 30}}>
+                <ambientLight intensity={1.2}/>
+                <directionalLight position={[3, 4, 2]} intensity={1.8}/>
+                <Environment preset="city"/>
+                <CharacterModel/>
+                <OrbitControls enableZoom={false} enablePan={false}/>
             </Canvas>
 
             <div className="absolute bottom-4 left-4 flex gap-2">
@@ -272,12 +274,6 @@ export default function AboutCharacter() {
                 >
                     👋
                 </button>
-                {/*<button*/}
-                {/*    onClick={() => window.dispatchEvent(new Event("character-peace"))}*/}
-                {/*    className="px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white backdrop-blur"*/}
-                {/*>*/}
-                {/*    ✌️ Peace*/}
-                {/*</button>*/}
             </div>
         </div>
     );
