@@ -29,7 +29,7 @@ export default function HeroScene3D({ onReady }: HeroScene3DProps) {
     const { isMobile, isTablet } = useResponsiveScene();
 
     const camera = isMobile
-        ? { position: [5.9, 3.25, 9.0] as [number, number, number], fov: 30 }
+        ? { position: [5.9, 3.25, 9.0] as [number, number, number], fov: 24 }
         : isTablet
             ? { position: [4.8, 2.8, 7.0] as [number, number, number], fov: 31 }
             : { position: [4.0, 2.45, 6.0] as [number, number, number], fov: 27 };
@@ -63,7 +63,7 @@ export default function HeroScene3D({ onReady }: HeroScene3DProps) {
                         powerPreference: 'high-performance',
                     }}
                     shadows={!isMobile}
-                    dpr={isMobile ? [1, 1.5] : [1, 2]}
+                    dpr={isMobile ? [2, 2] : [1, 2]}
                     style={{ background: 'transparent' }}
                 >
                     <ambientLight intensity={0.22} color="#6477a8" />

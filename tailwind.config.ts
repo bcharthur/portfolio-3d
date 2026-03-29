@@ -15,6 +15,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Space Grotesk", "system-ui", "sans-serif"],
+        watchdogs: ['"WatchDogs"', "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

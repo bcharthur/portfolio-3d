@@ -175,13 +175,15 @@ export default function Mug({
                         position={[particle.x, 0.18, particle.z]}
                         renderOrder={10}
                     >
-                        <planeGeometry args={[1, 1.6]}/>
+                        <planeGeometry args={[1.3, 2.1]}/>
                         <meshStandardMaterial
                             color="#ffffff"
                             transparent
-                            opacity={0.12}
+                            opacity={0.22}
                             roughness={1}
                             metalness={0}
+                            emissive="#ffffff"
+                            emissiveIntensity={0.08}
                             depthWrite={false}
                         />
                     </mesh>

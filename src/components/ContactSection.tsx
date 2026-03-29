@@ -85,9 +85,9 @@ export default function ContactSection() {
             ref={titleRef}
             className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-foreground leading-[1.02]"
         >
-          Let's work
+          Travaillons
           <br />
-          <span className="italic">together!</span>
+          <span className="italic">ensemble !</span>
         </h2>
 
         <a
@@ -96,7 +96,7 @@ export default function ContactSection() {
             className="mt-12 inline-flex items-center gap-3 bg-foreground text-background px-8 py-4 rounded-full text-lg font-semibold hover:gap-5 transition-all duration-300 group"
         >
           <Mail size={20} />
-          Start a new project
+          Commencer un nouveau projet
           <ArrowUpRight
               size={18}
               className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
