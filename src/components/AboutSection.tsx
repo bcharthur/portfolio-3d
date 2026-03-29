@@ -9,10 +9,9 @@ const skills = [
     "Cybersécurité",
     "Analyse de risques EBIOS RM",
     "Veille cybersécurité",
-    "GRC & gestion des tiers",
+    "Gouvernance & Gestion des risques",
     "Développement full-stack",
     "Conception logicielle",
-    "SQL Server & .NET",
     "Communication",
 ];
 
