@@ -10,7 +10,7 @@ import {
 export default function ContentEcranSecondaire() {
   const video = useMemo(() => {
     const el = document.createElement('video');
-    el.src = '/videos/videoplayback.mp4';
+    el.src = `${import.meta.env.BASE_URL}videos/videoplayback.mp4`;
     el.crossOrigin = 'anonymous';
     el.loop = true;
     el.muted = true;

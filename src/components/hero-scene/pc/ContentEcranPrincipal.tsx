@@ -8,7 +8,10 @@ import {
 } from './monitorConstants';
 
 export default function ContentEcranPrincipal() {
-  const texture = useLoader(THREE.TextureLoader, '/images/kali.jpg');
+    const texture = useLoader(
+        THREE.TextureLoader,
+        `${import.meta.env.BASE_URL}images/kali.jpg`
+    );
 
   // texture.flipY = false;
 
