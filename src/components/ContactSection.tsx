@@ -107,7 +107,7 @@ export default function ContactSection() {
             ref={footerRef}
             className="mt-24 flex items-center gap-8 text-sm text-muted-foreground"
         >
-          {["About", "Projects", "Contact"].map((s) => (
+          {["A propos", "Projets", "Contact"].map((s) => (
               <button
                   key={s}
                   onClick={() =>
