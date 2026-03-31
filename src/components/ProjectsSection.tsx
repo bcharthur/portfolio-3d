@@ -100,7 +100,7 @@ export default function ProjectsSection() {
 
   return (
       <section
-          id="projects"
+          id="projets"
           ref={sectionRef}
           className="min-h-screen px-6 md:px-16 lg:px-24 py-20 md:py-24"
       >

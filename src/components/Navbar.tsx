@@ -27,7 +27,7 @@ export default function Navbar() {
         {/*Portfolio*/}
       </div>
       <div className="hidden md:flex items-center gap-1 bg-secondary/80 backdrop-blur-sm rounded-full px-2 py-1.5 border border-border">
-        {["about", "projects", "contact"].map((s) => (
+        {["a propos", "projets", "contact"].map((s) => (
           <button
             key={s}
             onClick={() => scrollTo(s)}
