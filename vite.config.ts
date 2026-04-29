@@ -6,8 +6,8 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => ({
   base: mode === "production" ? "/portfolio-3d/" : "/",
   server: {
-    host: "::",
-    port: 8080,
+    host: "127.0.0.1",
+    port: 5173,
     hmr: {
       overlay: false,
     },
