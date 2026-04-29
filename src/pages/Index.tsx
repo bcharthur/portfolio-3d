@@ -7,6 +7,7 @@ import SplashScreen from "@/components/SplashScreen";
 import AboutSection from "@/components/AboutSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
+import SectionWaveDivider from "@/components/SectionWaveDivider";
 
 const BackToTop = lazy(() => import("@/components/BackToTop"));
 
@@ -156,7 +157,9 @@ export default function Index() {
                     startAnimation={startHeroAnimation}
                 />
                 <AboutSection />
+                <SectionWaveDivider className="opacity-90" />
                 <ProjectsSection />
+                <SectionWaveDivider className="opacity-80" />
                 <ContactSection />
 
                 <Suspense fallback={null}>

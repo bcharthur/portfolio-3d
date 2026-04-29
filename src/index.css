@@ -131,3 +131,23 @@ html::-webkit-scrollbar {
   font-style: normal;
   font-display: swap;
 }
+
+.section-wave-divider {
+  animation: section-wave-slide 10s ease-in-out infinite alternate;
+}
+
+@keyframes section-wave-slide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-wave-divider {
+    animation: none;
+  }
+}
