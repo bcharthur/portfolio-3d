@@ -19,6 +19,12 @@ type ArmBones = {
     hand?: THREE.Bone;
 };
 
+type LegBones = {
+    hip?: THREE.Bone;
+    upperLeg?: THREE.Bone;
+    lowerLeg?: THREE.Bone;
+};
+
 function findRightArmBones(root: THREE.Object3D): ArmBones {
     const bones: ArmBones = {};
 
@@ -115,9 +121,89 @@ function findLeftArmBones(root: THREE.Object3D): ArmBones {
     return bones;
 }
 
+function findRightLegBones(root: THREE.Object3D): LegBones {
+    const bones: LegBones = {};
+
+    root.traverse((obj) => {
+        if (!(obj instanceof THREE.Bone)) return;
+        const name = obj.name.toLowerCase();
+
+        if (
+            !bones.upperLeg &&
+            (
+                name.includes("rightthigh") ||
+                name.includes("thigh_r") ||
+                name.includes("r_thigh") ||
+                name.includes("upperleg_r") ||
+                name.includes("rightupperleg")
+            )
+        ) {
+            bones.upperLeg = obj;
+        }
+
+        if (
+            !bones.lowerLeg &&
+            (
+                name.includes("rightshin") ||
+                name.includes("shin_r") ||
+                name.includes("r_shin") ||
+                name.includes("lowerleg_r") ||
+                name.includes("rightlowerleg") ||
+                name.includes("rightcalf")
+            )
+        ) {
+            bones.lowerLeg = obj;
+        }
+    });
+
+    return bones;
+}
+
+function findLeftLegBones(root: THREE.Object3D): LegBones {
+    const bones: LegBones = {};
+
+    root.traverse((obj) => {
+        if (!(obj instanceof THREE.Bone)) return;
+        const name = obj.name.toLowerCase();
+
+        if (
+            !bones.upperLeg &&
+            (
+                name.includes("leftthigh") ||
+                name.includes("thigh_l") ||
+                name.includes("l_thigh") ||
+                name.includes("upperleg_l") ||
+                name.includes("leftupperleg")
+            )
+        ) {
+            bones.upperLeg = obj;
+        }
+
+        if (
+            !bones.lowerLeg &&
+            (
+                name.includes("leftshin") ||
+                name.includes("shin_l") ||
+                name.includes("l_shin") ||
+                name.includes("lowerleg_l") ||
+                name.includes("leftlowerleg") ||
+                name.includes("leftcalf")
+            )
+        ) {
+            bones.lowerLeg = obj;
+        }
+    });
+
+    return bones;
+}
+
 type AnimState = "idle" | "waving" | "peace";
 
-function CharacterModel() {
+type CharacterModelProps = {
+    sitting?: boolean;
+};
+
+function CharacterModel({ sitting = false }: CharacterModelProps) {
     const group = useRef<THREE.Group>(null);
 
 
@@ -139,19 +225,34 @@ function CharacterModel() {
         hand?: THREE.Euler;
     }>({});
 
+    const rightLegBonesRef = useRef<LegBones>({});
+    const leftLegBonesRef = useRef<LegBones>({});
+
     const [animState, setAnimState] = useState<AnimState>("idle");
     const animStartRef = useRef(0);
 
     const isMobile = size.width < 640;
     const isTablet = size.width >= 640 && size.width < 1024;
 
-    const modelScale = isMobile ? 1.8 : isTablet ? 1.22 : 1.34;
+    const modelScale = sitting
+        ? isMobile
+            ? 1.2
+            : isTablet
+                ? 1.0
+                : 1.1
+        : isMobile
+            ? 1.8
+            : isTablet
+                ? 1.22
+                : 1.34;
 
-    const modelPosition: [number, number, number] = isMobile
-        ? [0.18, -2.8, 0]
-        : isTablet
-            ? [0.2, -1.8, 0]
-            : [0.34, -2.02, 0];
+    const modelPosition: [number, number, number] = sitting
+        ? [0.1, -0.5, 0]
+        : isMobile
+            ? [0.18, -2.8, 0]
+            : isTablet
+                ? [0.2, -1.8, 0]
+                : [0.34, -2.02, 0];
 
     useEffect(() => {
         bonesRef.current = findRightArmBones(scene);
@@ -180,8 +281,22 @@ function CharacterModel() {
             hand: lH?.rotation.clone(),
         };
 
+        if (sitting) {
+            rightLegBonesRef.current = findRightLegBones(scene);
+            const { upperLeg: rUL, lowerLeg: rLL } = rightLegBonesRef.current;
+
+            if (rUL) rUL.rotation.set(1.1, 0, 0);
+            if (rLL) rLL.rotation.set(-1.3, 0, 0);
+
+            leftLegBonesRef.current = findLeftLegBones(scene);
+            const { upperLeg: lUL, lowerLeg: lLL } = leftLegBonesRef.current;
+
+            if (lUL) lUL.rotation.set(1.1, 0, 0);
+            if (lLL) lLL.rotation.set(-1.3, 0, 0);
+        }
+
         // actions["idle_eyes"]?.reset().fadeIn(0.3).play();
-    }, [scene, actions]);
+    }, [scene, actions, sitting]);
 
     useEffect(() => {
         const onHello = () => {
@@ -296,7 +411,7 @@ function CharacterModel() {
                 object={scene}
                 scale={modelScale}
                 position={modelPosition}
-                rotation={[0, Math.PI / 30, 0]}
+                rotation={sitting ? [0.15, Math.PI / 30, 0] : [0, Math.PI / 30, 0]}
             />
         </group>
     );
@@ -360,27 +475,23 @@ export default function AboutCharacter() {
                     className="w-full h-full"
                     gl={{ alpha: true, antialias: true }}
                     camera={{
-                        position: [0.48, 1.12, 4.2],
-                        fov: 23,
+                        position: [2.0, 1.5, 3.0],
+                        fov: 28,
                         near: 0.1,
                         far: 100,
                     }}
                 >
-                    <ambientLight intensity={1.15} />
-                    <directionalLight position={[3, 4, 2]} intensity={1.8} />
+                    <ambientLight intensity={0.22} color="#6477a8" />
+                    <directionalLight position={[3, 4, 2]} intensity={1.5} />
                     <Environment preset="city" />
 
-                    <CharacterModel />
+                    <CharacterModel sitting={true} />
 
                     <OrbitControls
-                        target={[0.22, -0.15, 0]}
+                        target={[0.1, 0.3, 0]}
                         enableRotate={false}
                         enableZoom={false}
                         enablePan={false}
-                        minAzimuthAngle={-0.45}
-                        maxAzimuthAngle={0.35}
-                        minPolarAngle={1.15}
-                        maxPolarAngle={1.85}
                     />
                 </Canvas>
             </div>
