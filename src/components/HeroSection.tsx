@@ -226,6 +226,19 @@ export default function HeroSection({
                     </div>
                 )}
             </div>
-        </section>
+        
+            <div aria-hidden="true" className="pointer-events-none absolute bottom-[-1px] left-0 z-20 h-14 w-full overflow-hidden md:h-20">
+                <svg
+                    className="section-wave-divider h-full w-[200%]"
+                    viewBox="0 0 1440 120"
+                    preserveAspectRatio="none"
+                >
+                    <path
+                        d="M0,48C120,80,240,96,360,88C480,80,600,48,720,44C840,40,960,64,1080,76C1200,88,1320,88,1440,68V120H0Z"
+                        fill="hsl(var(--background))"
+                    />
+                </svg>
+            </div>
+</section>
     );
 }
