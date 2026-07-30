@@ -1,14 +1,22 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Mail, ArrowUpRight } from "lucide-react";
+import { Mail, ArrowUpRight, Linkedin, Github, Bug } from "lucide-react";
+import { siteSections } from "@/lib/sections";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const socialLinks = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/arthur-bouchaud-a74981238", icon: Linkedin },
+  { label: "GitHub", href: "https://github.com/bcharthur", icon: Github },
+  { label: "YesWeHack", href: "https://yeswehack.com/hunters/br0nson", icon: Bug },
+];
 
 export default function ContactSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const ctaRef = useRef<HTMLAnchorElement>(null);
+  const socialRef = useRef<HTMLDivElement>(null);
   const footerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -47,6 +55,25 @@ export default function ContactSection() {
               scrollTrigger: {
                 trigger: sectionRef.current,
                 start: "top 80%",
+                once: true,
+              },
+            }
+        );
+      }
+
+      if (socialRef.current) {
+        gsap.fromTo(
+            socialRef.current,
+            { y: 14, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.45,
+              delay: 0.1,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top 78%",
                 once: true,
               },
             }
@@ -92,7 +119,7 @@ export default function ContactSection() {
 
         <a
             ref={ctaRef}
-            href="mailto:hello@example.com"
+            href="mailto:art.bouchaud@gmail.com"
             className="mt-12 inline-flex items-center gap-3 bg-foreground text-background px-8 py-4 rounded-full text-lg font-semibold hover:gap-5 transition-all duration-300 group"
         >
           <Mail size={20} />
@@ -103,19 +130,35 @@ export default function ContactSection() {
           />
         </a>
 
+        <div ref={socialRef} className="mt-10 flex items-center gap-6">
+          {socialLinks.map(({ label, href, icon: Icon }) => (
+              <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Icon size={18} />
+                {label}
+              </a>
+          ))}
+        </div>
+
         <footer
             ref={footerRef}
-            className="mt-24 flex items-center gap-8 text-sm text-muted-foreground"
+            className="mt-24 flex flex-wrap items-center justify-center gap-6 md:gap-8 text-sm text-muted-foreground"
         >
-          {["A propos", "Projets", "Contact"].map((s) => (
+          {siteSections.map((section) => (
               <button
-                  key={s}
+                  key={section.id}
                   onClick={() =>
-                      document.getElementById(s.toLowerCase())?.scrollIntoView({ behavior: "smooth" })
+                      document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth" })
                   }
                   className="hover:text-foreground transition-colors"
               >
-                {s}
+                {section.label}
               </button>
           ))}
         </footer>
