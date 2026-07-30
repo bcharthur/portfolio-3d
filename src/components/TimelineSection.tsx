@@ -76,7 +76,7 @@ export default function TimelineSection() {
         Formation et expérience, en parallèle
       </p>
 
-      <div ref={listRef} className="max-w-5xl space-y-6 md:space-y-8">
+      <div ref={listRef} className="max-w-6xl mx-auto space-y-6 md:space-y-8">
         {timelineGroups.map((group) => (
           <TimelineGroupBlock key={group.id} group={group} />
         ))}

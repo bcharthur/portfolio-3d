@@ -9,7 +9,7 @@ interface TimelineGroupBlockProps {
 export default function TimelineGroupBlock({ group }: TimelineGroupBlockProps) {
   return (
     <div className="rounded-3xl border border-dashed border-border bg-secondary/50 p-4 md:p-7">
-      <div className="flex items-center gap-3 mb-4 md:mb-5 px-1">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 mb-4 md:mb-5 px-1">
         <span className="h-2 w-2 rounded-full bg-accent" />
         <h3 className="text-lg md:text-2xl font-bold text-foreground tracking-tight">
           {group.period}
