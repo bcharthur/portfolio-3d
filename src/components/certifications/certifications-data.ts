@@ -42,7 +42,7 @@ export const certifications: Certification[] = [
   {
     name: "Fortinet FortiGate 7.4 Operator",
     issuer: "Fortinet",
-    date: "2024",
+    date: "Nov. 2023",
     href: "https://www.credly.com/earner/earned/badge/06da1cc3-3f53-46d1-9002-cfc7d1fffbb5",
   },
   {
