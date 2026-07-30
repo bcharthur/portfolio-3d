@@ -1,9 +1,10 @@
 import type { TimelineGroup } from "./types";
 
 const logos = {
-  covea: `${import.meta.env.BASE_URL}images/logos/covea.png`,
-  groupama: `${import.meta.env.BASE_URL}images/logos/groupama.png`,
+  covea: `${import.meta.env.BASE_URL}images/logos/covea.jpg`,
+  groupama: `${import.meta.env.BASE_URL}images/logos/groupama.jpg`,
   yeswehack: `${import.meta.env.BASE_URL}images/logos/yeswehack.jpg`,
+  a4rectoverso: `${import.meta.env.BASE_URL}images/logos/a4rectoverso.jpg`,
 };
 
 export const timelineGroups: TimelineGroup[] = [
@@ -80,10 +81,11 @@ export const timelineGroups: TimelineGroup[] = [
     },
     experiences: [
       {
-        id: "a4-recto-verso",
+        id: "a4rectoverso",
         title: "Technicien informatique",
         org: "A4 Recto-Verso",
         location: "Chauvigny · Stage",
+        logo: logos.a4rectoverso,
         period: "Mai - Juil. 2022",
         description: "Stage technique en environnement PHP et science informatique.",
       },
