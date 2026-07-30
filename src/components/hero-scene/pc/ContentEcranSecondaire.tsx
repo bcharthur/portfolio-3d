@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
+import { getHeroVideoUrl } from '@/lib/media';
 import {
   SCREEN_TEXTURE_H,
   SCREEN_TEXTURE_W,
@@ -10,12 +11,25 @@ import {
 export default function ContentEcranSecondaire() {
   const video = useMemo(() => {
     const el = document.createElement('video');
-    el.src = `${import.meta.env.BASE_URL}videos/videoplayback.mp4`;
+    el.src = getHeroVideoUrl();
     el.crossOrigin = 'anonymous';
     el.loop = true;
     el.muted = true;
+    el.defaultMuted = true;
     el.playsInline = true;
+    el.preload = 'auto';
     el.autoplay = true;
+    // Safari refuses to decode/play <video> elements that aren't attached to
+    // the DOM. Attach it, but keep it fully out of the visible layout.
+    el.style.position = 'fixed';
+    el.style.width = '1px';
+    el.style.height = '1px';
+    el.style.opacity = '0';
+    el.style.pointerEvents = 'none';
+    el.setAttribute('muted', '');
+    el.setAttribute('playsinline', '');
+    el.setAttribute('webkit-playsinline', '');
+    el.tabIndex = -1;
     return el;
   }, []);
 
@@ -28,14 +42,31 @@ export default function ContentEcranSecondaire() {
   }, [video]);
 
   useEffect(() => {
-    video.play().catch(() => {
-      console.warn('Lecture automatique bloquée par le navigateur.');
-    });
+    document.body.appendChild(video);
+
+    const tryPlay = () => {
+      video.play().catch(() => {
+        console.warn('Lecture automatique bloquée par le navigateur.');
+      });
+    };
+
+    tryPlay();
+
+    // Safari sometimes still refuses the initial programmatic play() (Low
+    // Power Mode, strict autoplay settings): retry on the first gesture.
+    const onFirstInteraction = () => tryPlay();
+    window.addEventListener('pointerdown', onFirstInteraction, { once: true });
+    window.addEventListener('touchstart', onFirstInteraction, { once: true });
+    window.addEventListener('keydown', onFirstInteraction, { once: true });
 
     return () => {
+      window.removeEventListener('pointerdown', onFirstInteraction);
+      window.removeEventListener('touchstart', onFirstInteraction);
+      window.removeEventListener('keydown', onFirstInteraction);
       video.pause();
       video.src = '';
       video.load();
+      video.remove();
     };
   }, [video]);
 

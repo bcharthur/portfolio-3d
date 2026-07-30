@@ -11,99 +11,53 @@ import CtfSection from "@/components/CtfSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
 import SectionWaveDivider from "@/components/SectionWaveDivider";
+import { useAssetsPreload } from "@/hooks/useAssetsPreload";
+import { getHeroVideoUrl } from "@/lib/media";
 
 const BackToTop = lazy(() => import("@/components/BackToTop"));
 
 gsap.registerPlugin(ScrollTrigger);
 
-function waitForWindowLoad() {
-    return new Promise<void>((resolve) => {
-        if (document.readyState === "complete") {
-            resolve();
-            return;
-        }
-
-        const onLoad = () => {
-            window.removeEventListener("load", onLoad);
-            resolve();
-        };
-
-        window.addEventListener("load", onLoad);
-    });
-}
-
-function waitMinimum(ms: number) {
-    return new Promise<void>((resolve) => {
-        window.setTimeout(resolve, ms);
-    });
-}
-
 const SPLASH_EXIT_MS = 700;
 const HERO_START_DELAY_MS = 760;
+// Small anti-flash floor only — the splash still hides exactly when the
+// media below reports done, this just avoids an instant blink on repeat
+// visits where everything is already cached.
+const MIN_SPLASH_MS = 500;
+
+const BASE = import.meta.env.BASE_URL;
+// Every heavy asset the hero + about sections actually render. Preloading
+// them here gives real byte-weighted progress AND warms the HTTP cache, so
+// the Three.js loaders and the <video> element that consume them right
+// after resolve instantly instead of re-downloading.
+const CRITICAL_ASSETS = [
+    getHeroVideoUrl(),
+    `${BASE}models/arthur.glb`,
+    `${BASE}images/kali.jpg`,
+    `${BASE}textures/rootme-logo.png`,
+    `${BASE}textures/affiche-esd.jpg`,
+    `${BASE}textures/eni.png`,
+];
 
 export default function Index() {
     const [sceneReady, setSceneReady] = useState(false);
-    const [pageReady, setPageReady] = useState(false);
-    const [progress, setProgress] = useState(0);
-    const [isMobile, setIsMobile] = useState(false);
+    const [minTimeElapsed, setMinTimeElapsed] = useState(false);
     const [startHeroAnimation, setStartHeroAnimation] = useState(false);
 
+    const { progress: assetsProgress, done: assetsDone } = useAssetsPreload(CRITICAL_ASSETS);
+
+    const mediaReady = sceneReady && assetsDone;
+    const isVisible = !(mediaReady && minTimeElapsed);
+
+    const progress = useMemo(() => {
+        if (!isVisible) return 100;
+        return Math.min(99, Math.max(0, assetsProgress));
+    }, [isVisible, assetsProgress]);
+
     useEffect(() => {
-        const media = window.matchMedia("(max-width: 767px)");
-
-        const update = () => {
-            setIsMobile(media.matches);
-        };
-
-        update();
-        media.addEventListener("change", update);
-
-        return () => {
-            media.removeEventListener("change", update);
-        };
+        const timer = window.setTimeout(() => setMinTimeElapsed(true), MIN_SPLASH_MS);
+        return () => window.clearTimeout(timer);
     }, []);
-
-    const isVisible = useMemo(() => {
-        if (isMobile) {
-            return !pageReady;
-        }
-
-        return !(sceneReady && pageReady);
-    }, [isMobile, sceneReady, pageReady]);
-
-    useEffect(() => {
-        let cancelled = false;
-
-        Promise.race([
-            Promise.all([waitForWindowLoad(), waitMinimum(180)]),
-            waitMinimum(900),
-        ]).then(() => {
-            if (!cancelled) {
-                setPageReady(true);
-            }
-        });
-
-        return () => {
-            cancelled = true;
-        };
-    }, []);
-
-    useEffect(() => {
-        if (!isVisible) {
-            setProgress(100);
-            return;
-        }
-
-        const interval = window.setInterval(() => {
-            setProgress((prev) => {
-                const limit = pageReady ? 92 : 78;
-                if (prev >= limit) return prev;
-                return prev + Math.max(1, Math.round((limit - prev) * 0.16));
-            });
-        }, 80);
-
-        return () => window.clearInterval(interval);
-    }, [isVisible, pageReady]);
 
     useEffect(() => {
         document.body.style.overflow = isVisible ? "hidden" : "";
