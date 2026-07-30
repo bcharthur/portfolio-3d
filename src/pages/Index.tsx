@@ -5,6 +5,9 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import SplashScreen from "@/components/SplashScreen";
 import AboutSection from "@/components/AboutSection";
+import TimelineSection from "@/components/TimelineSection";
+import CertificationsSection from "@/components/CertificationsSection";
+import CtfSection from "@/components/CtfSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import ContactSection from "@/components/ContactSection";
 import SectionWaveDivider from "@/components/SectionWaveDivider";
@@ -159,6 +162,12 @@ export default function Index() {
                 <SectionWaveDivider />
                 <AboutSection />
                 <SectionWaveDivider className="opacity-90" />
+                <TimelineSection />
+                <SectionWaveDivider className="opacity-85" />
+                <CertificationsSection />
+                <SectionWaveDivider className="opacity-85" />
+                <CtfSection />
+                <SectionWaveDivider className="opacity-80" />
                 <ProjectsSection />
                 <SectionWaveDivider className="opacity-80" />
                 <ContactSection />

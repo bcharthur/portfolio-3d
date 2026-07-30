@@ -90,7 +90,7 @@ export default function AboutSection() {
 
     return (
         <section
-            id="a propos"
+            id="a-propos"
             ref={sectionRef}
             className="min-h-screen flex items-center px-6 md:px-16 lg:px-24 py-20 md:py-24"
         >
