@@ -5,9 +5,9 @@ export default function ProjectsIntro() {
         Selected case studies
       </p>
       <p className="text-foreground/80 text-base md:text-lg leading-relaxed">
-        Ces études de cas sont issues de laboratoires et environnements d'entraînement.
-        Elles mettent l'accent sur la méthodologie, l'automatisation et les enseignements
-        sécurité, sans divulguer de solution complète ni d'éléments sensibles.
+        Ces études de cas sont issues de challenges Root-Me. Elles mettent l'accent sur la
+        méthodologie, l'automatisation et les enseignements sécurité — cliquez sur une carte
+        pour le détail, sans flag ni solution complète, conformément aux règles de la plateforme.
       </p>
     </div>
   );

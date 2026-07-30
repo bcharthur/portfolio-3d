@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import ProjectCard from "@/components/projects/ProjectCard";
 import ProjectsIntro from "@/components/projects/ProjectsIntro";
+import ProjectSheet from "@/components/projects/ProjectSheet";
 import { selectedProjects } from "@/components/projects/projects-data";
+import type { ProjectItem } from "@/components/projects/types";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,6 +14,7 @@ export default function ProjectsSection() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const [openProject, setOpenProject] = useState<ProjectItem | null>(null);
 
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
@@ -99,9 +102,15 @@ export default function ProjectsSection() {
 
       <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
         {selectedProjects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <ProjectCard key={project.slug} project={project} onOpen={setOpenProject} />
         ))}
       </div>
+
+      <ProjectSheet
+        project={openProject}
+        isOpen={openProject !== null}
+        onClose={() => setOpenProject(null)}
+      />
     </section>
   );
 }
