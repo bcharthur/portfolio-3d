@@ -159,7 +159,6 @@ export default function Index() {
                     onSceneReady={() => setSceneReady(true)}
                     startAnimation={startHeroAnimation}
                 />
-                <SectionWaveDivider />
                 <AboutSection />
                 <SectionWaveDivider className="opacity-90" />
                 <TimelineSection />
