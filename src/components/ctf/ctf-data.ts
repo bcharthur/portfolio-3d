@@ -12,7 +12,7 @@ export const ctfResults: CtfResult[] = [
   },
   {
     id: "nuit-de-terreur",
-    name: "CTF « Nuit de Terreur » — ENI × BZHack",
+    name: "CTF « Nuit de Terreur » - ENI × BZHack",
     date: "Avril 2025",
     ranking: "3e hors-ESD",
     description:
@@ -21,7 +21,7 @@ export const ctfResults: CtfResult[] = [
   },
   {
     id: "voyageurs-du-temps",
-    name: "CTF ENI — « Les Voyageurs du Temps »",
+    name: "CTF ENI - « Les Voyageurs du Temps »",
     date: "Mars 2026",
     ranking: "1re place équipe (CHATINE) · 7e/140 individuel",
     description:
