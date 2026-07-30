@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, ArrowUpRight, X } from "lucide-react";
-import type { ProjectCaseStudy } from "./types";
+import { useEffect, useState } from "react";
+import { ArrowUpRight, X } from "lucide-react";
+import type { ProjectItem } from "./types";
 
 type ProjectSheetProps = {
-  project: ProjectCaseStudy | null;
+  project: ProjectItem | null;
   isOpen: boolean;
   onClose: () => void;
 };
@@ -38,9 +38,14 @@ export default function ProjectSheet({ project, isOpen, onClose }: ProjectSheetP
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [isMounted, onClose]);
 
-  const tags = useMemo(() => project?.tags ?? [], [project]);
-
   if (!project || !isMounted) return null;
+
+  const infoBlocks: Array<[string, string]> = [
+    ["Contexte", project.context],
+    ["Démarche", project.approach],
+    ["Automatisation", project.automation],
+    ["Remédiation", project.remediation],
+  ];
 
   return (
     <div
@@ -64,105 +69,78 @@ export default function ProjectSheet({ project, isOpen, onClose }: ProjectSheetP
         aria-modal="true"
         aria-labelledby="project-sheet-title"
       >
-        <div className={`h-full overflow-y-auto bg-gradient-to-br ${project.surfaceGradient}`}>
-          <div className="mx-auto flex min-h-full max-w-7xl flex-col px-6 pb-12 pt-6 md:px-10 md:pb-16 md:pt-8 lg:px-16">
+        <div className={`h-full overflow-y-auto bg-gradient-to-br ${project.color}`}>
+          <div className="mx-auto flex min-h-full max-w-5xl flex-col px-6 pb-12 pt-6 md:px-10 md:pb-16 md:pt-8 lg:px-16">
             <div className="flex items-center justify-between gap-4">
+              <p className="text-xs md:text-sm uppercase tracking-[0.28em] text-white/65">
+                {project.source}
+              </p>
               <button
                 type="button"
                 onClick={onClose}
-                className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/12 text-white transition-colors hover:bg-white/18"
-                aria-label="Retour"
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white/12 text-white transition-colors hover:bg-white/20"
+                aria-label="Fermer"
               >
-                <ArrowLeft size={24} />
+                <X size={20} />
               </button>
-
-              <div className="flex items-center gap-3">
-                <a
-                  href="#contact"
-                  onClick={onClose}
-                  className="inline-flex rounded-full bg-accent px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-accent-foreground transition-opacity hover:opacity-90"
-                >
-                  Get in touch
-                </a>
-                <button
-                  type="button"
-                  onClick={onClose}
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white/12 text-white transition-colors hover:bg-white/18"
-                  aria-label="Fermer"
-                >
-                  <X size={22} />
-                </button>
-              </div>
             </div>
 
-            <div className="grid gap-10 pt-10 lg:grid-cols-[1.1fr_0.95fr] lg:gap-14 lg:pt-16">
-              <div>
-                <p className="mb-5 text-sm uppercase tracking-[0.32em] text-white/65">
-                  {project.category}
-                </p>
-                <h3
-                  id="project-sheet-title"
-                  className="max-w-[10ch] text-5xl md:text-7xl leading-[0.95] font-bold tracking-tight text-white"
-                >
-                  {project.title}
-                </h3>
+            <h3
+              id="project-sheet-title"
+              className="mt-4 max-w-[16ch] text-4xl md:text-6xl leading-[1.02] font-bold tracking-tight text-white"
+            >
+              {project.title}
+            </h3>
 
-                <div className="mt-6 flex flex-wrap gap-3">
-                  {tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm text-white/95"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+            <div className="mt-5 flex flex-wrap gap-2.5">
+              {project.techniques.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-xs md:text-sm text-white/95"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <p className="mt-8 text-lg md:text-xl leading-8 text-white/92 max-w-3xl">
+              {project.summary}
+            </p>
+            <p className="mt-3 text-base leading-7 text-white/78 max-w-3xl">{project.impact}</p>
+
+            <div className="mt-10 grid gap-4 md:grid-cols-2">
+              {infoBlocks.map(([label, value]) => (
+                <div key={label} className="rounded-2xl bg-white/8 p-5 md:p-6">
+                  <p className="text-xs uppercase tracking-[0.26em] text-white/55">{label}</p>
+                  <p className="mt-3 text-sm md:text-base leading-7 text-white/88">{value}</p>
                 </div>
-              </div>
-
-              <div className="space-y-6 text-white/92">
-                <p className="text-lg md:text-[1.55rem] leading-9">{project.shortDescription}</p>
-                <p className="text-base md:text-lg leading-8 text-white/82">{project.cardInsight}</p>
-                <a
-                  href="#contact"
-                  onClick={onClose}
-                  className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-slate-900 transition-transform hover:-translate-y-0.5"
-                >
-                  En parler
-                  <ArrowUpRight size={18} />
-                </a>
-              </div>
+              ))}
             </div>
 
-            <div className="mt-12 rounded-[2rem] bg-white/8 p-5 md:mt-16 md:p-8">
-              <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-                {[
-                  ["Contexte", project.challenge],
-                  ["Démarche", project.approach],
-                  ["Automatisation", project.automation],
-                  ["Impact", project.impact],
-                ].map(([label, value]) => (
-                  <div key={label} className="rounded-[1.5rem] bg-white/7 p-5">
-                    <p className="text-sm uppercase tracking-[0.26em] text-white/55">{label}</p>
-                    <p className="mt-4 text-sm md:text-base leading-7 text-white/88">{value}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-8 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-              <div className="rounded-[2rem] bg-white/8 p-6 md:p-8">
-                <p className="text-sm uppercase tracking-[0.26em] text-white/55">Remédiation</p>
-                <p className="mt-4 text-base md:text-lg leading-8 text-white/88">{project.remediation}</p>
-              </div>
-
-              <div className="rounded-[2rem] bg-white/8 p-6 md:p-8">
-                <p className="text-sm uppercase tracking-[0.26em] text-white/55">Positionnement</p>
-                <p className="mt-4 text-base md:text-lg leading-8 text-white/88">
-                  Ce case study est présenté comme une analyse technique issue d'un lab. Le focus
-                  est volontairement mis sur la méthodologie, les scripts et les enseignements
-                  sécurité, sans exposer de walkthrough complet ni d'élément sensible.
+            {project.snippet && (
+              <div className="mt-6 rounded-2xl bg-black/30 p-5 md:p-6">
+                <p className="text-xs uppercase tracking-[0.26em] text-white/55 mb-3">
+                  {project.snippet.label}
                 </p>
+                <pre className="overflow-x-auto text-xs md:text-sm leading-6 text-white/85">
+                  <code>{project.snippet.code}</code>
+                </pre>
               </div>
+            )}
+
+            <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-white/8 p-5 md:p-6">
+              <p className="text-xs md:text-sm leading-6 text-white/70 max-w-md">
+                Écrit dans le respect des règles Root-Me : cette fiche présente uniquement la
+                méthodologie et les enseignements, sans flag ni solution complète.
+              </p>
+              <a
+                href="#contact"
+                onClick={onClose}
+                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-semibold uppercase tracking-[0.1em] text-slate-900 transition-transform hover:-translate-y-0.5"
+              >
+                En discuter
+                <ArrowUpRight size={16} />
+              </a>
             </div>
           </div>
         </div>

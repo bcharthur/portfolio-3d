@@ -3,13 +3,15 @@ import type { ProjectItem } from "./types";
 
 interface ProjectCardProps {
   project: ProjectItem;
+  onOpen: (project: ProjectItem) => void;
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
   return (
-    <a
-      href={project.href ?? "#"}
-      className="group relative block rounded-2xl overflow-hidden min-h-[24rem] md:min-h-[26rem] border border-white/10"
+    <button
+      type="button"
+      onClick={() => onOpen(project)}
+      className="group relative block rounded-2xl overflow-hidden min-h-[24rem] md:min-h-[26rem] border border-white/10 text-left"
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-95`} />
       <div className="absolute inset-0 bg-black/10" />
@@ -52,6 +54,6 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       </div>
 
       <div className="absolute inset-0 bg-foreground/0 transition-colors duration-300 group-hover:bg-foreground/10" />
-    </a>
+    </button>
   );
 }
