@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import TimelineItem from "@/components/timeline/TimelineItem";
-import { timelineEntries } from "@/components/timeline/timeline-data";
+import TimelineGroupBlock from "@/components/timeline/TimelineGroupBlock";
+import { timelineGroups } from "@/components/timeline/timeline-data";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,12 +39,12 @@ export default function TimelineSection() {
       if (listRef.current) {
         gsap.fromTo(
           listRef.current.children,
-          { y: 20, opacity: 0 },
+          { y: 24, opacity: 0 },
           {
             y: 0,
             opacity: 1,
             duration: 0.5,
-            stagger: 0.08,
+            stagger: 0.1,
             ease: "power2.out",
             scrollTrigger: {
               trigger: listRef.current,
@@ -73,15 +73,12 @@ export default function TimelineSection() {
       </h2>
 
       <p className="text-muted-foreground text-sm md:text-base uppercase tracking-[0.25em] mb-10 md:mb-14">
-        De développeur fullstack à expert cybersécurité
+        Formation et expérience, en parallèle
       </p>
 
-      <div
-        ref={listRef}
-        className="max-w-3xl space-y-10 border-l-2 border-border ml-1.5 md:ml-2"
-      >
-        {timelineEntries.map((entry) => (
-          <TimelineItem key={entry.id} entry={entry} />
+      <div ref={listRef} className="max-w-5xl space-y-6 md:space-y-8">
+        {timelineGroups.map((group) => (
+          <TimelineGroupBlock key={group.id} group={group} />
         ))}
       </div>
     </section>
