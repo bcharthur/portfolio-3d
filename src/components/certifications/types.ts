@@ -5,4 +5,5 @@ export interface Certification {
   expires?: string;
   credentialId?: string;
   featured?: boolean;
+  href?: string;
 }
