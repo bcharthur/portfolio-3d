@@ -106,11 +106,7 @@ export default function ProjectsSection() {
         ))}
       </div>
 
-      <ProjectSheet
-        project={openProject}
-        isOpen={openProject !== null}
-        onClose={() => setOpenProject(null)}
-      />
+      <ProjectSheet project={openProject} onClose={() => setOpenProject(null)} />
     </section>
   );
 }
