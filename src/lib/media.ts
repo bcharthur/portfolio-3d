@@ -1,7 +1,7 @@
 /**
  * Picks the best background-video format this browser can actually decode.
  * Some browsers (open-source Chromium builds, some Linux/Firefox distros)
- * ship without a licensed H.264 decoder — WebM/VP9 covers those, MP4/H.264
+ * ship without a licensed H.264 decoder - WebM/VP9 covers those, MP4/H.264
  * covers everyone else (including Safari, which has no VP9 support).
  */
 export function getHeroVideoUrl(): string {

@@ -20,7 +20,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SPLASH_EXIT_MS = 700;
 const HERO_START_DELAY_MS = 760;
-// Small anti-flash floor only — the splash still hides exactly when the
+// Small anti-flash floor only - the splash still hides exactly when the
 // media below reports done, this just avoids an instant blink on repeat
 // visits where everything is already cached.
 const MIN_SPLASH_MS = 500;
