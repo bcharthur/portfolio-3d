@@ -2,8 +2,8 @@ name: Update Root-Me / Cyber-Learning stats
 
 on:
   schedule:
-    # 06:15 UTC daily
-    - cron: "15 6 * * *"
+    # every 10 minutes
+    - cron: "*/10 * * * *"
   workflow_dispatch:
 
 permissions:
