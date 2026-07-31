@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { Hexagon, TrendingDown, TrendingUp } from "lucide-react";
 import stats from "@/data/stats.json";
 
@@ -44,6 +44,29 @@ function buildRows(): PlatformRow[] {
   return rows;
 }
 
+// Drop the real Cyber-Learning logo in at public/textures/cyberlearning-icon.png
+// (same treatment as rootme-icon.png: transparent background, cropped tight to
+// the mark) and it's picked up automatically - no other code change needed.
+// Falls back to a generic hexagon icon until that file exists.
+function CyberLearningIcon() {
+  const [errored, setErrored] = useState(false);
+
+  if (errored) {
+    return <Hexagon className="h-6 w-6 text-sky-500" strokeWidth={2.2} />;
+  }
+
+  return (
+    <img
+      src={`${BASE}textures/cyberlearning-icon.png`}
+      alt=""
+      className="h-7 w-7 object-contain"
+      loading="lazy"
+      decoding="async"
+      onError={() => setErrored(true)}
+    />
+  );
+}
+
 function PlatformIcon({ platform }: { platform: string }) {
   if (platform === "root-me") {
     return (
@@ -57,7 +80,7 @@ function PlatformIcon({ platform }: { platform: string }) {
     );
   }
 
-  return <Hexagon className="h-6 w-6 text-sky-500" strokeWidth={2.2} />;
+  return <CyberLearningIcon />;
 }
 
 function TrendValue({ trend7d }: { trend7d: number | null }) {
