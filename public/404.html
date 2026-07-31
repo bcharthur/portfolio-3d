@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirection...</title>
+    <script>
+      // GitHub Pages is a static host with no server-side rewrites, so it
+      // serves this file for any path it doesn't recognize. This re-encodes
+      // the requested path into a query string and redirects to index.html,
+      // which restores it via history.replaceState before React Router
+      // mounts - see the matching script in index.html. Without this, deep
+      // links and page refreshes hit GitHub's generic 404 instead of the
+      // site's own NotFound page.
+      // Adapted from https://github.com/rafgraph/spa-github-pages
+      var pathSegmentsToKeep = 1; // keep "/portfolio-3d"
+      var l = window.location;
+      var path = l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/');
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        path + '/?/' +
+        l.pathname.slice(path.length + 1).replace(/&/g, '~and~') +
+        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        l.hash
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
