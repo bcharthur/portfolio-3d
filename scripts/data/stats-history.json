@@ -1,7 +1,13 @@
 [
   {
     "date": "2026-07-31",
-    "rootMe": { "score": 3110, "rank": 3494 },
-    "cyberLearning": { "score": 4755, "rank": 29 }
+    "rootMe": {
+      "score": 3110,
+      "rank": 3494
+    },
+    "cyberLearning": {
+      "score": 4935,
+      "rank": 28
+    }
   }
 ]
