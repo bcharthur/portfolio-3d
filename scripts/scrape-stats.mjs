@@ -144,12 +144,23 @@ async function scrapeCyberLearning() {
 
   const scoreMatch = pageText.match(/Total\s*:\s*([\d\s]+)\s*Pts/i);
   const rankMatch = pageText.match(/Vous\s+(?:êtes|etes)\s+N.?\s*(\d+)\s*sur\s*(\d+)\s*inscrits/i);
-  const solvedMatch = pageText.match(/(\d+)\s*Enigmes?\s+r[ée]solues/i);
+
+  // "Enigmes résolues" sits right after a sibling block (e.g. "...2024<hr><h3>144
+  // Enigmes résolues</h3>") with no whitespace between the closing tag and the
+  // next text node, so cheerio's flattened body text can fuse an unrelated
+  // number (like the "2024" from a join date) straight onto the real count.
+  // Match it scoped to just that one element's own text instead.
+  let solved = null;
+  $("h3, b").each((_, el) => {
+    if (solved !== null) return;
+    const text = $(el).text().trim();
+    const m = text.match(/^(\d+)\s*Enigmes?\s+r[ée]solues$/i);
+    if (m) solved = Number.parseInt(m[1], 10);
+  });
 
   const score = scoreMatch ? digitsToInt(scoreMatch[1]) : null;
   const rank = rankMatch ? Number.parseInt(rankMatch[1], 10) : null;
   const totalRegistered = rankMatch ? Number.parseInt(rankMatch[2], 10) : null;
-  const solved = solvedMatch ? Number.parseInt(solvedMatch[1], 10) : null;
 
   if (score == null || rank == null || solved == null) {
     throw new Error("Cyber-Learning: couldn't find score/rank/solved on the page");
