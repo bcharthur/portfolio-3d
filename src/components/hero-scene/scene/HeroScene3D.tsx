@@ -6,6 +6,7 @@ import { useResponsiveScene } from './useResponsiveScene';
 
 type HeroScene3DProps = {
     onReady?: () => void;
+    active?: boolean;
 };
 
 function SceneReadySignal({ onReady }: { onReady?: () => void }) {
@@ -25,7 +26,7 @@ function SceneReadySignal({ onReady }: { onReady?: () => void }) {
     return null;
 }
 
-export default function HeroScene3D({ onReady }: HeroScene3DProps) {
+export default function HeroScene3D({ onReady, active = true }: HeroScene3DProps) {
     const { isMobile, isTablet } = useResponsiveScene();
 
     const camera = isMobile
@@ -65,6 +66,7 @@ export default function HeroScene3D({ onReady }: HeroScene3DProps) {
                     shadows={!isMobile}
                     dpr={isMobile ? [2, 2] : [1, 2]}
                     style={{ background: 'transparent' }}
+                    frameloop={active ? 'always' : 'never'}
                 >
                     <ambientLight intensity={0.22} color="#6477a8" />
 

@@ -37,7 +37,12 @@ export default function CtfCard({ ctf }: CtfCardProps) {
   if (!ctf.href) return content;
 
   return (
-    <a href={ctf.href} target="_blank" rel="noreferrer" className="block h-full">
+    <a
+      href={ctf.href}
+      target="_blank"
+      rel="noreferrer"
+      className="block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+    >
       {content}
     </a>
   );

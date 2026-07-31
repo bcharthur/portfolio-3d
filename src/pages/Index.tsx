@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "@/components/Navbar";
@@ -40,6 +40,7 @@ const CRITICAL_ASSETS = [
 ];
 
 export default function Index() {
+    const contentRef = useRef<HTMLDivElement>(null);
     const [sceneReady, setSceneReady] = useState(false);
     const [minTimeElapsed, setMinTimeElapsed] = useState(false);
     const [startHeroAnimation, setStartHeroAnimation] = useState(false);
@@ -64,6 +65,14 @@ export default function Index() {
         return () => {
             document.body.style.overflow = "";
         };
+    }, [isVisible]);
+
+    // Keep the page content out of the tab order and off-limits to
+    // assistive tech while the splash overlay sits on top of it.
+    useEffect(() => {
+        if (contentRef.current) {
+            contentRef.current.inert = isVisible;
+        }
     }, [isVisible]);
 
     useEffect(() => {
@@ -107,23 +116,33 @@ export default function Index() {
         <>
             <SplashScreen isVisible={isVisible} progress={progress} />
 
-            <div className="relative">
+            <div ref={contentRef} className="relative">
+                <a
+                    href="#main-content"
+                    className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-foreground focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-background focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                >
+                    Aller au contenu principal
+                </a>
+
                 <Navbar />
-                <HeroSection
-                    onSceneReady={() => setSceneReady(true)}
-                    startAnimation={startHeroAnimation}
-                />
-                <AboutSection />
-                <SectionWaveDivider className="opacity-90" />
-                <TimelineSection />
-                <SectionWaveDivider className="opacity-85" />
-                <CertificationsSection />
-                <SectionWaveDivider className="opacity-85" />
-                <CtfSection />
-                <SectionWaveDivider className="opacity-80" />
-                <ProjectsSection />
-                <SectionWaveDivider className="opacity-80" />
-                <ContactSection />
+
+                <main id="main-content">
+                    <HeroSection
+                        onSceneReady={() => setSceneReady(true)}
+                        startAnimation={startHeroAnimation}
+                    />
+                    <AboutSection />
+                    <SectionWaveDivider className="opacity-90" />
+                    <TimelineSection />
+                    <SectionWaveDivider className="opacity-85" />
+                    <CertificationsSection />
+                    <SectionWaveDivider className="opacity-85" />
+                    <CtfSection />
+                    <SectionWaveDivider className="opacity-80" />
+                    <ProjectsSection />
+                    <SectionWaveDivider className="opacity-80" />
+                    <ContactSection />
+                </main>
 
                 <Suspense fallback={null}>
                     <BackToTop />

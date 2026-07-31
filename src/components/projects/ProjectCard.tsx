@@ -11,7 +11,7 @@ export default function ProjectCard({ project, onOpen }: ProjectCardProps) {
     <button
       type="button"
       onClick={() => onOpen(project)}
-      className="group relative block rounded-2xl overflow-hidden min-h-[24rem] md:min-h-[26rem] border border-white/10 text-left"
+      className="group relative block rounded-2xl overflow-hidden min-h-[24rem] md:min-h-[26rem] border border-white/10 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-95`} />
       <div className="absolute inset-0 bg-black/10" />

@@ -11,6 +11,8 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import * as THREE from "three";
 import { HandIcon, type HandIconHandle } from "@/components/ui/HandIcon";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { useDocumentVisible } from "@/hooks/useDocumentVisible";
+import { useInViewport } from "@/hooks/useInViewport";
 
 const modelPath = `${import.meta.env.BASE_URL}models/arthur.glb`;
 
@@ -308,6 +310,9 @@ useGLTF.preload(modelPath);
 export default function AboutCharacter() {
     const handIconRef = useRef<HandIconHandle>(null);
     const [isTouchDevice, setIsTouchDevice] = useState(false);
+    const [wrapperRef, sectionInView] = useInViewport<HTMLDivElement>({ threshold: 0 });
+    const tabVisible = useDocumentVisible();
+    const sceneActive = sectionInView && tabVisible;
 
     useEffect(() => {
         const updateDeviceType = () => {
@@ -351,7 +356,7 @@ export default function AboutCharacter() {
     };
 
     return (
-        <div className="relative w-full h-[360px] sm:h-[460px] md:h-[560px] lg:h-[700px] overflow-visible">
+        <div ref={wrapperRef} className="relative w-full h-[360px] sm:h-[460px] md:h-[560px] lg:h-[700px] overflow-visible">
             <div
                 className="absolute inset-y-0 -left-12 -right-12 sm:-left-16 sm:-right-16 lg:-left-24 lg:-right-10 overflow-visible cursor-pointer"
                 onMouseEnter={handleModelMouseEnter}
@@ -361,6 +366,7 @@ export default function AboutCharacter() {
                     <Canvas
                         className="w-full h-full"
                         gl={{ alpha: true, antialias: true }}
+                        frameloop={sceneActive ? "always" : "never"}
                         camera={{
                             position: [0.48, 1.12, 4.2],
                             fov: 23,

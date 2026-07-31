@@ -59,10 +59,22 @@ export default function ContentEcranSecondaire() {
     window.addEventListener('touchstart', onFirstInteraction, { once: true });
     window.addEventListener('keydown', onFirstInteraction, { once: true });
 
+    // Backgrounded tabs gain nothing from a decoder running behind a scene
+    // that isn't even being rendered — stop wasting CPU/battery on it.
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        video.pause();
+      } else {
+        tryPlay();
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
     return () => {
       window.removeEventListener('pointerdown', onFirstInteraction);
       window.removeEventListener('touchstart', onFirstInteraction);
       window.removeEventListener('keydown', onFirstInteraction);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
       video.pause();
       video.src = '';
       video.load();

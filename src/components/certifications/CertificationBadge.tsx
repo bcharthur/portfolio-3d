@@ -33,7 +33,7 @@ export default function CertificationBadge({ certification }: CertificationBadge
       target="_blank"
       rel="noreferrer"
       aria-label={`Voir le badge Credly : ${certification.name}`}
-      className="block h-full"
+      className="block h-full rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       {content}
     </a>
