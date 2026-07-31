@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useRef } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { ArrowUpRight, X } from "lucide-react";
-import { Dialog, DialogPortal, DialogOverlay, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogPortal, DialogOverlay, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import type { ProjectItem } from "./types";
 
 interface ProjectSheetProps {
@@ -10,11 +10,12 @@ interface ProjectSheetProps {
 }
 
 export default function ProjectSheet({ project, onClose }: ProjectSheetProps) {
-  const [displayProject, setDisplayProject] = useState<ProjectItem | null>(null);
-
-  useEffect(() => {
-    if (project) setDisplayProject(project);
-  }, [project]);
+  // Keep the last non-null project rendered during the close animation.
+  // Computed at render time (not via useEffect) so DialogTitle/Description
+  // are never briefly absent from the DOM on the frame the dialog opens.
+  const lastProjectRef = useRef<ProjectItem | null>(null);
+  if (project) lastProjectRef.current = project;
+  const displayProject = project ?? lastProjectRef.current;
 
   const infoBlocks: Array<[string, string]> = displayProject
     ? [
@@ -62,9 +63,9 @@ export default function ProjectSheet({ project, onClose }: ProjectSheetProps) {
                   ))}
                 </div>
 
-                <p className="mt-8 max-w-2xl text-lg md:text-xl leading-8 text-foreground/85">
+                <DialogDescription className="mt-8 max-w-2xl text-lg md:text-xl leading-8 text-foreground/85">
                   {displayProject.summary}
-                </p>
+                </DialogDescription>
                 <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground">
                   {displayProject.impact}
                 </p>

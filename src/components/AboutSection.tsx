@@ -1,7 +1,8 @@
-import { useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import AboutCharacter from "./AboutCharacter";
+
+const AboutCharacter = lazy(() => import("./AboutCharacter"));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -127,7 +128,13 @@ export default function AboutSection() {
                 </div>
 
                 <div className="relative">
-                    <AboutCharacter />
+                    <Suspense
+                        fallback={
+                            <div className="h-[360px] w-full sm:h-[460px] md:h-[560px] lg:h-[700px]" />
+                        }
+                    >
+                        <AboutCharacter />
+                    </Suspense>
                 </div>
             </div>
         </section>
