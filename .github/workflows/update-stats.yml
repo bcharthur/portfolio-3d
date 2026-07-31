@@ -1,0 +1,61 @@
+name: Update Root-Me / Cyber-Learning stats
+
+on:
+  schedule:
+    # 06:15 UTC daily
+    - cron: "15 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: "update-stats"
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Scrape stats
+        env:
+          CYBER_LEARNING_USER: ${{ secrets.CYBER_LEARNING_USER }}
+          CYBER_LEARNING_PASSWORD: ${{ secrets.CYBER_LEARNING_PASSWORD }}
+        run: node scripts/scrape-stats.mjs
+
+      - name: Commit and push if changed
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/stats.json scripts/data/stats-history.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "chore: update Root-Me / Cyber-Learning stats"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # A push made with the default GITHUB_TOKEN does not trigger other
+      # workflows' `on: push` (GitHub's anti-recursion safeguard), so the
+      # deploy workflow has to be kicked off explicitly here.
+      - name: Trigger deploy workflow
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run depoy.yml --ref master
