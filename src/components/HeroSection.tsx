@@ -2,6 +2,8 @@ import { useEffect, useRef, lazy, Suspense, useState, useCallback } from "react"
 import gsap from "gsap";
 import { ChevronDown, Mouse } from "lucide-react";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import { useDocumentVisible } from "@/hooks/useDocumentVisible";
+import { useInViewport } from "@/hooks/useInViewport";
 
 const LaptopScene = lazy(() => import("@/components/LaptopScene"));
 
@@ -22,6 +24,10 @@ export default function HeroSection({
 
     const [isMobile, setIsMobile] = useState<boolean | null>(null);
     const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean | null>(null);
+
+    const [sectionRef, sectionInView] = useInViewport<HTMLElement>({ threshold: 0 });
+    const tabVisible = useDocumentVisible();
+    const sceneActive = sectionInView && tabVisible;
 
     const handleReady = useCallback(() => {
         onSceneReady?.();
@@ -182,7 +188,7 @@ export default function HeroSection({
     }, [isMobile, prefersReducedMotion, startAnimation]);
 
     return (
-        <section className="relative min-h-[100svh] overflow-hidden bg-[#0a1020]">
+        <section ref={sectionRef} className="relative min-h-[100svh] overflow-hidden bg-[#0a1020]">
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,#0a1020_0%,#0b1630_38%,#0a1020_100%)]" />
 
@@ -192,7 +198,7 @@ export default function HeroSection({
 
                 <ErrorBoundary fallback={null} onError={handleReady}>
                     <Suspense fallback={null}>
-                        <LaptopScene onReady={handleReady} />
+                        <LaptopScene onReady={handleReady} active={sceneActive} />
                     </Suspense>
                 </ErrorBoundary>
             </div>

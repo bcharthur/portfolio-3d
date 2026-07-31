@@ -120,7 +120,7 @@ export default function ContactSection() {
         <a
             ref={ctaRef}
             href="mailto:art.bouchaud@gmail.com"
-            className="mt-12 inline-flex items-center gap-3 bg-foreground text-background px-8 py-4 rounded-full text-lg font-semibold hover:gap-5 transition-all duration-300 group"
+            className="mt-12 inline-flex items-center gap-3 bg-foreground text-background px-8 py-4 rounded-full text-lg font-semibold hover:gap-5 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           <Mail size={20} />
           Commencer un nouveau projet
@@ -138,7 +138,7 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={label}
-                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <Icon size={18} />
                 {label}
@@ -156,7 +156,7 @@ export default function ContactSection() {
                   onClick={() =>
                       document.getElementById(section.id)?.scrollIntoView({ behavior: "smooth" })
                   }
-                  className="hover:text-foreground transition-colors"
+                  className="hover:text-foreground transition-colors rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 {section.label}
               </button>

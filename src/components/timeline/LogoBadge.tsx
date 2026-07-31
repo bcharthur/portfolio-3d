@@ -23,6 +23,8 @@ export default function LogoBadge({ src, alt, fallbackInitial }: LogoBadgeProps)
         src={src}
         alt={alt}
         className="h-full w-full object-cover"
+        loading="lazy"
+        decoding="async"
         onError={() => setErrored(true)}
       />
     </div>

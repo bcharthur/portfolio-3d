@@ -34,7 +34,7 @@ export default function Navbar() {
           <button
             key={section.id}
             onClick={() => scrollTo(section.id)}
-            className="px-3.5 py-1.5 text-xs font-medium text-foreground/70 hover:text-foreground transition-colors rounded-full hover:bg-background/60 uppercase tracking-wider whitespace-nowrap"
+            className="px-3.5 py-1.5 text-xs font-medium text-foreground/70 hover:text-foreground transition-colors rounded-full hover:bg-background/60 uppercase tracking-wider whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             {section.label}
           </button>
@@ -42,7 +42,7 @@ export default function Navbar() {
       </div>
       <button
         onClick={() => scrollTo("contact")}
-        className="bg-accent text-foreground px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
+        className="bg-accent text-foreground px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         CONTACTEZ MOI !
       </button>
