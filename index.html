@@ -1,14 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>Arthur Bouchaud - Portfolio</title>
-    <meta name="description" content="Arthur Bouchaud portfolio">
+    <!--
+      Best-effort CSP: a <meta> tag can't set frame-ancestors/report-uri
+      (HTTP-header-only directives), but it still meaningfully restricts
+      script/style/connection origins on static hosting with no header access.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://raw.githack.com; media-src 'self' blob:; connect-src 'self' blob: https://raw.githack.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self';"
+    />
+    <title>Arthur Bouchaud — Expert Cybersécurité | Portfolio</title>
+    <meta
+      name="description"
+      content="Arthur Bouchaud, expert en cybersécurité (Groupe Covéa, EBIOS RM) et ancien développeur full-stack. Bug bounty, CTF, certifications et études de cas Root-Me."
+    />
     <meta name="author" content="Arthur Bouchaud" />
+    <meta name="theme-color" content="#09111f" />
+    <link rel="canonical" href="https://bcharthur.github.io/portfolio-3d/" />
 
-    <!-- TODO: Update og:title to match your application name -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,14 +31,46 @@
             href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
             rel="stylesheet"
     />
-    
-    <meta property="og:type" content="website" />
 
-    <meta property="og:title" content="Arthur Bouchaud - Portfolio">
-  <meta name="twitter:title" content="Arthur Bouchaud - Portfolio">
-  <meta property="og:description" content="Arthur Bouchaud - Portfolio">
-  <meta name="twitter:description" content="Arthur Bouchaud - Portfolio">
-</head>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bcharthur.github.io/portfolio-3d/" />
+    <meta property="og:site_name" content="Arthur Bouchaud - Portfolio" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content="Arthur Bouchaud — Expert Cybersécurité | Portfolio">
+    <meta property="og:description" content="Expert en cybersécurité (Groupe Covéa, EBIOS RM), ancien développeur full-stack. Bug bounty, CTF, certifications et études de cas Root-Me.">
+    <meta property="og:image" content="https://bcharthur.github.io/portfolio-3d/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Arthur Bouchaud — Expert Cybersécurité | Portfolio">
+    <meta name="twitter:description" content="Expert en cybersécurité (Groupe Covéa, EBIOS RM), ancien développeur full-stack. Bug bounty, CTF, certifications et études de cas Root-Me.">
+    <meta name="twitter:image" content="https://bcharthur.github.io/portfolio-3d/og-image.jpg">
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Arthur Bouchaud",
+        "url": "https://bcharthur.github.io/portfolio-3d/",
+        "image": "https://bcharthur.github.io/portfolio-3d/og-image.jpg",
+        "jobTitle": "Expert en cybersécurité",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "Groupe Covéa"
+        },
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "ESD academy" },
+          { "@type": "CollegeOrUniversity", "name": "ENI École Informatique" }
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/arthur-bouchaud-a74981238",
+          "https://github.com/bcharthur",
+          "https://yeswehack.com/hunters/br0nson"
+        ]
+      }
+    </script>
+  </head>
 
   <body>
     <div id="root"></div>

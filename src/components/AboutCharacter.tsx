@@ -10,6 +10,7 @@ import {
 import { useEffect, useRef, useState, useCallback } from "react";
 import * as THREE from "three";
 import { HandIcon, type HandIconHandle } from "@/components/ui/HandIcon";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const modelPath = `${import.meta.env.BASE_URL}models/arthur.glb`;
 
@@ -356,33 +357,35 @@ export default function AboutCharacter() {
                 onMouseEnter={handleModelMouseEnter}
                 onClick={handleModelClick}
             >
-                <Canvas
-                    className="w-full h-full"
-                    gl={{ alpha: true, antialias: true }}
-                    camera={{
-                        position: [0.48, 1.12, 4.2],
-                        fov: 23,
-                        near: 0.1,
-                        far: 100,
-                    }}
-                >
-                    <ambientLight intensity={1.15} />
-                    <directionalLight position={[3, 4, 2]} intensity={1.8} />
-                    <Environment preset="city" />
+                <ErrorBoundary fallback={null}>
+                    <Canvas
+                        className="w-full h-full"
+                        gl={{ alpha: true, antialias: true }}
+                        camera={{
+                            position: [0.48, 1.12, 4.2],
+                            fov: 23,
+                            near: 0.1,
+                            far: 100,
+                        }}
+                    >
+                        <ambientLight intensity={1.15} />
+                        <directionalLight position={[3, 4, 2]} intensity={1.8} />
+                        <Environment preset="city" />
 
-                    <CharacterModel />
+                        <CharacterModel />
 
-                    <OrbitControls
-                        target={[0.22, -0.15, 0]}
-                        enableRotate={false}
-                        enableZoom={false}
-                        enablePan={false}
-                        minAzimuthAngle={-0.45}
-                        maxAzimuthAngle={0.35}
-                        minPolarAngle={1.15}
-                        maxPolarAngle={1.85}
-                    />
-                </Canvas>
+                        <OrbitControls
+                            target={[0.22, -0.15, 0]}
+                            enableRotate={false}
+                            enableZoom={false}
+                            enablePan={false}
+                            minAzimuthAngle={-0.45}
+                            maxAzimuthAngle={0.35}
+                            minPolarAngle={1.15}
+                            maxPolarAngle={1.85}
+                        />
+                    </Canvas>
+                </ErrorBoundary>
             </div>
 
             {/*<div className="absolute bottom-4 right-4 z-10 flex gap-2">*/}
