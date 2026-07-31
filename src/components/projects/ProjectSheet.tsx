@@ -40,7 +40,7 @@ export default function ProjectSheet({ project, onClose }: ProjectSheetProps) {
 
           {displayProject && (
             <div className="no-scrollbar flex-1 overflow-y-auto">
-              <div className="mx-auto max-w-4xl px-6 py-8 md:px-14 md:py-14 lg:px-20">
+              <div className="mx-auto max-w-4xl px-6 py-8 md:px-14 md:py-14 lg:max-w-5xl lg:px-20 xl:max-w-6xl xl:px-24 2xl:max-w-7xl">
                 <span className="inline-flex rounded-full bg-badge px-3.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-badge-foreground">
                   {displayProject.category}
                 </span>
@@ -48,7 +48,7 @@ export default function ProjectSheet({ project, onClose }: ProjectSheetProps) {
                   {displayProject.source}
                 </p>
 
-                <DialogTitle className="mt-4 max-w-3xl text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.02] tracking-tight text-foreground">
+                <DialogTitle className="mt-4 max-w-3xl text-4xl md:text-6xl lg:max-w-4xl lg:text-7xl xl:max-w-5xl xl:text-8xl font-bold leading-[1.02] tracking-tight text-foreground">
                   {displayProject.title}
                 </DialogTitle>
 
@@ -63,14 +63,14 @@ export default function ProjectSheet({ project, onClose }: ProjectSheetProps) {
                   ))}
                 </div>
 
-                <DialogDescription className="mt-8 max-w-2xl text-lg md:text-xl leading-8 text-foreground/85">
+                <DialogDescription className="mt-8 max-w-2xl text-lg md:text-xl leading-8 text-foreground/85 lg:max-w-3xl">
                   {displayProject.summary}
                 </DialogDescription>
-                <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground">
+                <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground lg:max-w-3xl">
                   {displayProject.impact}
                 </p>
 
-                <div className="mt-10 grid gap-4 md:grid-cols-2">
+                <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4 xl:gap-5">
                   {infoBlocks.map(([label, value]) => (
                     <div key={label} className="rounded-2xl border border-border bg-secondary/60 p-6 md:p-7">
                       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{label}</p>
