@@ -274,7 +274,7 @@ export default function HeroSection({
   </span>
                     </div>
 
-                    <div className="mt-6 sm:mt-8">
+                    <div className="mt-10 sm:mt-14 md:mt-16">
                         <HeroStatsCard ref={statsCardRef} />
                     </div>
                 </div>
