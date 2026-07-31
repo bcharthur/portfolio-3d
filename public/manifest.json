@@ -1,0 +1,14 @@
+{
+  "name": "Arthur Bouchaud - Portfolio",
+  "short_name": "A. Bouchaud",
+  "description": "Expert en cybersécurité — portfolio",
+  "start_url": "/portfolio-3d/",
+  "scope": "/portfolio-3d/",
+  "display": "standalone",
+  "background_color": "#09111f",
+  "theme_color": "#09111f",
+  "icons": [
+    { "src": "/portfolio-3d/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/portfolio-3d/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

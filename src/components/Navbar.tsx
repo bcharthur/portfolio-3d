@@ -42,7 +42,7 @@ export default function Navbar() {
       </div>
       <button
         onClick={() => scrollTo("contact")}
-        className="bg-accent text-accent-foreground px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
+        className="bg-accent text-foreground px-5 py-2 rounded-full text-sm font-semibold hover:opacity-90 transition-opacity"
       >
         CONTACTEZ MOI !
       </button>

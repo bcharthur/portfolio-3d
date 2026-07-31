@@ -18,7 +18,7 @@ export default function ExperienceCard({ experience }: ExperienceCardProps) {
 
         <div className="flex-1">
           <div className="flex flex-wrap items-center gap-2.5 mb-1.5">
-            <span className="px-3 py-1 rounded-full text-[11px] md:text-xs font-semibold uppercase tracking-wider bg-accent text-accent-foreground">
+            <span className="px-3 py-1 rounded-full text-[11px] md:text-xs font-semibold uppercase tracking-wider bg-accent text-foreground">
               Expérience
             </span>
             <span className="text-xs md:text-sm font-semibold uppercase tracking-[0.15em] text-muted-foreground">

@@ -1,6 +1,7 @@
 import { useEffect, useRef, lazy, Suspense, useState, useCallback } from "react";
 import gsap from "gsap";
 import { ChevronDown, Mouse } from "lucide-react";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const LaptopScene = lazy(() => import("@/components/LaptopScene"));
 
@@ -189,9 +190,11 @@ export default function HeroSection({
                 <div className="absolute right-[8%] top-[24%] h-[26vh] w-[28vw] rounded-full bg-[#38bdf8]/12 blur-[18px] md:right-[10%] md:top-[22%] md:h-[45vh] md:w-[35vw] md:bg-[#38bdf8]/18 md:blur-[120px]" />
                 <div className="absolute inset-0 bg-gradient-to-b from-[#0a1020]/20 via-transparent to-[#0a1020]/10 md:hidden" />
 
-                <Suspense fallback={null}>
-                    <LaptopScene onReady={handleReady} />
-                </Suspense>
+                <ErrorBoundary fallback={null} onError={handleReady}>
+                    <Suspense fallback={null}>
+                        <LaptopScene onReady={handleReady} />
+                    </Suspense>
+                </ErrorBoundary>
             </div>
 
             <div className="relative z-10 min-h-[100svh]">
