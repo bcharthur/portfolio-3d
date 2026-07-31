@@ -9,7 +9,6 @@ import {
 } from "@react-three/drei";
 import { useEffect, useRef, useState, useCallback } from "react";
 import * as THREE from "three";
-import { HandIcon, type HandIconHandle } from "@/components/ui/HandIcon";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { useDocumentVisible } from "@/hooks/useDocumentVisible";
 import { useInViewport } from "@/hooks/useInViewport";
@@ -308,7 +307,6 @@ function CharacterModel() {
 useGLTF.preload(modelPath);
 
 export default function AboutCharacter() {
-    const handIconRef = useRef<HandIconHandle>(null);
     const [isTouchDevice, setIsTouchDevice] = useState(false);
     const [wrapperRef, sectionInView] = useInViewport<HTMLDivElement>({ threshold: 0 });
     const tabVisible = useDocumentVisible();
@@ -333,17 +331,8 @@ export default function AboutCharacter() {
     }, []);
 
     const triggerHello = useCallback(() => {
-        handIconRef.current?.startAnimation();
         window.dispatchEvent(new Event("character-hello"));
-
-        window.setTimeout(() => {
-            handIconRef.current?.stopAnimation();
-        }, 900);
     }, []);
-
-    const handleHelloClick = () => {
-        triggerHello();
-    };
 
     const handleModelMouseEnter = () => {
         if (isTouchDevice) return;
@@ -393,21 +382,6 @@ export default function AboutCharacter() {
                     </Canvas>
                 </ErrorBoundary>
             </div>
-
-            {/*<div className="absolute bottom-4 right-4 z-10 flex gap-2">*/}
-            {/*    <button*/}
-            {/*        type="button"*/}
-            {/*        onClick={handleHelloClick}*/}
-            {/*        aria-label="Dire bonjour"*/}
-            {/*        className="group flex h-12 w-12 items-center justify-center rounded-full border border-black/10 bg-white/70 text-neutral-800 shadow-sm backdrop-blur transition-all duration-200 hover:scale-105 hover:bg-white active:scale-95"*/}
-            {/*    >*/}
-            {/*        <HandIcon*/}
-            {/*            ref={handIconRef}*/}
-            {/*            size={22}*/}
-            {/*            className="text-neutral-800 transition-transform duration-200 group-hover:scale-110"*/}
-            {/*        />*/}
-            {/*    </button>*/}
-            {/*</div>*/}
         </div>
     );
 }
