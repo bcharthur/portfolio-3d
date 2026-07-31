@@ -48,16 +48,16 @@ function PlatformIcon({ platform }: { platform: string }) {
   if (platform === "root-me") {
     return (
       <img
-        src={`${BASE}textures/rootme-logo.png`}
+        src={`${BASE}textures/rootme-icon.png`}
         alt=""
-        className="h-6 w-6 object-contain"
+        className="h-7 w-7 object-contain"
         loading="lazy"
         decoding="async"
       />
     );
   }
 
-  return <Hexagon className="h-6 w-6 text-sky-400" strokeWidth={2.2} />;
+  return <Hexagon className="h-6 w-6 text-sky-500" strokeWidth={2.2} />;
 }
 
 function TrendValue({ trend7d }: { trend7d: number | null }) {
@@ -104,7 +104,7 @@ const HeroStatsCard = forwardRef<HTMLDivElement>(function HeroStatsCard(_props, 
           className="flex flex-col gap-3 p-3.5 transition-colors hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:flex-row sm:items-center sm:gap-4 sm:p-4"
         >
           <span className="flex items-center gap-3">
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white p-1.5 shadow-[0_2px_8px_rgba(0,0,0,0.25)]">
               <PlatformIcon platform={row.key} />
             </span>
 
