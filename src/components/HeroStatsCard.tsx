@@ -1,6 +1,7 @@
 import { forwardRef, useState } from "react";
 import { Hexagon, TrendingDown, TrendingUp } from "lucide-react";
 import stats from "@/data/stats.json";
+import StatsRefreshButton from "@/components/StatsRefreshButton";
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -163,6 +164,8 @@ const HeroStatsCard = forwardRef<HTMLDivElement>(function HeroStatsCard(_props, 
           </span>
         </a>
       ))}
+
+      <StatsRefreshButton />
     </div>
   );
 });
