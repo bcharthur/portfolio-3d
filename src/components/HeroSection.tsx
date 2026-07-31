@@ -2,6 +2,7 @@ import { useEffect, useRef, lazy, Suspense, useState, useCallback } from "react"
 import gsap from "gsap";
 import { ChevronDown, Mouse } from "lucide-react";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import HeroStatsCard from "@/components/HeroStatsCard";
 import { useDocumentVisible } from "@/hooks/useDocumentVisible";
 import { useInViewport } from "@/hooks/useInViewport";
 
@@ -20,6 +21,7 @@ export default function HeroSection({
                                     }: HeroSectionProps) {
     const nameRef = useRef<HTMLHeadingElement>(null);
     const badgeRef = useRef<HTMLDivElement>(null);
+    const statsCardRef = useRef<HTMLDivElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
 
     const [isMobile, setIsMobile] = useState<boolean | null>(null);
@@ -57,13 +59,20 @@ export default function HeroSection({
         if (!nameRef.current || !badgeRef.current) return;
         if (isMobile === null || prefersReducedMotion === null) return;
 
-        gsap.killTweensOf([nameRef.current, badgeRef.current, scrollRef.current]);
+        gsap.killTweensOf([nameRef.current, badgeRef.current, statsCardRef.current, scrollRef.current]);
 
         if (!startAnimation) {
             gsap.set([nameRef.current, badgeRef.current], {
                 opacity: 0,
                 y: 0,
             });
+
+            if (statsCardRef.current) {
+                gsap.set(statsCardRef.current, {
+                    opacity: 0,
+                    y: 0,
+                });
+            }
 
             if (scrollRef.current) {
                 gsap.set(scrollRef.current, {
@@ -82,6 +91,14 @@ export default function HeroSection({
                 y: 0,
                 clearProps: "transform,opacity",
             });
+
+            if (statsCardRef.current) {
+                gsap.set(statsCardRef.current, {
+                    opacity: 1,
+                    y: 0,
+                    clearProps: "transform,opacity",
+                });
+            }
 
             if (scrollRef.current) {
                 gsap.set(scrollRef.current, {
@@ -127,6 +144,24 @@ export default function HeroSection({
                 "-=0.18"
             );
 
+            if (statsCardRef.current) {
+                tl.fromTo(
+                    statsCardRef.current,
+                    {
+                        y: 10,
+                        opacity: 0,
+                    },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.34,
+                        ease: "power2.out",
+                        clearProps: "transform,opacity",
+                    },
+                    "-=0.14"
+                );
+            }
+
             return () => {
                 tl.kill();
             };
@@ -164,6 +199,23 @@ export default function HeroSection({
             },
             "-=0.35"
         );
+
+        if (statsCardRef.current) {
+            tl.fromTo(
+                statsCardRef.current,
+                {
+                    y: 16,
+                    opacity: 0,
+                },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    clearProps: "transform,opacity",
+                },
+                "-=0.25"
+            );
+        }
 
         if (scrollRef.current) {
             tl.fromTo(
@@ -220,6 +272,10 @@ export default function HeroSection({
       className="inline-block rounded-sm bg-[#1e3a8a] px-3 py-2 text-[20px] font-watchdogs uppercase tracking-[0.12em] text-white shadow-[0_10px_30px_rgba(0,0,0,0.28)] sm:px-7 sm:py-4 sm:text-[26px] md:rotate-[-5deg] md:px-10 md:py-5 md:text-[2.3rem]">
     Cybersecurite
   </span>
+                    </div>
+
+                    <div className="mt-6 sm:mt-8">
+                        <HeroStatsCard ref={statsCardRef} />
                     </div>
                 </div>
 
