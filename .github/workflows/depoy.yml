@@ -31,6 +31,8 @@ jobs:
         run: npm install
 
       - name: Build
+        env:
+          VITE_STATS_REFRESH_URL: ${{ vars.STATS_REFRESH_URL }}
         run: npm run build
 
       - name: Upload artifact
