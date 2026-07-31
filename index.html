@@ -3,6 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Restores the path encoded by public/404.html's redirect, before
+      // React Router mounts, so BrowserRouter sees the real deep-linked URL.
+      (function () {
+        var l = window.location;
+        if (l.search[1] === '/') {
+          var decoded = l.search
+            .slice(1)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&');
+            })
+            .join('?');
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })();
+    </script>
     <!--
       Best-effort CSP: a <meta> tag can't set frame-ancestors/report-uri
       (HTTP-header-only directives), but it still meaningfully restricts
