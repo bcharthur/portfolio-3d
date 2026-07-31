@@ -257,7 +257,7 @@ export default function HeroSection({
 
             <div className="relative z-10 min-h-[100svh]">
                 <div
-                    className="px-5 pt-24 sm:px-6 md:absolute md:left-20 md:right-auto md:top-[52%] md:w-[520px] md:-translate-y-1/2 lg:left-24 lg:w-[560px] xl:left-28 xl:w-[620px]">
+                    className="px-5 pt-24 sm:px-6 md:absolute md:left-20 md:right-auto md:top-[38%] md:w-[520px] md:-translate-y-1/2 lg:left-24 lg:w-[560px] xl:left-28 xl:w-[620px]">
                     <h1
                         ref={nameRef}
                         className="inline-block text-[4rem] font-black leading-[0.92] tracking-[-0.04em] text-white sm:text-5xl md:text-[5.3rem] lg:text-[6rem] xl:text-[6.6rem]"
@@ -273,16 +273,16 @@ export default function HeroSection({
     Cybersecurite
   </span>
                     </div>
+                </div>
 
-                    <div className="mt-10 sm:mt-14 md:mt-16">
-                        <HeroStatsCard ref={statsCardRef} />
-                    </div>
+                <div className="mt-10 px-5 sm:mt-14 sm:px-6 md:absolute md:left-20 md:right-auto md:top-auto md:bottom-16 md:mt-0 md:w-[520px] lg:left-24 lg:w-[560px] xl:left-28 xl:w-[620px]">
+                    <HeroStatsCard ref={statsCardRef} />
                 </div>
 
                 {isMobile === false && (
                     <div
                         ref={scrollRef}
-                        className={`absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/60 ${
+                        className={`absolute bottom-8 right-8 flex flex-col items-center gap-1 text-white/60 md:right-12 ${
                             prefersReducedMotion ? "" : "animate-float"
                         }`}
                     >
