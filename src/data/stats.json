@@ -1,20 +1,20 @@
 {
-  "updatedAt": "2026-08-06T14:56:43.524Z",
+  "updatedAt": "2026-08-07T00:30:52.796Z",
   "rootMe": {
     "pseudo": "br0nson",
     "url": "https://www.root-me.org/br0nson",
     "score": 3110,
     "rank": 3494,
     "challenges": 167,
-    "trend7d": null
+    "trend7d": 0
   },
   "cyberLearning": {
     "pseudo": "br0nson",
     "url": "https://cyber-learning.fr/hacker-stats/?hackeur_id=1126",
     "score": 6150,
     "rank": 20,
-    "totalRegistered": 3204,
+    "totalRegistered": 3184,
     "solved": 170,
-    "trend7d": null
+    "trend7d": 885
   }
 }
